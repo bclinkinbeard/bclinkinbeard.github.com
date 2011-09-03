@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Creating bindable, calculated read-only properties in Flex</title>
+	<atom:link href="http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/</link>
+	<description></description>
+	<lastBuildDate>Sun, 28 Aug 2011 09:56:00 -0700</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+	<item>
+		<title>By: Ben Clinkinbeard</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-455</link>
+		<dc:creator>Ben Clinkinbeard</dc:creator>
+		<pubDate>Sat, 14 Mar 2009 01:35:48 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-455</guid>
+		<description>Hi Daniel,
+
+Playlist needs to extend EventDispatcher so it can dispatch the event that triggers the binding. dispatchEvent( new Event( &quot;totalTimeChanged&quot; ) ); The dispatchEvent() method is inherited from EventDispatcher.
+
+In order for changes of a song&#039;s duration to update totalTime you would probably want your Song class to dispatch a durationChanged event or something similar. In the addSong() method of Playlist you could add a listener to the Song that listens for that durationChanged event. In the handler in Playlist simply dispatch another totalTimeChanged event to trigger the binding again.
+
+HTH,
+Ben</description>
+		<content:encoded><![CDATA[<p>Hi Daniel,</p>
+<p>Playlist needs to extend EventDispatcher so it can dispatch the event that triggers the binding. dispatchEvent( new Event( &#8220;totalTimeChanged&#8221; ) ); The dispatchEvent() method is inherited from EventDispatcher.</p>
+<p>In order for changes of a song&#8217;s duration to update totalTime you would probably want your Song class to dispatch a durationChanged event or something similar. In the addSong() method of Playlist you could add a listener to the Song that listens for that durationChanged event. In the handler in Playlist simply dispatch another totalTimeChanged event to trigger the binding again.</p>
+<p>HTH,<br />
+Ben</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Daniel</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-456</link>
+		<dc:creator>Daniel</dc:creator>
+		<pubDate>Fri, 13 Mar 2009 18:15:13 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-456</guid>
+		<description>Hey, excelent post.
+I&#039;m running thru a little problem.
+Let&#039;s say you make a change in a song&#039;s duration directly thru the Song object, how would the Playlist Object be notified the the total time has changed?
+Also, I see that the class Playlist extends EventDispatcher
+, is that needed??
+
+thanks a lot.</description>
+		<content:encoded><![CDATA[<p>Hey, excelent post.<br />
+I&#8217;m running thru a little problem.<br />
+Let&#8217;s say you make a change in a song&#8217;s duration directly thru the Song object, how would the Playlist Object be notified the the total time has changed?<br />
+Also, I see that the class Playlist extends EventDispatcher<br />
+, is that needed??</p>
+<p>thanks a lot.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Marcus Stade</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-454</link>
+		<dc:creator>Marcus Stade</dc:creator>
+		<pubDate>Tue, 20 May 2008 22:50:37 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-454</guid>
+		<description>Ben: Well, sort of. The thing I forgot to mention was that bindings are really costly when they result in frame updates (which they usually do when sprinkled across mxml-files). The actual calling of functions and processing of data isn&#039;t all that bad performance wise, it&#039;s negligable at least in our cases.
+
+Now, to avoid frame updates I have a few tips:
+
+1. Know thy component. Try things to see when and why an update occurs. Some components might be poorly written which may make them update even though the data sent to it is the same.
+
+2. Avoid triggering read only properties or methods too often. If you&#039;re triggering bindings when the actual value of the property haven&#039;t changed, you might be in for a world of pain if that property affects some heavy component such as a list or grid.
+
+3. If you bind to a method which takes parameters, try to factor in the current value of the component your affecting as well. That way, you may return the original value which hopefully won&#039;t update (remember tip #1). You might be able to make use of flex&#039;s internal error handling which swallows exceptions occuring in bindings (I read this somewhere), but I don&#039;t recommend this at all. It&#039;s poor programming practice. Exceptions are exceptions, not a rule.
+
+4. This one goes hand in hand with the previous tip. Duck out early. If some parameter is wrong or just crazy, return the original value as soon as possible so as not to perform unnecessary calculations.
+
+5. Take my tips with a truckload of salt and make your own judgements with the profiler in hand.
+
+
+PS. Sorry for replying so late.</description>
+		<content:encoded><![CDATA[<p>Ben: Well, sort of. The thing I forgot to mention was that bindings are really costly when they result in frame updates (which they usually do when sprinkled across mxml-files). The actual calling of functions and processing of data isn&#8217;t all that bad performance wise, it&#8217;s negligable at least in our cases.</p>
+<p>Now, to avoid frame updates I have a few tips:</p>
+<p>1. Know thy component. Try things to see when and why an update occurs. Some components might be poorly written which may make them update even though the data sent to it is the same.</p>
+<p>2. Avoid triggering read only properties or methods too often. If you&#8217;re triggering bindings when the actual value of the property haven&#8217;t changed, you might be in for a world of pain if that property affects some heavy component such as a list or grid.</p>
+<p>3. If you bind to a method which takes parameters, try to factor in the current value of the component your affecting as well. That way, you may return the original value which hopefully won&#8217;t update (remember tip #1). You might be able to make use of flex&#8217;s internal error handling which swallows exceptions occuring in bindings (I read this somewhere), but I don&#8217;t recommend this at all. It&#8217;s poor programming practice. Exceptions are exceptions, not a rule.</p>
+<p>4. This one goes hand in hand with the previous tip. Duck out early. If some parameter is wrong or just crazy, return the original value as soon as possible so as not to perform unnecessary calculations.</p>
+<p>5. Take my tips with a truckload of salt and make your own judgements with the profiler in hand.</p>
+<p>PS. Sorry for replying so late.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Arnoud Bos</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-453</link>
+		<dc:creator>Arnoud Bos</dc:creator>
+		<pubDate>Sun, 20 Apr 2008 19:45:52 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-453</guid>
+		<description>Hi Ben,
+
+i used your approach but made it (imho) a bit more flexible. Maybe you can look at the code and let me know what you think!
+
+thanx for the always interesting posts.
+
+Arnoud
+
+
+package sample
+{
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+
+	import mx.collections.ArrayCollection;
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
+
+	public class Playlist extends EventDispatcher
+	{
+
+		public function Playlist() {
+			// needed if _songs is initialized before constructor is called.
+			if (_songs) _songs.addEventListener(CollectionEvent.COLLECTION_CHANGE, update, false, 0, true);
+		}
+
+
+		// getters / setters
+		private var _songs:ArrayCollection = new ArrayCollection();
+
+		public function set songs(value:ArrayCollection):void {
+			if (_songs) _songs.removeEventListener(CollectionEvent.COLLECTION_CHANGE, update);
+			_songs = value;
+			_songs.addEventListener(CollectionEvent.COLLECTION_CHANGE, update, false, 0, true);
+		}
+
+		public function get songs():ArrayCollection {
+			return _songs;
+		}
+
+		// now we have much more control and the event dispatching is centralized
+		// we can decide here on which collection events we want to update etc.
+		// alse we can check what properties of the collection are changed etc.
+		private function update(event:CollectionEvent):void {
+			if (event.kind == CollectionEventKind.ADD &#124;&#124; event.kind == CollectionEventKind.REMOVE)  {
+				dispatchEvent( new Event( &quot;totalTimeChanged&quot; ) );
+			}
+		}
+
+		// no more event dispatching here, the collection listener handles it all
+		public function addSong( song:Song ):void
+		{
+			songs.addItem( song );
+		}
+
+		// tell the compiler which property to check/update when a totalTimeChanged event fires
+		[Bindable(event=&quot;totalTimeChanged&quot;)]
+		public function get totalTime():Number
+		{
+			var time:Number = 0;
+
+			for each( var song:Song in songs )
+			{
+				time += song.duration;
+			}
+
+			return time;
+		}
+	}
+}</description>
+		<content:encoded><![CDATA[<p>Hi Ben,</p>
+<p>i used your approach but made it (imho) a bit more flexible. Maybe you can look at the code and let me know what you think!</p>
+<p>thanx for the always interesting posts.</p>
+<p>Arnoud</p>
+<p>package sample<br />
+{<br />
+	import flash.events.Event;<br />
+	import flash.events.EventDispatcher;</p>
+<p>	import mx.collections.ArrayCollection;<br />
+	import mx.events.CollectionEvent;<br />
+	import mx.events.CollectionEventKind;</p>
+<p>	public class Playlist extends EventDispatcher<br />
+	{</p>
+<p>		public function Playlist() {<br />
+			// needed if _songs is initialized before constructor is called.<br />
+			if (_songs) _songs.addEventListener(CollectionEvent.COLLECTION_CHANGE, update, false, 0, true);<br />
+		}</p>
+<p>		// getters / setters<br />
+		private var _songs:ArrayCollection = new ArrayCollection();</p>
+<p>		public function set songs(value:ArrayCollection):void {<br />
+			if (_songs) _songs.removeEventListener(CollectionEvent.COLLECTION_CHANGE, update);<br />
+			_songs = value;<br />
+			_songs.addEventListener(CollectionEvent.COLLECTION_CHANGE, update, false, 0, true);<br />
+		}</p>
+<p>		public function get songs():ArrayCollection {<br />
+			return _songs;<br />
+		}</p>
+<p>		// now we have much more control and the event dispatching is centralized<br />
+		// we can decide here on which collection events we want to update etc.<br />
+		// alse we can check what properties of the collection are changed etc.<br />
+		private function update(event:CollectionEvent):void {<br />
+			if (event.kind == CollectionEventKind.ADD || event.kind == CollectionEventKind.REMOVE)  {<br />
+				dispatchEvent( new Event( &#8220;totalTimeChanged&#8221; ) );<br />
+			}<br />
+		}</p>
+<p>		// no more event dispatching here, the collection listener handles it all<br />
+		public function addSong( song:Song ):void<br />
+		{<br />
+			songs.addItem( song );<br />
+		}</p>
+<p>		// tell the compiler which property to check/update when a totalTimeChanged event fires<br />
+		[Bindable(event="totalTimeChanged")]<br />
+		public function get totalTime():Number<br />
+		{<br />
+			var time:Number = 0;</p>
+<p>			for each( var song:Song in songs )<br />
+			{<br />
+				time += song.duration;<br />
+			}</p>
+<p>			return time;<br />
+		}<br />
+	}<br />
+}</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-452</link>
+		<dc:creator>Ben</dc:creator>
+		<pubDate>Fri, 07 Mar 2008 13:54:01 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-452</guid>
+		<description>Very good point Marcus. I probably should have included a disclaimer that making too many things bindable can eventually slow an app down. If you have more than one or two inputs into your calculation, or you have a lot of read-only properties I would probably suggest implementing a method to handle manual updates of the property and removing the bindings. Marcus have you optimized all of the binding triggers by checking to make sure the new value is actually different than the existing one before you dispatch the changed event?</description>
+		<content:encoded><![CDATA[<p>Very good point Marcus. I probably should have included a disclaimer that making too many things bindable can eventually slow an app down. If you have more than one or two inputs into your calculation, or you have a lot of read-only properties I would probably suggest implementing a method to handle manual updates of the property and removing the bindings. Marcus have you optimized all of the binding triggers by checking to make sure the new value is actually different than the existing one before you dispatch the changed event?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Marcus Stade</title>
+		<link>http://www.benclinkinbeard.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex/comment-page-1/#comment-451</link>
+		<dc:creator>Marcus Stade</dc:creator>
+		<pubDate>Fri, 07 Mar 2008 09:37:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/03/creating-bindable-calculated-read-only-properties-in-flex#comment-451</guid>
+		<description>Just a word of caution, we&#039;re working on a huge flex project and one of our biggest performance issues is bindings triggering too often, simply because we&#039;ve sometimes bound to methods with too many parameters or having too many events fire the PropertyChangeEvent on read only properties. Sometimes it&#039;s really tough to avoid those situations, but the trick is to keep it simple. Try to make sure the bindings only trigger when they actually need to instead of trying to cover as much ground as possible. Having a binding triggering 15 times when the data only changes once is just redundant.
+
+Great blog post, it&#039;s nuggets like these that really help developers! Thanks!</description>
+		<content:encoded><![CDATA[<p>Just a word of caution, we&#8217;re working on a huge flex project and one of our biggest performance issues is bindings triggering too often, simply because we&#8217;ve sometimes bound to methods with too many parameters or having too many events fire the PropertyChangeEvent on read only properties. Sometimes it&#8217;s really tough to avoid those situations, but the trick is to keep it simple. Try to make sure the bindings only trigger when they actually need to instead of trying to cover as much ground as possible. Having a binding triggering 15 times when the data only changes once is just redundant.</p>
+<p>Great blog post, it&#8217;s nuggets like these that really help developers! Thanks!</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.354 seconds -->
+<!-- Cached page served by WP-Cache -->

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Smooth Scrolling Flex List</title>
+	<atom:link href="http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/</link>
+	<description></description>
+	<lastBuildDate>Sun, 28 Aug 2011 09:56:00 -0700</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+	<item>
+		<title>By: Ephraim Tabackman</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-1275</link>
+		<dc:creator>Ephraim Tabackman</dc:creator>
+		<pubDate>Sun, 28 Aug 2011 09:56:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-1275</guid>
+		<description>Argh. How to get nice formatted code into a Disqus post?</description>
+		<content:encoded><![CDATA[<p>Argh. How to get nice formatted code into a Disqus post?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ephraim Tabackman</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-1274</link>
+		<dc:creator>Ephraim Tabackman</dc:creator>
+		<pubDate>Sun, 28 Aug 2011 09:42:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-1274</guid>
+		<description>In addition to subclassing TileList, you also need to make some changes to the code in order to get multiple columns.nnpackage com.benclinkinbeard.controls{timport flash.display.DisplayObject;ttimport mx.controls.TileList;timport mx.core.Container;timport mx.core.ScrollPolicy;timport mx.core.mx_internal;timport mx.events.FlexEvent;ttpublic class SmoothScrollingTileList extends TileListt{ttpublic function SmoothScrollingTileList()tt{tttsuper();tttttt// required to ensure all renderers get createdtttsetStyle( &quot;paddingBottom&quot;, -1 );ttt// parent container will handle scrollingtttverticalScrollPolicy = ScrollPolicy.OFF;ttttttaddEventListener( FlexEvent.UPDATE_COMPLETE, handleUpdateComplete );tt}ttttprivate function handleUpdateComplete( event:FlexEvent ):voidtt{tttvar combinedRendererHeight:Number = 0;ttttttvar renderers:Array = renderersArray;ttttttif (renderers.length &gt; 0)ttt{ttttcombinedRendererHeight = Math.ceil(renderers.length / columnCount) * (renderers[0] as DisplayObject).height;ttt}tttttt// list needs to be at least 10 pixels tallttt// and always needs to be 10 pixels taller than the combined height of the rendererstttheight = combinedRendererHeight + 10;tttttt// need to shrink list width when canvas has a scrollbar so the scrollbar doesn&#039;t overlap the listtttwidth = ( Container( parent ).maxVerticalScrollPosition &gt; 0 ) ? parent.width - 16 : parent.width;tt}ttttprivate function get renderersArray():Arraytt{tttvar rawArray:Array = mx_internal::rendererArray;tttvar arr:Array = new Array();tttttttttfor each(var obj:Object in rawArray)ttt{ttttvar rendererArray:Array = obj as Array;ttttttttif(rendererArray != null)tttt{tttttfor each (var renderer:Object in rendererArray)ttttt{ttttttarr.push(renderer);ttttt}tttt}ttt}ttttttreturn arr;tt}t}}</description>
+		<content:encoded><![CDATA[<p>In addition to subclassing TileList, you also need to make some changes to the code in order to get multiple columns.nnpackage com.benclinkinbeard.controls{timport flash.display.DisplayObject;ttimport mx.controls.TileList;timport mx.core.Container;timport mx.core.ScrollPolicy;timport mx.core.mx_internal;timport mx.events.FlexEvent;ttpublic class SmoothScrollingTileList extends TileListt{ttpublic function SmoothScrollingTileList()tt{tttsuper();tttttt// required to ensure all renderers get createdtttsetStyle( &#8220;paddingBottom&#8221;, -1 );ttt// parent container will handle scrollingtttverticalScrollPolicy = ScrollPolicy.OFF;ttttttaddEventListener( FlexEvent.UPDATE_COMPLETE, handleUpdateComplete );tt}ttttprivate function handleUpdateComplete( event:FlexEvent ):voidtt{tttvar combinedRendererHeight:Number = 0;ttttttvar renderers:Array = renderersArray;ttttttif (renderers.length &gt; 0)ttt{ttttcombinedRendererHeight = Math.ceil(renderers.length / columnCount) * (renderers[0] as DisplayObject).height;ttt}tttttt// list needs to be at least 10 pixels tallttt// and always needs to be 10 pixels taller than the combined height of the rendererstttheight = combinedRendererHeight + 10;tttttt// need to shrink list width when canvas has a scrollbar so the scrollbar doesn&#8217;t overlap the listtttwidth = ( Container( parent ).maxVerticalScrollPosition &gt; 0 ) ? parent.width &#8211; 16 : parent.width;tt}ttttprivate function get renderersArray():Arraytt{tttvar rawArray:Array = mx_internal::rendererArray;tttvar arr:Array = new Array();tttttttttfor each(var obj:Object in rawArray)ttt{ttttvar rendererArray:Array = obj as Array;ttttttttif(rendererArray != null)tttt{tttttfor each (var renderer:Object in rendererArray)ttttt{ttttttarr.push(renderer);ttttt}tttt}ttt}ttttttreturn arr;tt}t}}</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ephraim Tabackman</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-1273</link>
+		<dc:creator>Ephraim Tabackman</dc:creator>
+		<pubDate>Sun, 28 Aug 2011 09:39:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-1273</guid>
+		<description>Conor: Just changing the parent class to TileList is not enough. You will not get multiple columns. Here is the full code for smooth scrolling TileList:nn&lt;code&gt;nnpackage com.benclinkinbeard.controls{timport flash.display.DisplayObject;ttimport mx.controls.TileList;timport mx.core.Container;timport mx.core.ScrollPolicy;timport mx.core.mx_internal;timport mx.events.FlexEvent;ttpublic class SmoothScrollingTileList extends TileListt{ttpublic function SmoothScrollingTileList()tt{tttsuper();tttttt// required to ensure all renderers get createdtttsetStyle( &quot;paddingBottom&quot;, -1 );ttt// parent container will handle scrollingtttverticalScrollPolicy = ScrollPolicy.OFF;ttttttaddEventListener( FlexEvent.UPDATE_COMPLETE, handleUpdateComplete );tt}ttttprivate function handleUpdateComplete( event:FlexEvent ):voidtt{tttvar combinedRendererHeight:Number = 0;ttttttvar renderers:Array = renderersArray;ttttttif (renderers.length &gt; 0)ttt{ttttcombinedRendererHeight = Math.ceil(renderers.length / columnCount) * (renderers[0] as DisplayObject).height;ttt}tttttt// list needs to be at least 10 pixels tallttt// and always needs to be 10 pixels taller than the combined height of the rendererstttheight = combinedRendererHeight + 10;tttttt// need to shrink list width when canvas has a scrollbar so the scrollbar doesn&#039;t overlap the listtttwidth = ( Container( parent ).maxVerticalScrollPosition &gt; 0 ) ? parent.width - 16 : parent.width;tt}ttttprivate function get renderersArray():Arraytt{tttvar rawArray:Array = mx_internal::rendererArray;tttvar arr:Array = new Array();tttttttttfor each(var obj:Object in rawArray)ttt{ttttvar rendererArray:Array = obj as Array;ttttttttif(rendererArray != null)tttt{tttttfor each (var renderer:Object in rendererArray)ttttt{ttttttarr.push(renderer);ttttt}tttt}ttt}ttttttreturn arr;tt}t}}nn&lt;/code&gt; </description>
+		<content:encoded><![CDATA[<p>Conor: Just changing the parent class to TileList is not enough. You will not get multiple columns. Here is the full code for smooth scrolling TileList:nn<code>nnpackage com.benclinkinbeard.controls{timport flash.display.DisplayObject;ttimport mx.controls.TileList;timport mx.core.Container;timport mx.core.ScrollPolicy;timport mx.core.mx_internal;timport mx.events.FlexEvent;ttpublic class SmoothScrollingTileList extends TileListt{ttpublic function SmoothScrollingTileList()tt{tttsuper();tttttt// required to ensure all renderers get createdtttsetStyle( "paddingBottom", -1 );ttt// parent container will handle scrollingtttverticalScrollPolicy = ScrollPolicy.OFF;ttttttaddEventListener( FlexEvent.UPDATE_COMPLETE, handleUpdateComplete );tt}ttttprivate function handleUpdateComplete( event:FlexEvent ):voidtt{tttvar combinedRendererHeight:Number = 0;ttttttvar renderers:Array = renderersArray;ttttttif (renderers.length &gt; 0)ttt{ttttcombinedRendererHeight = Math.ceil(renderers.length / columnCount) * (renderers[0] as DisplayObject).height;ttt}tttttt// list needs to be at least 10 pixels tallttt// and always needs to be 10 pixels taller than the combined height of the rendererstttheight = combinedRendererHeight + 10;tttttt// need to shrink list width when canvas has a scrollbar so the scrollbar doesn't overlap the listtttwidth = ( Container( parent ).maxVerticalScrollPosition &gt; 0 ) ? parent.width - 16 : parent.width;tt}ttttprivate function get renderersArray():Arraytt{tttvar rawArray:Array = mx_internal::rendererArray;tttvar arr:Array = new Array();tttttttttfor each(var obj:Object in rawArray)ttt{ttttvar rendererArray:Array = obj as Array;ttttttttif(rendererArray != null)tttt{tttttfor each (var renderer:Object in rendererArray)ttttt{ttttttarr.push(renderer);ttttt}tttt}ttt}ttttttreturn arr;tt}t}}nn</code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Conor</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-1073</link>
+		<dc:creator>Conor</dc:creator>
+		<pubDate>Sun, 15 Aug 2010 23:31:58 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-1073</guid>
+		<description>No need,
+
+I actually just changed the extension in Alex&#039;s component and made it extend TileList instead of List.
+
+Thanks again for this component,
+Conor</description>
+		<content:encoded><![CDATA[<p>No need,</p>
+<p>I actually just changed the extension in Alex&#8217;s component and made it extend TileList instead of List.</p>
+<p>Thanks again for this component,<br />
+Conor</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Conor</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-1072</link>
+		<dc:creator>Conor</dc:creator>
+		<pubDate>Sun, 15 Aug 2010 23:25:10 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-1072</guid>
+		<description>Ben, 
+
+have you ever been able to port something like this to a tile list? It&#039;s a great component and scrolls very smoothly (though not according to some apparently ha ^). It&#039;s a real pain to be honest, as the lack of smooth scrolling is probably something that Adobe should have dealt with quite some time ago officially, and in a lot of cases it is a real giveaway that flex has been used to create an app or website.
+
+Thanks, 
+Conor</description>
+		<content:encoded><![CDATA[<p>Ben, </p>
+<p>have you ever been able to port something like this to a tile list? It&#8217;s a great component and scrolls very smoothly (though not according to some apparently ha ^). It&#8217;s a real pain to be honest, as the lack of smooth scrolling is probably something that Adobe should have dealt with quite some time ago officially, and in a lot of cases it is a real giveaway that flex has been used to create an app or website.</p>
+<p>Thanks,<br />
+Conor</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-944</link>
+		<dc:creator>Ben</dc:creator>
+		<pubDate>Mon, 12 Apr 2010 00:13:37 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-944</guid>
+		<description>You&#039;re obviously not familiar with the List component in Flex, because if you were you&#039;d know it scrolls one item at a time. It cannot be smoothly transitioned, or transitioned at all really, to display part of an item renderer. If this component were animated, *then* it would be animated. Animation is not the same thing as smooth scrolling.
+
+My suggestion to you is to take the time you currently spend leaving snide, inaccurate and poorly written comments and invest it in some grammar lessons. To start you can learn the difference between then and than, and go easy on the commas. Good luck with that.</description>
+		<content:encoded><![CDATA[<p>You&#8217;re obviously not familiar with the List component in Flex, because if you were you&#8217;d know it scrolls one item at a time. It cannot be smoothly transitioned, or transitioned at all really, to display part of an item renderer. If this component were animated, *then* it would be animated. Animation is not the same thing as smooth scrolling.</p>
+<p>My suggestion to you is to take the time you currently spend leaving snide, inaccurate and poorly written comments and invest it in some grammar lessons. To start you can learn the difference between then and than, and go easy on the commas. Good luck with that.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: dl</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-943</link>
+		<dc:creator>dl</dc:creator>
+		<pubDate>Sun, 11 Apr 2010 22:18:36 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-943</guid>
+		<description>Hm thats not smooth scrolling, it&#039;s scrolling.
+If it would be animated, than, it would be smooth, this is just a step back.</description>
+		<content:encoded><![CDATA[<p>Hm thats not smooth scrolling, it&#8217;s scrolling.<br />
+If it would be animated, than, it would be smooth, this is just a step back.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-894</link>
+		<dc:creator>Ben</dc:creator>
+		<pubDate>Thu, 04 Mar 2010 20:36:08 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-894</guid>
+		<description>1. Thanks, you&#039;re welcome. :)
+2. Not sure how/why they would, but I didn&#039;t verify it either way.
+3. Cool, glad you got it working.</description>
+		<content:encoded><![CDATA[<p>1. Thanks, you&#8217;re welcome. <img src='http://www.benclinkinbeard.com/wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+2. Not sure how/why they would, but I didn&#8217;t verify it either way.<br />
+3. Cool, glad you got it working.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Rich</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-893</link>
+		<dc:creator>Rich</dc:creator>
+		<pubDate>Thu, 04 Mar 2010 20:31:26 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-893</guid>
+		<description>wrt #3 above, I found the problem.  Replace:
+
+combinedRendererWidth += columnWidth;
+
+with:
+
+if(renderer!=null)
+  combinedRendererWidth += columnWidth;
+
+Cheers</description>
+		<content:encoded><![CDATA[<p>wrt #3 above, I found the problem.  Replace:</p>
+<p>combinedRendererWidth += columnWidth;</p>
+<p>with:</p>
+<p>if(renderer!=null)<br />
+  combinedRendererWidth += columnWidth;</p>
+<p>Cheers</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Rich</title>
+		<link>http://www.benclinkinbeard.com/2009/03/smooth-scrolling-flex-list/comment-page-1/#comment-892</link>
+		<dc:creator>Rich</dc:creator>
+		<pubDate>Thu, 04 Mar 2010 20:19:29 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=92#comment-892</guid>
+		<description>Three things:
+
+1. This is awesome. Thank you! :)
+2. My tests suggest that item renderers ARE, in fact, recycled... Your experience has been different?
+3. I&#039;ve noticed if I add items to the list, the scrollbar gets smaller as the list gets longer.  However, if I remove items from the list, the scrollbar doesn&#039;t resize, and the list doesn&#039;t get any shorter (whitespace is left where the removed items used to be)... Any thoughts?
+
+Thanks!
+-Rich</description>
+		<content:encoded><![CDATA[<p>Three things:</p>
+<p>1. This is awesome. Thank you! <img src='http://www.benclinkinbeard.com/wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+2. My tests suggest that item renderers ARE, in fact, recycled&#8230; Your experience has been different?<br />
+3. I&#8217;ve noticed if I add items to the list, the scrollbar gets smaller as the list gets longer.  However, if I remove items from the list, the scrollbar doesn&#8217;t resize, and the list doesn&#8217;t get any shorter (whitespace is left where the removed items used to be)&#8230; Any thoughts?</p>
+<p>Thanks!<br />
+-Rich</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.449 seconds -->

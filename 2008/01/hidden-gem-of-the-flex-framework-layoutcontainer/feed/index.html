@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Hidden gem of the Flex framework: LayoutContainer</title>
+	<atom:link href="http://www.benclinkinbeard.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer/</link>
+	<description></description>
+	<lastBuildDate>Sun, 28 Aug 2011 09:56:00 -0700</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+	<item>
+		<title>By: dougmccune.com &#187; Blog Archive &#187; Why doesn&#8217;t Panel extend LayoutContainer?</title>
+		<link>http://www.benclinkinbeard.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer/comment-page-1/#comment-387</link>
+		<dc:creator>dougmccune.com &#187; Blog Archive &#187; Why doesn&#8217;t Panel extend LayoutContainer?</dc:creator>
+		<pubDate>Sun, 13 Jan 2008 03:29:07 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer#comment-387</guid>
+		<description>[...] As I&#8217;m doing some writing for the Flex for Dummies book I was digging into the source code for Panel and the other containers. I was writing about how Panel allows you to set the layout property to either absolute, vertical, or horizontal, just like LayoutContainer (or Application, which extends LayoutContainer). My initial thought was that Panel probably just extends LayoutContainer and that&#8217;s where we get the layout property from. But then digging in I saw that both LayoutContainer and Panel independently implement the layout property (in basically a cut and paste exact same way). Unless I&#8217;m missing something there&#8217;s no reason why Panel shouldn&#8217;t just extend LayoutContainer. (BTW, for a recent writeup of the LayoutContainer class see Ben Clinkinbeard&#8217;s post here). [...]</description>
+		<content:encoded><![CDATA[<p>[...] As I&#8217;m doing some writing for the Flex for Dummies book I was digging into the source code for Panel and the other containers. I was writing about how Panel allows you to set the layout property to either absolute, vertical, or horizontal, just like LayoutContainer (or Application, which extends LayoutContainer). My initial thought was that Panel probably just extends LayoutContainer and that&#8217;s where we get the layout property from. But then digging in I saw that both LayoutContainer and Panel independently implement the layout property (in basically a cut and paste exact same way). Unless I&#8217;m missing something there&#8217;s no reason why Panel shouldn&#8217;t just extend LayoutContainer. (BTW, for a recent writeup of the LayoutContainer class see Ben Clinkinbeard&#8217;s post here). [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben</title>
+		<link>http://www.benclinkinbeard.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer/comment-page-1/#comment-389</link>
+		<dc:creator>Ben</dc:creator>
+		<pubDate>Tue, 08 Jan 2008 17:28:41 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer#comment-389</guid>
+		<description>Thanks Manish, for the comment and the code :) As I wrote the post I was also wondering in the back of my head about the projects Doug mentioned at http://dougmccune.com/blog/2008/01/07/were-not-waiting-for-flex-4/ and how they might progress and be implemented. Seems to me that we&#039;ll see some very powerful developments down the road if this many smart people are thinking on the topic, including Adobe so long ago. Thanks for stopping by!</description>
+		<content:encoded><![CDATA[<p>Thanks Manish, for the comment and the code <img src='http://www.benclinkinbeard.com/wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  As I wrote the post I was also wondering in the back of my head about the projects Doug mentioned at <a href="http://dougmccune.com/blog/2008/01/07/were-not-waiting-for-flex-4/" rel="nofollow">http://dougmccune.com/blog/2008/01/07/were-not-waiting-for-flex-4/</a> and how they might progress and be implemented. Seems to me that we&#8217;ll see some very powerful developments down the road if this many smart people are thinking on the topic, including Adobe so long ago. Thanks for stopping by!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Manish Jethani</title>
+		<link>http://www.benclinkinbeard.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer/comment-page-1/#comment-388</link>
+		<dc:creator>Manish Jethani</dc:creator>
+		<pubDate>Tue, 08 Jan 2008 16:50:04 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2008/01/hidden-gem-of-the-flex-framework-layoutcontainer#comment-388</guid>
+		<description>I was the one who wrote that code. We decided to make those layout classes private because, right, they were an &quot;implementation detail&quot;. The idea was to factor out the layout code into separate layout classes for internal use in Flex 2 and then, perhaps for a future release, work on the design  thoroughly and then make them public.
+
+I&#039;ve mentioned that and a few enhancements in my post here:
+
+http://mannu.livejournal.com/359634.html</description>
+		<content:encoded><![CDATA[<p>I was the one who wrote that code. We decided to make those layout classes private because, right, they were an &#8220;implementation detail&#8221;. The idea was to factor out the layout code into separate layout classes for internal use in Flex 2 and then, perhaps for a future release, work on the design  thoroughly and then make them public.</p>
+<p>I&#8217;ve mentioned that and a few enhancements in my post here:</p>
+<p><a href="http://mannu.livejournal.com/359634.html" rel="nofollow">http://mannu.livejournal.com/359634.html</a></p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.242 seconds -->

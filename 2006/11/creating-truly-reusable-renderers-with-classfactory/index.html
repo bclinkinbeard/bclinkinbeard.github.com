@@ -1,0 +1,1017 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Creating truly reusable renderers with ClassFactory &laquo;  benclinkinbeard.com</title>    
+    <link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/superfish.css" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" href="http://www.benclinkinbeard.com/wordpress/wp-content/themes/min/ie6.css" type="text/css" media="screen" /><![endif]-->
+	<!-- Additional CSS add-ons from custom admin page --><style type='text/css' media='screen'>a, .post h2 a:hover { color:#639c01; }</style>	
+
+	<link rel="pingback" href="../../../wordpress/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/return_undefined" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://feeds.feedburner.com/return_undefined" />
+	
+    <link rel="alternate" type="application/rss+xml" title="benclinkinbeard.com &raquo; Creating truly reusable renderers with ClassFactory Comments Feed" href="feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../wordpress/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wordpress/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='benclinkinbeard.com' href='../../../index.html' />
+<link rel='start' title='Dealing with (default) namespaces in Flex 2/AS3' href='../../07/dealing-with-default-namespaces-in-flex-2as3/index.html' />
+<link rel='prev' title='Item Renderers in DataGrids &#8211; A Primer for Predictable Behavior' href='../../10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html' />
+<link rel='next' title='QuickDateFormatter class updated' href='../../../2007/01/quickdateformatter-class-updated/index.html' />
+<meta name="generator" content="WordPress 3.1" />
+<link rel='canonical' href='index.html' />
+<link rel='shortlink' href='index.html' />
+<link rel="stylesheet" href="http://www.benclinkinbeard.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+<body class="single single-post postid-13 single-format-standard">
+
+
+<div id="top">
+
+	<div id="header" class="clearfix">
+        <div class="contentwidth">
+<!--
+            <div id="logo" class="left"><p><a href="http://www.benclinkinbeard.com"><img src="http://www.benclinkinbeard.com/wordpress/wp-content/themes/min/images/logo.jpg" alt="benclinkinbeard.com" /></a> </p></div>
+-->
+            <div id="menu" class="right">
+            
+            	<ul class="sf-menu">
+					<li  ><a href="../../../index.html" title="Home">Home</a></li>
+                	<li class="page_item page-item-43"><a href="../../../about/index.html" title="About">About</a></li>
+                </ul>
+                
+            
+            </div>
+        </div>
+    </div><!-- end header -->
+    
+    
+    <div id="promos" class="clearfix">
+    	<div class='promo'><div class='contentwidth'><p>Hi, I'm Ben. This is my blog. I write about <a href="../../../category/flex/index.html">Flex</a>, <br /><a href="../../../category/flash/index.html">Flash</a>, software development, and other <a href="../../../category/misc/index.html">miscellany</a>.</p></div></div>    </div><!-- end promos -->
+    
+    <div id="main" class="clearfix">
+    	<div class="contentwidth">
+
+	<div class="column columnLarge">		
+		
+
+		<div class="post" id="post-13">
+				<h2>Creating truly reusable renderers with ClassFactory</h2>
+		<div class="postmeta">
+			<p class="clearfix"><span>11.14.06</span><span>Posted by <a href="../../../author/ben/index.html" title="Posts by Ben">Ben</a> in <a href="../../../category/as3/index.html" title="View all posts in AS3" rel="category tag">AS3</a>, <a href="../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+		</div>
+		<div class="postcontent">
+			<p><strong>Update:</strong> I have come up with <strike>better solutions</strike> alternate approaches since writing this post. For a more compact and self-contained approach check out <a href="../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/index.html">this post</a> as well.</p>
+<p>In <a href="../../10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html">my last post</a>, I outlined some ways to ensure that your item renderers behave predictably. In that article, however, I admitted that I had yet to figure out the best way to create renderers that were completely decoupled from the data they represented and therefore wholly reusable across projects. As of yesterday afternoon, I believe that has changed. I have extended my previous example to demonstrate, and the new version can be seen <a href="../../../files/ItemRendererExampleV2/index.html">here</a>. Right-click for source.</p>
+<p>My current project requires a DataGrid with the commonly seen select/unselect all functionality. The design depicts this simply as a column that is a centered CheckBox as both the itemRenderer and headerRenderer. When you click the CheckBox in the header, it toggles the state of all the items to match its own. I first addressed the item renderers. I managed to create a component that was completely decoupled (hooray!), predictable, and easy to use. It implemented the <a href="http://livedocs.macromedia.com/flex/2/langref/mx/controls/listClasses/IDropInListItemRenderer.html">IDropInListItemRenderer</a> interface, which allowed it to be tied to the appropriate property in its data item through the familiar dataField attribute of <a href="http://livedocs.macromedia.com/flex/2/langref/mx/controls/dataGridClasses/DataGridColumn.html">DataGridColumn</a>. When I moved on to implement the headerRenderer, however, I ran into a <a href="http://tech.groups.yahoo.com/group/flexcoders/messages/55781?threaded=1&#038;m=e&#038;var=1&#038;tidx=1">bit of a problem</a>. This turned out to be a blessing in disguise though, as it led me to the real star of the show here: <a href="http://livedocs.macromedia.com/flex/2/langref/mx/core/ClassFactory.html">ClassFactory</a>. ClassFactory essentially just allows you to specify a class (that implements <a href="http://livedocs.macromedia.com/flex/2/langref/mx/core/IFactory.html">IFactory</a>), specify some properties for it, and then assign it as the itemRenderer or headerRenderer for your column.</p>
+<p>The headerRenderer is probably the simpler of the two, so I'll go into more detail on that first. The problems I initially had with my headerRenderer were related to the fact that headerRenderers seem to be recreated, or at least reinitialized, every time there is an event in the DataGrid in which they live. (If anyone can more accurately explain how they behave please post in the comments.) As a result, you must bind their state to a value that is held outside of said DataGrid. In my case, I called this variable allSelected. You also need to set up the ClassFactory variable that you will assign as the headerRenderer. Here is what that code looks like:</p>
+<div class="syntax_hilite">
+<div id="actionscript-1">
+<div class="actionscript"><span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">var</span> checkBoxHeaderRenderer:ClassFactory;<br />
+...<br />
+<span style="color: #006600;">checkBoxHeaderRenderer</span> = <span style="color: #000000; font-weight: bold;">new</span> ClassFactory<span style="color: #66cc66;">&#40;</span>GenericCheckBoxHeaderRenderer<span style="color: #66cc66;">&#41;</span>;<br />
+checkBoxHeaderRenderer.<span style="color: #006600;">properties</span> = <span style="color: #66cc66;">&#123;</span>externalObject: <span style="color: #0066CC;">this</span>, externalPropertyName: <span style="color: #ff0000;">"allSelected"</span><span style="color: #66cc66;">&#125;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>This tells Flex to use the GenericCheckBoxHeaderRenderer class as the renderer, and to set 2 properties on each instance it creates. It should be apparent that I am giving each instance a reference to the allSelected property mentioned above. Here is what our GenericCheckBoxHeaderRenderer class looks like.</p>
+<div class="syntax_hilite">
+<div id="actionscript-2">
+<div class="actionscript">&lt;?<span style="color: #0066CC;">xml</span> <span style="color: #0066CC;">version</span>=<span style="color: #ff0000;">"1.0"</span> encoding=<span style="color: #ff0000;">"utf-8"</span>?&gt;<br />
+&lt;mx:HBox xmlns:mx=<span style="color: #ff0000;">"http://www.adobe.com/2006/mxml"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"100%"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"100%"</span> horizontalAlign=<span style="color: #ff0000;">"center"</span> preinitialize=<span style="color: #ff0000;">"init()"</span> <span style="color: #0066CC;">implements</span>=<span style="color: #ff0000;">"mx.core.IFactory"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:Script&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!<span style="color: #66cc66;">&#91;</span>CDATA<span style="color: #66cc66;">&#91;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">binding</span>.<span style="color: #006600;">utils</span>.<span style="color: #006600;">BindingUtils</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// will be set by &quot;properties&quot; property of ClassFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// allows us to bind to an external value while remaining decoupled</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> externalObject:*;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> externalPropertyName:<span style="color: #0066CC;">String</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local property that will be bound to external value held in externalObject[externalPropertyName]</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// CheckBox's selected property in turn bound to this</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> isSelected:<span style="color: #0066CC;">Boolean</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// method required by IFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> newInstance<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:*<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> GenericCheckBoxHeaderRenderer<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set up binding of local property to value specified by ClassFactory::properties</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> init<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BindingUtils.<span style="color: #006600;">bindProperty</span><span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">this</span>, <span style="color: #ff0000;">"isSelected"</span>, externalObject, externalPropertyName<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local click handler that dispatches the event</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// so it can be handled in a&nbsp; more appropriate place (such as the document holding the DataGrid)</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onClick<span style="color: #66cc66;">&#40;</span>event:MouseEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> evt:SimpleHeaderClickEvent = <span style="color: #000000; font-weight: bold;">new</span> SimpleHeaderClickEvent<span style="color: #66cc66;">&#40;</span>cb<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dispatchEvent<span style="color: #66cc66;">&#40;</span>evt<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#93;</span><span style="color: #66cc66;">&#93;</span>&gt;<br />
+&nbsp; &nbsp; &lt;/mx:Script&gt;<br />
+&nbsp; &nbsp; &lt;mx:CheckBox id=<span style="color: #ff0000;">"cb"</span> click=<span style="color: #ff0000;">"onClick(event)"</span> selected=<span style="color: #ff0000;">"{isSelected}"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"15"</span>/&gt;<br />
+&lt;/mx:HBox&gt;</div>
+</div>
+</div>
+<p></p>
+<p>One thing to note in that class is that I have created a local variable that is bound to the external value (allSelected) that is passed in via the properties property, and my CheckBox then binds to that local value.</p>
+<p>The itemRenderer version of this code is very similar, the main difference being that it is tied to a specific property on the data object that is passed to it in the list rather than a single, external value. As a result, we only need to pass it one value, that being the name of the property to which we want to tie the renderer. The ClassFactory variable is set up in the same fashion:</p>
+<div class="syntax_hilite">
+<div id="actionscript-3">
+<div class="actionscript"><span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">var</span> checkBoxItemRenderer:ClassFactory;<br />
+...<br />
+<span style="color: #006600;">checkBoxItemRenderer</span> = <span style="color: #000000; font-weight: bold;">new</span> ClassFactory<span style="color: #66cc66;">&#40;</span>GenericCheckBoxItemRenderer<span style="color: #66cc66;">&#41;</span>;<br />
+checkBoxItemRenderer.<span style="color: #006600;">properties</span> = <span style="color: #66cc66;">&#123;</span>dataField: <span style="color: #ff0000;">"isKnown"</span><span style="color: #66cc66;">&#125;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>and the GenericCheckBoxItemRenderer class is also similar:</p>
+<div class="syntax_hilite">
+<div id="actionscript-4">
+<div class="actionscript">&lt;?<span style="color: #0066CC;">xml</span> <span style="color: #0066CC;">version</span>=<span style="color: #ff0000;">"1.0"</span> encoding=<span style="color: #ff0000;">"utf-8"</span>?&gt;<br />
+&lt;mx:HBox xmlns:mx=<span style="color: #ff0000;">"http://www.adobe.com/2006/mxml"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"100%"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"100%"</span> horizontalAlign=<span style="color: #ff0000;">"center"</span> <span style="color: #0066CC;">implements</span>=<span style="color: #ff0000;">"mx.core.IFactory"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:Script&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!<span style="color: #66cc66;">&#91;</span>CDATA<span style="color: #66cc66;">&#91;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">controls</span>.<span style="color: #006600;">dataGridClasses</span>.<span style="color: #006600;">DataGridColumn</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// name of property on our VO we're concerned with</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> dataField:<span style="color: #0066CC;">String</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// method required by IFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> newInstance<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:*<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> GenericCheckBoxItemRenderer<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// this override is essential for preventing random (un)checking when your DataGrid is scrolled</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; override <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> <span style="color: #0066CC;">set</span> <span style="color: #0066CC;">data</span><span style="color: #66cc66;">&#40;</span>value:<span style="color: #0066CC;">Object</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// not sure of the details on when or why, but sometimes this method is passed a null value</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>value != <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span> = value;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// the parent DataGridColumn is passed as value before the real data arrives</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>!<span style="color: #66cc66;">&#40;</span>value is DataGridColumn<span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set itemRenderer's state based on the value held in the property specified by _dataField</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cb.<span style="color: #006600;">selected</span> = value<span style="color: #66cc66;">&#91;</span>dataField<span style="color: #66cc66;">&#93;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local click handler that dispatches the event</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// so it can be handled in a&nbsp; more appropriate place (such as the document holding the DataGrid)</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onClick<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">e</span>:MouseEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// attach our VO and _dataField onto the event so that it can be manipulated in the handler</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// wherever that handler may be</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> evt:SimpleItemClickEvent = <span style="color: #000000; font-weight: bold;">new</span> SimpleItemClickEvent<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span>, dataField<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dispatchEvent<span style="color: #66cc66;">&#40;</span>evt<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#93;</span><span style="color: #66cc66;">&#93;</span>&gt;<br />
+&nbsp; &nbsp; &lt;/mx:Script&gt;<br />
+&nbsp; &nbsp; &lt;mx:CheckBox id=<span style="color: #ff0000;">"cb"</span> click=<span style="color: #ff0000;">"onClick(event)"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"15"</span>/&gt;<br />
+&lt;/mx:HBox&gt;</div>
+</div>
+</div>
+<p></p>
+<p>Here you can see that the override method no longer relies on any specific property (and therefore datatype), instead using the property specified by dataField on whatever type of object is passed to the itemRenderer by the dataProvider.</p>
+<p>And that's my system. If you look at the source code you can see that we still handle the events in the parent file of our DataGrid, but note that these event handlers are the only place where we are tightly coupled to specific properties and/or data types, which is exactly what we want. We have moved all type references out of our renderers, making them completely reusable across varying parts of a project or in different projects altogether. It would likely be very easy to genericize the renderers even further to allow specifying what type of control should be used (CheckBox, ComboBox, etc), which property of said control you're interested in and on and on all through the properties property, but I decided not to go that far. There is something to be said for retaining semantic meaning in your class/component names and code and not extrapolating to oblivion.</p>
+<p>Sorry these posts are so long. As it turns out, conciseness is not a trait I possess. Hopefully someone will find this information useful though, and feel free to post any questions or other thoughts in the comments. Enjoy!</p>
+		</div>
+		
+		
+				
+		
+		<p>
+			<small>
+				Both comments and pings are currently closed.
+							</small>
+		</p>
+		</div>
+			
+		<div class="navigation clearfix">
+			<div class="alignleft"><a href="../../10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html" rel="prev">Item Renderers in DataGrids &#8211; A Primer for Predictable Behavior</a></div>
+			<div class="alignright"><a href="../../../2007/01/quickdateformatter-class-updated/index.html" rel="next">QuickDateFormatter class updated</a></div>
+		</div>
+
+	
+<div id="disqus_thread">
+					<div id="dsq-content">
+			<ul id="dsq-comments">
+					<li id="dsq-comment-167">
+					<div id="dsq-comment-header-167" class="dsq-comment-header">
+						<cite id="dsq-cite-167">
+	http://blog.shrefler.net							<span id="dsq-author-user-167">Sam Shrefler</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-167" class="dsq-comment-body">
+						<div id="dsq-comment-message-167" class="dsq-comment-message"><p>Ben:</p>
+<p>Great article!  I have run into a problem using your code in an example.  For some reason, the last row&#8217;s checkboxes sometimes seem to display being Checked and enabled=false.  I haven&#8217;t been able to figure out why&#8230;.still troubleshooting.</p>
+<p>Thanks for the great article though!</p>
+<p>Sam</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-168">
+					<div id="dsq-comment-header-168" class="dsq-comment-header">
+						<cite id="dsq-cite-168">
+								<span id="dsq-author-user-168">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-168" class="dsq-comment-body">
+						<div id="dsq-comment-message-168" class="dsq-comment-message"><p>Thanks Sam, I&#8217;m glad you enjoyed it. Not sure why your checkboxes would be getting diabled, there definitely isn&#8217;t any code in my sample that addresses the enabled proprty. Maybe something in my <a href="../../10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html" rel="nofollow">previous article</a> could help? <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>Ben</p>
+<p>PS &#8211; I don&#8217;t have time to read them right now but your past articles look useful; I&#8217;ve added your site in my Bloglines account.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-169">
+					<div id="dsq-comment-header-169" class="dsq-comment-header">
+						<cite id="dsq-cite-169">
+								<span id="dsq-author-user-169">Dan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-169" class="dsq-comment-body">
+						<div id="dsq-comment-message-169" class="dsq-comment-message"><p>Very cool!  I&#8217;ve been looking for a good solution to this problem.  Thank you for helping folks like me.  I&#8217;ve used your code against a datagrid form generated by the ColdFusion wizard and it works well when editing pre-existing data.  However, when a new form is called, selecting the itemRenderer checkbox causes all other cells to become uneditable.  The checkbox is still enabled, everything else is not.  The headerRenderer works as advertised and does not cause any issues that I have seen.<br />
+Maybe because I&#8217;m using the actual dataprovider for the grid instead of the model?  I dunno.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-170">
+					<div id="dsq-comment-header-170" class="dsq-comment-header">
+						<cite id="dsq-cite-170">
+								<span id="dsq-author-user-170">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-170" class="dsq-comment-body">
+						<div id="dsq-comment-message-170" class="dsq-comment-message"><p>Hi Dan, glad you got something out of the post. I&#8217;ve never touched CF in my life, so I can&#8217;t really help you there. Also not totally sure I understand your last sentence.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-171">
+					<div id="dsq-comment-header-171" class="dsq-comment-header">
+						<cite id="dsq-cite-171">
+								<span id="dsq-author-user-171">Darren Bishop</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-171" class="dsq-comment-body">
+						<div id="dsq-comment-message-171" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>I just found your updated / new article after commenting on the old one, so apologies for what I have repeated.</p>
+<p>I will be looking into the Class/IFactory mechanism.</p>
+<p>Cheers, Darren</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-166">
+					<div id="dsq-comment-header-166" class="dsq-comment-header">
+						<cite id="dsq-cite-166">
+								<span id="dsq-author-user-166">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-166" class="dsq-comment-body">
+						<div id="dsq-comment-message-166" class="dsq-comment-message"><p>No worries Darren, you provided some good information that I know a lot of people haven&#8217;t quite grasped yet. I think IDropInListItemRenderers are probably an adequate solution for a lot of scenarios, but once I discovered ClassFactory it just seemed more appropriate for what I was trying to accomplish.</p>
+<p>One other thing to keep in mind is that rowIndex is simply the row in the DataGrid, and is not tied to the dataProvider in any way. As for Aaron&#8217;s scenario, while I was developing the example for this post I discovered that making the class that is being used in the dataProvider bindable makes it super simple to accomplish. Then you just have to modify the second data field in the click handler and the second field&#8217;s renderer should update itself.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-165">
+					<div id="dsq-comment-header-165" class="dsq-comment-header">
+						<cite id="dsq-cite-165">
+								<span id="dsq-author-user-165">Ben Densmore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-165" class="dsq-comment-body">
+						<div id="dsq-comment-message-165" class="dsq-comment-message"><p>Hi Ben,<br />
+ I just happened to stumble across your site while doing some searching on how to use an itemRenderer. I&#8217;m still struggling a bit on using them. Would I handle a checkbox itemRenderer in the same manner if I am selecting multiple rows and using a &#8220;click&#8221; event on a button to remove the rows selected?</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-164">
+					<div id="dsq-comment-header-164" class="dsq-comment-header">
+						<cite id="dsq-cite-164">
+								<span id="dsq-author-user-164">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-164" class="dsq-comment-body">
+						<div id="dsq-comment-message-164" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>I am actually doing just that in the project I&#8217;m currently working on. As the articles show, the CheckBox itemRenderer changes a property in the dataProvider. I am assuming you mean a button located outside of the DataGrid. When you click that button you&#8217;ll just need to iterate over the dataProvider collection and use removeItem or something similar to get rid of items with the property value you&#8217;ve set. Something like this:</p>
+<p>[as]<br />
+var ac:ArrayCollection = model.myDgDataProvider;<br />
+for each(var item:PersonVO in ac)<br />
+{<br />
+    if(item.isSelected)<br />
+    {<br />
+        ac.removeItem(item);<br />
+    }<br />
+}<br />
+ac.refresh();<br />
+[/as]</p>
+<p>Hope that helps, let me know if it doesn&#8217;t.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-163">
+					<div id="dsq-comment-header-163" class="dsq-comment-header">
+						<cite id="dsq-cite-163">
+								<span id="dsq-author-user-163">Ben Densmore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-163" class="dsq-comment-body">
+						<div id="dsq-comment-message-163" class="dsq-comment-message"><p>So then do I still need an onClick event handler to update the dataProvider and let it know that the state has changed on each check box? I guess I&#8217;m still lost on how these work.</p>
+<p>I have a DataGrid which is populated with an ArrayCollection which was actually converted from a Query Result to the ArrayCollection. The DataGrid has a bunch of fields, one of them being a checkbox that is a custom component and inserted into the DataGridColumn via itemRenderer.</p>
+<p>I then have a &#8220;delete&#8221; button that sits outside of the DataGrid, when clicked a &#8220;deleteFormItems()&#8221; function is called. will my itemRenderer component have all ready updated the dataProvider to tell it which check boxes were checked so I can then loop over the dataProvider as you show in the example above?</p>
+<p>I&#8217;m trying not to sound dumb but I really want to understand what I&#8217;m doing here and not just copy your example.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-162">
+					<div id="dsq-comment-header-162" class="dsq-comment-header">
+						<cite id="dsq-cite-162">
+								<span id="dsq-author-user-162">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-162" class="dsq-comment-body">
+						<div id="dsq-comment-message-162" class="dsq-comment-message"><p>I think you&#8217;ve pretty much got it, Ben. You asked &#8220;do I still need an onClick event handler to update the dataProvider and let it know that the state has changed on each check box?&#8221; and &#8220;will my itemRenderer component have all ready updated the dataProvider to tell it which check boxes were checked&#8221;. The answer to both is yes. Your itemRenderer is simply a visual representation of a specific property on a specific item in your dataProvider. In fact, all cells in a DataGrid are itemRenderers, its just that the default &#8220;rendering behavior&#8221; is to display the value as text.</p>
+<p>The main example from this article changes the isKnown property of items in the handler of the checkbox. If we wanted to delete the checked items when we click another button, we could define a deleteKnownItems() method that looks exactly like the example in my last comment, except it would look at the isKnown property instead of isSelected.</p>
+<p>So to reiterate, you would be updating (a single item in) your dataProvider each time you click on a checkbox, and then in your button click handler you would just be looping over your dataProvider and modifying it (deleting items) whenever you find an item that meets the criteria you&#8217;re interested in. Make sense?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-161">
+					<div id="dsq-comment-header-161" class="dsq-comment-header">
+						<cite id="dsq-cite-161">
+								<span id="dsq-author-user-161">Ben Densmore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-161" class="dsq-comment-body">
+						<div id="dsq-comment-message-161" class="dsq-comment-message"><p>Ben,<br />
+ Thank you very much for clearing that up for me. I think I understand it better. I just need to implement it into my App to really grasp it.</p>
+<p>I appreciate you taking the time to explain this more to those of us that are a bit slower in absorbing new concepts.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-160">
+					<div id="dsq-comment-header-160" class="dsq-comment-header">
+						<cite id="dsq-cite-160">
+								<span id="dsq-author-user-160">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-160" class="dsq-comment-body">
+						<div id="dsq-comment-message-160" class="dsq-comment-message"><p>My pleasure, Ben. It wasn&#8217;t so long ago that this was all foreign to me as well. Glad I could help!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-158">
+					<div id="dsq-comment-header-158" class="dsq-comment-header">
+						<cite id="dsq-cite-158">
+								<span id="dsq-author-user-158">Ben Densmore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-158" class="dsq-comment-body">
+						<div id="dsq-comment-message-158" class="dsq-comment-message"><p>Hi Ben,<br />
+ If I&#8217;m not using a value object how can I pass a property into the ClassFactory? I have an ArrayCollection but I&#8217;m not populating a Value Object as you do. I&#8217;m still struggling a bit to get this to work with my situation because it&#8217;s not identical to your example.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-159">
+					<div id="dsq-comment-header-159" class="dsq-comment-header">
+						<cite id="dsq-cite-159">
+								<span id="dsq-author-user-159">Ben Densmore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-159" class="dsq-comment-body">
+						<div id="dsq-comment-message-159" class="dsq-comment-message"><p>Nevermind, I got it working. I just set a Bindable variable to default the state to false and then update the state of that variable.</p>
+<p>Thanks for all you patience and help,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-156">
+					<div id="dsq-comment-header-156" class="dsq-comment-header">
+						<cite id="dsq-cite-156">
+								<span id="dsq-author-user-156">Asgar</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-156" class="dsq-comment-body">
+						<div id="dsq-comment-message-156" class="dsq-comment-message"><p>Ben,</p>
+<p>Its a very useful article. I am trying custom components which can be used across multiple apps and this came very handy. Still struggling a bit on the way we retrieve the data from ItemRenderers. Can you point me any link/code which has this ? My ItemRenderer has a Checkbox and a Label, indicating that the label was selected, and to make it more complex, the DataGrid Columns are generated dynamically in my case <img src='../../../wordpress/wp-includes/images/smilies/icon_sad.gif' alt=':(' class='wp-smiley' /> </p>
+<p>Regards,<br />
+Asgar.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-157">
+					<div id="dsq-comment-header-157" class="dsq-comment-header">
+						<cite id="dsq-cite-157">
+								<span id="dsq-author-user-157">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-157" class="dsq-comment-body">
+						<div id="dsq-comment-message-157" class="dsq-comment-message"><p>Hi Asgar,</p>
+<p>I am not quite sure I know what you mean about retrieving data from the ItemRenderers. Your IRs should be updating a model object somewhere and then that is where other things retrieve data from. If you mean that you have a label in one column that displays the state of a checkbox in another column, you would just want to put logic in the label IR&#8217;s data method override that checks the same property as the one the CB toggles.</p>
+<p>Let me know if you have more specific questions or if I totally misunderstood what you were asking.</p>
+<p>Thanks.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-155">
+					<div id="dsq-comment-header-155" class="dsq-comment-header">
+						<cite id="dsq-cite-155">
+								<span id="dsq-author-user-155">learner of Flex</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-155" class="dsq-comment-body">
+						<div id="dsq-comment-message-155" class="dsq-comment-message"><p>Hi everyone,</p>
+<p>Its a very useful article. But if a DataGrid has a lot of DataGridColumn and each them have a CheckBox headerRenderer for control a column of CheckBox select/unselect.<br />
+how to get dataField in headerRenderer to indicate which column is user click ?</p>
+<p>PS:My English learns of not good and I suppose your are not understand!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-153">
+					<div id="dsq-comment-header-153" class="dsq-comment-header">
+						<cite id="dsq-cite-153">
+								<span id="dsq-author-user-153">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-153" class="dsq-comment-body">
+						<div id="dsq-comment-message-153" class="dsq-comment-message"><p>You&#8217;re right, I don&#8217;t quite understand what you mean <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  The click handler for the header should run the through the collection being used as the dataProvider and set whichever property it is associated with to the proper value. The collection is then refreshed and the itemRenderers update automatically.</p>
+<p>HTH.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-154">
+					<div id="dsq-comment-header-154" class="dsq-comment-header">
+						<cite id="dsq-cite-154">
+								<span id="dsq-author-user-154">learner of Flex said</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-154" class="dsq-comment-body">
+						<div id="dsq-comment-message-154" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>I know what your meaning is and I can select/unselect a column successfully,but in your code, the dataField is not automatically.<br />
+&#8220;checkBoxItemRenderer = new ClassFactory(GenericCheckBoxItemRenderer);<br />
+checkBoxItemRenderer.properties = {dataField: &#8220;isKnown&#8221;};&#8221;<br />
+What method resolve this problem that get dataField when user click a CheckBox?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-152">
+					<div id="dsq-comment-header-152" class="dsq-comment-header">
+						<cite id="dsq-cite-152">
+	http://www.returnundefined.com/							<span id="dsq-author-user-152">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-152" class="dsq-comment-body">
+						<div id="dsq-comment-message-152" class="dsq-comment-message"><p>I&#8217;m not sure exactly what you mean, but I will take a shot. The dataField property in the properties object is not the same thing as the dataField attribute of DataGridColumn. I suppose I could&#8217;ve named it differently to avoid confusion, but it is serving the same purpose. If you can clarify your question I will do my best to answer it.</p>
+<p>Thanks.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-151">
+					<div id="dsq-comment-header-151" class="dsq-comment-header">
+						<cite id="dsq-cite-151">
+								<span id="dsq-author-user-151">PeteProgram</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-151" class="dsq-comment-body">
+						<div id="dsq-comment-message-151" class="dsq-comment-message"><p>Hello Ben</p>
+<p>I&#8217;m not realy shure whether I got your problem wrong, but instead of storing the selected variable outside the datagrid, you also could take a static variable maybe inside your renderer-class. You may store the state of the CheckBox here and use it every it becomes initialized&#8230;</p>
+<p>Cheers Pete</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-150">
+					<div id="dsq-comment-header-150" class="dsq-comment-header">
+						<cite id="dsq-cite-150">
+								<span id="dsq-author-user-150">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-150" class="dsq-comment-body">
+						<div id="dsq-comment-message-150" class="dsq-comment-message"><p>Hi Pete,</p>
+<p>You could do that, but it would make your renderer class much less generic and reusable. You would need to create a separate static var for each place it is used, which could get ugly. I also think storing the value outside keeps your renderer class truer to its intended purpose of rendering, and prevents having to mix logic into a class that is really just a view component.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-149">
+					<div id="dsq-comment-header-149" class="dsq-comment-header">
+						<cite id="dsq-cite-149">
+								<span id="dsq-author-user-149">Scott</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-149" class="dsq-comment-body">
+						<div id="dsq-comment-message-149" class="dsq-comment-message"><p>Ben, thanks for the example, I&#8217;m doing my best to pick up on this. Is there an easy way in the onItemClick function that I could change other column values with the event?</p>
+<p>What I have is two numeric columns and I would like to set one to the value of the other if my checkbox column is selected, and set it to zero if it is not. Thanks for any help.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-148">
+					<div id="dsq-comment-header-148" class="dsq-comment-header">
+						<cite id="dsq-cite-148">
+								<span id="dsq-author-user-148">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-148" class="dsq-comment-body">
+						<div id="dsq-comment-message-148" class="dsq-comment-message"><p>Hi Scott, you can definitely do that. The key to understanding this subject (in my opinion) is to never think about updating columns or the datagrid or similar things. Those items are nothing but a visual representation of the underlying data, which is the only thing that you should manually need to update. So assuming your dataProvider is a collection of instances of a class marked [Bindable], all you need to do is update the appropriate properties and your DataGrid columns should update accordingly.</p>
+<p>if(cb.selected)<br />
+{<br />
+   e.vo.someProperty = e.vo.someOtherProperty;<br />
+}<br />
+else<br />
+{<br />
+   e.vo.someProperty = 0;<br />
+}</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-187">
+					<div id="dsq-comment-header-187" class="dsq-comment-header">
+						<cite id="dsq-cite-187">
+								<span id="dsq-author-user-187">Me</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-187" class="dsq-comment-body">
+						<div id="dsq-comment-message-187" class="dsq-comment-message"><p>You need to review using containers in grids.<br />
+Alex Harui has written some blog articles that will clear some things up.</p>
+<p>I have been hit hard by using containers in the grids.  This is not a recommended method for working with grids.</p>
+<p><a href="http://blogs.adobe.com/aharui/2007/03/thinking_about_item_renderers_1.html" rel="nofollow">http://blogs.adobe.com/aharui/2007/03/thinking_about_item_renderers_1.html</a></p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-189">
+					<div id="dsq-comment-header-189" class="dsq-comment-header">
+						<cite id="dsq-cite-189">
+								<span id="dsq-author-user-189">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-189" class="dsq-comment-body">
+						<div id="dsq-comment-message-189" class="dsq-comment-message"><p>Hi &#8220;Me&#8221;,</p>
+<p>I&#8217;m familiar with Alex&#8217;s article (Ben in the comments there is me). Not sure what you mean by &#8220;hit hard&#8221; but I&#8217;ve not had any issues using the above approach with 10 &#8211; 15 visible rows. I do agree that Alex&#8217;s approach (and pretty much everything else he says) should be required reading for Flex developers though.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-188">
+					<div id="dsq-comment-header-188" class="dsq-comment-header">
+						<cite id="dsq-cite-188">
+								<span id="dsq-author-user-188">Swathi</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-188" class="dsq-comment-body">
+						<div id="dsq-comment-message-188" class="dsq-comment-message"><p>Hi,<br />
+In my application I use the same check box renderer in more than one column. These check boxes are added dynamically. When ever I check the check box true, the the other checkboxes in same row are getting checked. Can anyone of you tell the solution for this problem. I dont have this problem while scrolling since I have overrriden the set data function.</p>
+<p>Thanks in advance.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-186">
+					<div id="dsq-comment-header-186" class="dsq-comment-header">
+						<cite id="dsq-cite-186">
+								<span id="dsq-author-user-186">Morgan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-186" class="dsq-comment-body">
+						<div id="dsq-comment-message-186" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>Great example!</p>
+<p>However, when used with the new FLEX 3 SDK, it breaks. Clicking the header containing the checkbox will throw the all to familiar: &#8220;Error #1009: Cannot access a property or method of a null object reference&#8221;.</p>
+<p>It seems that Datagrid.as (3909) cant find the renderer when trying to initiate a new DataGridEvent.ITEM_EDIT_BEGINNING.</p>
+<p>Any solution to this?</p>
+<p>//Morgan</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-185">
+					<div id="dsq-comment-header-185" class="dsq-comment-header">
+						<cite id="dsq-cite-185">
+								<span id="dsq-author-user-185">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-185" class="dsq-comment-body">
+						<div id="dsq-comment-message-185" class="dsq-comment-message"><p>Hi Morgan,</p>
+<p>Sorry, but I don&#8217;t have time to investigate right now. I haven&#8217;t really jumped on the Flex 3 wagon yet as I&#8217;ve been pretty buried at work and with a soon-to-be-announced side project. If you find a solution please let me know, sorry I can&#8217;t offer more help.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-183">
+					<div id="dsq-comment-header-183" class="dsq-comment-header">
+						<cite id="dsq-cite-183">
+	http://flexdiary.blogspot.com							<span id="dsq-author-user-183">Amy</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-183" class="dsq-comment-body">
+						<div id="dsq-comment-message-183" class="dsq-comment-message"><p>It seems redundant to have such similar renderers for header and item.  Is it possible to make one renderer that could do double duty?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-184">
+					<div id="dsq-comment-header-184" class="dsq-comment-header">
+						<cite id="dsq-cite-184">
+								<span id="dsq-author-user-184">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-184" class="dsq-comment-body">
+						<div id="dsq-comment-message-184" class="dsq-comment-message"><p>It might be possible but I haven&#8217;t spent any time trying to accomplish that. As I mentioned in the article, the creation/update process seems to be very different for headerRenderers. Specifically, they are updated much more often than itemRenderers.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-182">
+					<div id="dsq-comment-header-182" class="dsq-comment-header">
+						<cite id="dsq-cite-182">
+	http://www.returnundefined.com/2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/							<span id="dsq-author-user-182">return undefined; &raquo; Efficient, reusable (and centered) CheckBox renderers for DataGrids</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-182" class="dsq-comment-body">
+						<div id="dsq-comment-message-182" class="dsq-comment-message"><p>[...] As it turns out, truly reusable CheckBox renderers are much simpler to create than I previously reported. This post will provide and discuss what I think are the last CheckBox renderers you will ever need. [...]</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-181">
+					<div id="dsq-comment-header-181" class="dsq-comment-header">
+						<cite id="dsq-cite-181">
+								<span id="dsq-author-user-181">Tom Gilmour</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-181" class="dsq-comment-body">
+						<div id="dsq-comment-message-181" class="dsq-comment-message"><p>Hallelujah, that&#8217;s exactly what I needed. Actually I just needed how to set the properties of the ClassFactory object so I could reuse my custom itemRenderer in multiple columns. But still, you&#8217;ve just opened up my world. Thanks!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-180">
+					<div id="dsq-comment-header-180" class="dsq-comment-header">
+						<cite id="dsq-cite-180">
+								<span id="dsq-author-user-180">Mohammad</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-180" class="dsq-comment-body">
+						<div id="dsq-comment-message-180" class="dsq-comment-message"><p>Great Article.<br />
+I&#8217;m new to Flex3 and I have a question for you and I hope u own the answer ..<br />
+I want to add a datagrid as ItemRenderer to another main Datagrid ( in other words, nested datagrids).</p>
+<p>how should the ItemRenderer Class looks and how to set the dataprovider to the of the sub-Datagrid .</p>
+<p>Thanks in advance ..</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-179">
+					<div id="dsq-comment-header-179" class="dsq-comment-header">
+						<cite id="dsq-cite-179">
+	http://www.returnundefined.com/							<span id="dsq-author-user-179">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-179" class="dsq-comment-body">
+						<div id="dsq-comment-message-179" class="dsq-comment-message"><p>Hi Mohammad,</p>
+<p>While this is technically possible I would strongly recommend against it. You will likely run into performance issues very quickly and I also don&#8217;t think it would make for a good user experience to try and decipher nested grids. Perhaps look into the AdvancedDataGrid which allows you to selectively expand and collapse rows.</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-177">
+					<div id="dsq-comment-header-177" class="dsq-comment-header">
+						<cite id="dsq-cite-177">
+								<span id="dsq-author-user-177">Mohammad</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-177" class="dsq-comment-body">
+						<div id="dsq-comment-message-177" class="dsq-comment-message"><p>Thanks Ben<br />
+But for my case I have to use the nested datagrid; there are some design issues block me for making a use of the advancedatagrid .</p>
+<p>if you can tell me how should the ItemRenderer Class looks like, this will be great and appreciated.</p>
+<p>May thanks in advance.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-178">
+					<div id="dsq-comment-header-178" class="dsq-comment-header">
+						<cite id="dsq-cite-178">
+								<span id="dsq-author-user-178">Mohammad</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-178" class="dsq-comment-body">
+						<div id="dsq-comment-message-178" class="dsq-comment-message"><p>I&#8217;ve done it.</p>
+<p>Thanks anyway <img src='../../../wordpress/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-174">
+					<div id="dsq-comment-header-174" class="dsq-comment-header">
+						<cite id="dsq-cite-174">
+								<span id="dsq-author-user-174">Paul</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-174" class="dsq-comment-body">
+						<div id="dsq-comment-message-174" class="dsq-comment-message"><p>The one thing I need that I am not sure this will do for me, but perhaps you might help, is to know what datagrid and row I was called from, I have an itemrenderer that is used in a tabbed form with multiple datagrids. In certain cases when the user clicks a check box I need to do different things based on which datagrid they are in.</p>
+<p>Any ideas?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-173">
+					<div id="dsq-comment-header-173" class="dsq-comment-header">
+						<cite id="dsq-cite-173">
+	http://www.returnundefined.com/							<span id="dsq-author-user-173">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-173" class="dsq-comment-body">
+						<div id="dsq-comment-message-173" class="dsq-comment-message"><p>Hi Paul,</p>
+<p>If you implement ILIstItemRenderer you will have a listData property that gets automatically set for you. When inside a DataGrid it will be an instance of DataGridListData which contains properties like rowIndex, columnIndex and owner (the DG). Thats all from memory so exact names might be a bit off.</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-176">
+					<div id="dsq-comment-header-176" class="dsq-comment-header">
+						<cite id="dsq-cite-176">
+								<span id="dsq-author-user-176">Paul</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-176" class="dsq-comment-body">
+						<div id="dsq-comment-message-176" class="dsq-comment-message"><p>Pardon my ignorance,  but I am not sure what you mean when you say &#8220;If you implement ILIstItemRenderer &#8221; If that is what you get by default when you specify the itemRenderer property on a mx:DataGridColumn, then I have implemented it.</p>
+<p>I have breakpointed the code while in a function called from the item renderer, and was unable to find any variables similar to the ones you describe. For fun I tried trace(data.owner) and it returns undefined.</p>
+<p>Thanks for the quick response btw.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-175">
+					<div id="dsq-comment-header-175" class="dsq-comment-header">
+						<cite id="dsq-cite-175">
+	http://www.returnundefined.com/							<span id="dsq-author-user-175">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-175" class="dsq-comment-body">
+						<div id="dsq-comment-message-175" class="dsq-comment-message"><p>Hi Paul,</p>
+<p>The class you&#8217;re using as your renderer needs to implement the interface. So your class definition should look like public class MyRenderer implements IListItemRenderer { &#8230;. }</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-172">
+					<div id="dsq-comment-header-172" class="dsq-comment-header">
+						<cite id="dsq-cite-172">
+								<span id="dsq-author-user-172">Paul</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-172" class="dsq-comment-body">
+						<div id="dsq-comment-message-172" class="dsq-comment-message"><p>Ah, I am doing it as a component in an existing mxml file, since I won&#8217;t need this component outside of this module. Is it possible to do it this way, or do I need to create a separate class?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-1062">
+					<div id="dsq-comment-header-1062" class="dsq-comment-header">
+						<cite id="dsq-cite-1062">
+								<span id="dsq-author-user-1062">Ashish</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-1062" class="dsq-comment-body">
+						<div id="dsq-comment-message-1062" class="dsq-comment-message"><p>Hi Ben</p>
+<p>Great Article!! It really helped me in solving one of complex problem in my project where I am required to build a dynamic grid with variable no of columns and apply one generic item renderer to apply across all of them.</p>
+</div>
+					</div>
+				</li>
+				</ul>
+		</div>
+	</div>
+
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var disqus_url = 'http://www.benclinkinbeard.com/2006/11/creating-truly-reusable-renderers-with-classfactory/ ';
+	var disqus_identifier = '13 http://www.returnundefined.com/2006/11/creating-truly-reusable-renderers-with-classfactory/';
+	var disqus_container_id = 'disqus_thread';
+	var disqus_domain = 'disqus.com';
+	var disqus_shortname = 'benclinkinbeard';
+	var disqus_title = "Creating truly reusable renderers with ClassFactory";
+		var disqus_config = function () {
+	    var config = this; // Access to the config object
+
+	    /* 
+	       All currently supported events:
+	        * preData — fires just before we request for initial data
+	        * preInit - fires after we get initial data but before we load any dependencies
+	        * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+	        * afterRender - fires when template is rendered but before we show it
+	        * onReady - everything is done
+	     */
+
+		config.callbacks.preData.push(function() {
+			// clear out the container (its filled for SEO/legacy purposes)
+			document.getElementById(disqus_container_id).innerHTML = '';
+		});
+				config.callbacks.onReady.push(function() {
+			// sync comments in the background so we don't block the page
+			DISQUS.request.get('?cf_action=sync_comments&post_id=13');
+		});
+					};
+	var facebookXdReceiverPath = 'http://www.benclinkinbeard.com/wordpress/wp-content/plugins/disqus/xd_receiver.htm';
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var DsqLocal = {
+		'trackbacks': [
+			{
+				'author_name':	"return undefined; &raquo; Efficient, reusable (and centered) CheckBox renderers for DataGrids",
+				'author_url':	"http:\/\/www.returnundefined.com\/2007\/11\/efficient-reusable-and-centered-checkbox-renderers-for-datagrids\/",
+				'date':			"11\/16\/2007 04:26 PM",
+				'excerpt':		"[...] As it turns out, truly reusable CheckBox renderers are much simpler to create than I previously reported. This post ...",
+				'type':			"pingback"			}
+		],
+		'trackback_url': "http:\/\/www.benclinkinbeard.com\/2006\/11\/creating-truly-reusable-renderers-with-classfactory\/trackback\/"	};
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = 'http://' + disqus_shortname + '.' + disqus_domain + '/embed.js?pname=wordpress&pver=2.61';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+	
+</div><!-- end column large-->
+
+<div class="column columnSmall sidebar last">
+
+	<div class="column columnSmall">
+		<div id="text-3" class="widget widget_text">			<div class="textwidget"><a href="http://www.360flex.com"><img src="../../../wordpress/wp-content/uploads/2010/07/360dc.png" /></a></div>
+		</div><div id="search-3" class="widget widget_search"><h3 class="widgettitle">Search</h3><form name="searchform" id="searchform" class="clearfix" method="get" action="../../../index.html">
+	<input class="text" type="text" name="s" id="s" value=""/>
+	<input id="searchsubmit" type="image" src="../../../wordpress/wp-content/themes/min/images/icon_search.jpg" value="" />
+</form></div><div id="categories-3" class="widget widget_categories"><h3 class="widgettitle">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../../category/360flex/index.html" title="View all posts filed under 360|Flex">360|Flex</a> (7)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../../category/as2/index.html" title="View all posts filed under AS2">AS2</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../../category/as3/index.html" title="View all posts filed under AS3">AS3</a> (28)
+</li>
+	<li class="cat-item cat-item-6"><a href="../../../category/flare/index.html" title="View all posts filed under Flare">Flare</a> (2)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../../category/flash/index.html" title="View all posts filed under Flash">Flash</a> (16)
+</li>
+	<li class="cat-item cat-item-8"><a href="../../../category/flashdevelop/index.html" title="View all posts filed under FlashDevelop">FlashDevelop</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="../../../category/flex/index.html" title="View all posts filed under Flex">Flex</a> (56)
+</li>
+	<li class="cat-item cat-item-10"><a href="../../../category/flexmdi/index.html" title="View all posts filed under flexmdi">flexmdi</a> (10)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../category/jsfl/index.html" title="View all posts filed under JSFL">JSFL</a> (2)
+</li>
+	<li class="cat-item cat-item-12"><a href="../../../category/misc/index.html" title="View all posts filed under miscellany">miscellany</a> (17)
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../category/misc/pointless-blather/index.html" title="View all posts filed under pointless blather">pointless blather</a> (11)
+</li>
+	<li class="cat-item cat-item-14"><a href="../../../category/swiz/index.html" title="View all posts filed under Swiz">Swiz</a> (5)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../category/uncategorized/index.html" title="View all posts filed under Uncategorized">Uncategorized</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../category/universal-mind/index.html" title="View all posts filed under Universal Mind">Universal Mind</a> (1)
+</li>
+		</ul>
+</div><div id="archives-3" class="widget widget_archive"><h3 class="widgettitle">Archives</h3>		<ul>
+			<li><a href='../../../2010/10/index.html' title='October 2010'>October 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/09/index.html' title='September 2010'>September 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/08/index.html' title='August 2010'>August 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/03/index.html' title='March 2010'>March 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/02/index.html' title='February 2010'>February 2010</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/12/index.html' title='December 2009'>December 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/11/index.html' title='November 2009'>November 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/10/index.html' title='October 2009'>October 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/09/index.html' title='September 2009'>September 2009</a>&nbsp;(5)</li>
+	<li><a href='../../../2009/08/index.html' title='August 2009'>August 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../2009/05/index.html' title='May 2009'>May 2009</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/03/index.html' title='March 2009'>March 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/02/index.html' title='February 2009'>February 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/01/index.html' title='January 2009'>January 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../2008/09/index.html' title='September 2008'>September 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../2008/08/index.html' title='August 2008'>August 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../2008/07/index.html' title='July 2008'>July 2008</a>&nbsp;(3)</li>
+	<li><a href='../../../2008/05/index.html' title='May 2008'>May 2008</a>&nbsp;(6)</li>
+	<li><a href='../../../2008/03/index.html' title='March 2008'>March 2008</a>&nbsp;(4)</li>
+	<li><a href='../../../2008/02/index.html' title='February 2008'>February 2008</a>&nbsp;(5)</li>
+	<li><a href='../../../2008/01/index.html' title='January 2008'>January 2008</a>&nbsp;(2)</li>
+	<li><a href='../../../2007/12/index.html' title='December 2007'>December 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/11/index.html' title='November 2007'>November 2007</a>&nbsp;(2)</li>
+	<li><a href='../../../2007/10/index.html' title='October 2007'>October 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/09/index.html' title='September 2007'>September 2007</a>&nbsp;(4)</li>
+	<li><a href='../../../2007/07/index.html' title='July 2007'>July 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/06/index.html' title='June 2007'>June 2007</a>&nbsp;(3)</li>
+	<li><a href='../../../2007/01/index.html' title='January 2007'>January 2007</a>&nbsp;(1)</li>
+	<li><a href='../index.html' title='November 2006'>November 2006</a>&nbsp;(1)</li>
+	<li><a href='../../10/index.html' title='October 2006'>October 2006</a>&nbsp;(2)</li>
+	<li><a href='../../08/index.html' title='August 2006'>August 2006</a>&nbsp;(2)</li>
+	<li><a href='../../07/index.html' title='July 2006'>July 2006</a>&nbsp;(5)</li>
+		</ul>
+</div>	</div>
+</div>
+
+
+        
+        </div>
+    </div><!-- end main -->
+    
+
+	<div id="footer-top" class="clearfix">
+    	<div class="contentwidth clearfix">
+        
+        <div class="column columnSmall">
+        			<div id="recent-posts-3" class="widget widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+				<li><a href="../../../2010/10/fixing-drawcircle-distortion-to-create-smooth-circles/index.html" title="Fixing drawCircle() distortion to create smooth circles">Fixing drawCircle() distortion to create smooth circles</a></li>
+				<li><a href="../../../2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/index.html" title="Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC</a></li>
+				<li><a href="../../../2010/08/you-need-to-be-at-360flex-dc/index.html" title="You need to be at 360|Flex DC.">You need to be at 360|Flex DC.</a></li>
+				<li><a href="../../../2010/03/injecting-into-custom-namespaces-yea-swiz-can-do-that-too/index.html" title="Injecting into custom namespaces? Yea, Swiz can do that too.">Injecting into custom namespaces? Yea, Swiz can do that too.</a></li>
+				<li><a href="../../../2010/02/what-windshield-wipers-taught-me-about-user-experience/index.html" title="What Windshield Wipers Taught Me About User Experience">What Windshield Wipers Taught Me About User Experience</a></li>
+				</ul>
+		</div>        </div>
+        
+        <div class="column columnSmall">
+        	<div id="recent-comments-3" class="widget widget_recent_comments"><h3>Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1275">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1274">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1273">Smooth Scrolling Flex List</a></li><li class="recentcomments">faha on <a href="../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1272">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li><li class="recentcomments">Prakashm88 on <a href="../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1271">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li></ul></div>        </div>
+        
+		<!-- Disable contact form in the admin area to use widgets instead. -->
+					<!-- contact form -->
+        	<div class="widget">
+            	<h3>Contact Ben</h3>
+                
+                
+                                
+                <form action="index.html" method="post" class="standardForm" onsubmit="javascript:return validate(this)">
+                    <div class="column columnSmall">
+                        <textarea class="textarea" rows="3" cols="3" name="cfmessage"></textarea>
+                    </div>
+                    <div class="column columnSmall last">
+                        <input type="text" name="cfname" class="textbox" value="Name" onclick="this.value=''" />
+                        <input type="text" name="cfemail" class="textbox" value="you@email.com" onclick="this.value=''" />
+                        <input type="text" value="" name="email" class="hidden" />
+						<input type="hidden" value="1" name="contact_form_attempt" class="hidden" />
+                        <input type="submit" class="submit" value="Send Message" /><span id="message" class="hidden"></span>
+                    </div>
+                </form>
+            </div>
+			<!-- contact form end -->
+				
+	    
+		
+		
+		
+        
+          
+        
+        
+        </div>
+    </div><!-- end footer-top -->
+    
+    
+    
+    <div id="footer-bottom" class="clearfix">
+		<div class="contentwidth"><p class="right"><small><a href="index.html#top">Back to the Top</a></small></p>
+			<p><small>All source code shared on this site is available under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a> unless otherwise noted.</small></p>    	</div>
+    </div><!-- end footer-bottom -->
+
+
+</div><!-- end outer -->
+
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/jquery.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/superfish.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/supersubs.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/general.js"></script>
+
+<!-- ***** GOOGLE TRANSLATE ***** -->
+<div id="google_translate_element"></div><script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en'
+  }, 'google_translate_element');
+}
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ***** GOOGLE ANALYTICS ***** -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-494911-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+<!-- Dynamic Page Served (once) in 0.673 seconds -->
+<!-- Cached page served by WP-Cache -->

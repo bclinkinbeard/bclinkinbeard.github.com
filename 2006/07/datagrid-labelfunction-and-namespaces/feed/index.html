@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: DataGrid, labelFunction and namespaces</title>
+	<atom:link href="http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/</link>
+	<description></description>
+	<lastBuildDate>Sun, 28 Aug 2011 09:56:00 -0700</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+	<item>
+		<title>By: James</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-924</link>
+		<dc:creator>James</dc:creator>
+		<pubDate>Sat, 20 Mar 2010 01:02:59 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-924</guid>
+		<description>Apologies for spamming the place, but I rearranged the code and broke it prior to uploading it, here it is again.  
+
+
+private function genericLabelFunction(obj_data:Object, obj_dataGridColumn:DataGridColumn):String {
+				//see if we have an attribute.  If so, split
+				var split:Array = String(obj_dataGridColumn.dataField).split(&quot;.&quot;);
+				var element:String;
+				var attribute:String;
+				if (split.length &gt; 1) {
+					element = split.slice(0, split.length - 1).join(&quot;.&quot;);
+					attribute = split[split.length - 1];
+				} else {
+					element = String(obj_dataGridColumn.dataField);
+				}
+				
+				//all the namespaces in order of preference:
+				//more can be pushed if needed (change atom and gf)
+			    var qnames:Array = new Array();
+			    qnames.push(new QName(atom, element));
+			    qnames.push(new QName(gf, element));
+				
+				//find a namespace with something in it :)
+			    var str_data:String;
+			    for (var i:int = 0; i &lt; qnames.length; i++) {
+				    if (attribute != null) {
+					    str_data = obj_data[qnames[i]][attribute];
+					} else {
+					    str_data = obj_data[qnames[i]];
+					}
+					if (str_data != null &amp;&amp; str_data != &quot;&quot;) {
+						break;
+					}
+			    }
+			    
+			    //format various data in different ways
+			    switch(obj_dataGridColumn.dataField) {
+			        case &quot;Status&quot;:
+			            return (str_data == &quot;InProgress&quot;) ? &quot;In Progress&quot; : str_data;
+			            break;
+			        case &quot;PlanDataDate&quot;:
+			            return str_data.substr(0, str_data.indexOf(&quot; &quot;))
+			            break;
+			        default:
+			            return str_data;
+			            break;
+			    }
+			}</description>
+		<content:encoded><![CDATA[<p>Apologies for spamming the place, but I rearranged the code and broke it prior to uploading it, here it is again.  </p>
+<p>private function genericLabelFunction(obj_data:Object, obj_dataGridColumn:DataGridColumn):String {<br />
+				//see if we have an attribute.  If so, split<br />
+				var split:Array = String(obj_dataGridColumn.dataField).split(&#8220;.&#8221;);<br />
+				var element:String;<br />
+				var attribute:String;<br />
+				if (split.length &gt; 1) {<br />
+					element = split.slice(0, split.length &#8211; 1).join(&#8220;.&#8221;);<br />
+					attribute = split[split.length - 1];<br />
+				} else {<br />
+					element = String(obj_dataGridColumn.dataField);<br />
+				}</p>
+<p>				//all the namespaces in order of preference:<br />
+				//more can be pushed if needed (change atom and gf)<br />
+			    var qnames:Array = new Array();<br />
+			    qnames.push(new QName(atom, element));<br />
+			    qnames.push(new QName(gf, element));</p>
+<p>				//find a namespace with something in it <img src='../../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+			    var str_data:String;<br />
+			    for (var i:int = 0; i &lt; qnames.length; i++) {<br />
+				    if (attribute != null) {<br />
+					    str_data = obj_data[qnames[i]][attribute];<br />
+					} else {<br />
+					    str_data = obj_data[qnames[i]];<br />
+					}<br />
+					if (str_data != null &amp;&amp; str_data != &quot;&quot;) {<br />
+						break;<br />
+					}<br />
+			    }</p>
+<p>			    //format various data in different ways<br />
+			    switch(obj_dataGridColumn.dataField) {<br />
+			        case &quot;Status&quot;:<br />
+			            return (str_data == &quot;InProgress&quot;) ? &quot;In Progress&quot; : str_data;<br />
+			            break;<br />
+			        case &quot;PlanDataDate&quot;:<br />
+			            return str_data.substr(0, str_data.indexOf(&quot; &quot;))<br />
+			            break;<br />
+			        default:<br />
+			            return str_data;<br />
+			            break;<br />
+			    }<br />
+			}</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: James</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-923</link>
+		<dc:creator>James</dc:creator>
+		<pubDate>Sat, 20 Mar 2010 00:30:19 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-923</guid>
+		<description>Hi, I&#039;ve updated the function to allow for multiple namespaces and attributes.  I think it makes sense and it seems to work well, but I have not been at this very long.  
+
+private function genericLabelFunction(obj_data:Object, obj_dataGridColumn:DataGridColumn):String {
+				//all the namespaces in order of preference:
+			    var qnames:Array = new Array();
+			    qnames.push(new QName(atom, element));
+			    qnames.push(new QName(gf, element));
+				
+				//see if we have an attribute.  If so, split
+				var split:Array = String(obj_dataGridColumn.dataField).split(&quot;.&quot;);
+				var element:String;
+				var attribute:String;
+				if (split.length &gt; 1) {
+					element = split.slice(0, split.length - 1).join(&quot;.&quot;);
+					attribute = split[split.length - 1];
+				} else {
+					element = String(obj_dataGridColumn.dataField);
+				}
+				
+				//find a namespace with something in it :)
+			    var str_data:String;
+			    for (var i:int = 0; i &lt; qnames.length; i++) {
+				    if (attribute != null) {
+					    str_data = obj_data[qnames[i]][attribute];
+					} else {
+					    str_data = obj_data[qnames[i]];
+					}
+					if (str_data != null &amp;&amp; str_data != &quot;&quot;) {
+						break;
+					}
+			    }
+			    
+			    //format various data in different ways
+			    switch(obj_dataGridColumn.dataField) {
+			        case &quot;Status&quot;:
+			            return (str_data == &quot;InProgress&quot;) ? &quot;In Progress&quot; : str_data;
+			            break;
+			        case &quot;PlanDataDate&quot;:
+			            return str_data.substr(0, str_data.indexOf(&quot; &quot;))
+			            break;
+			        default:
+			            return str_data;
+			            break;
+			    }
+			}
+
+hopefully this won&#039;t get too mangled.</description>
+		<content:encoded><![CDATA[<p>Hi, I&#8217;ve updated the function to allow for multiple namespaces and attributes.  I think it makes sense and it seems to work well, but I have not been at this very long.  </p>
+<p>private function genericLabelFunction(obj_data:Object, obj_dataGridColumn:DataGridColumn):String {<br />
+				//all the namespaces in order of preference:<br />
+			    var qnames:Array = new Array();<br />
+			    qnames.push(new QName(atom, element));<br />
+			    qnames.push(new QName(gf, element));</p>
+<p>				//see if we have an attribute.  If so, split<br />
+				var split:Array = String(obj_dataGridColumn.dataField).split(&#8220;.&#8221;);<br />
+				var element:String;<br />
+				var attribute:String;<br />
+				if (split.length &gt; 1) {<br />
+					element = split.slice(0, split.length &#8211; 1).join(&#8220;.&#8221;);<br />
+					attribute = split[split.length - 1];<br />
+				} else {<br />
+					element = String(obj_dataGridColumn.dataField);<br />
+				}</p>
+<p>				//find a namespace with something in it <img src='../../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /><br />
+			    var str_data:String;<br />
+			    for (var i:int = 0; i &lt; qnames.length; i++) {<br />
+				    if (attribute != null) {<br />
+					    str_data = obj_data[qnames[i]][attribute];<br />
+					} else {<br />
+					    str_data = obj_data[qnames[i]];<br />
+					}<br />
+					if (str_data != null &amp;&amp; str_data != &quot;&quot;) {<br />
+						break;<br />
+					}<br />
+			    }</p>
+<p>			    //format various data in different ways<br />
+			    switch(obj_dataGridColumn.dataField) {<br />
+			        case &quot;Status&quot;:<br />
+			            return (str_data == &quot;InProgress&quot;) ? &quot;In Progress&quot; : str_data;<br />
+			            break;<br />
+			        case &quot;PlanDataDate&quot;:<br />
+			            return str_data.substr(0, str_data.indexOf(&quot; &quot;))<br />
+			            break;<br />
+			        default:<br />
+			            return str_data;<br />
+			            break;<br />
+			    }<br />
+			}</p>
+<p>hopefully this won&#039;t get too mangled.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: James</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-922</link>
+		<dc:creator>James</dc:creator>
+		<pubDate>Fri, 19 Mar 2010 23:04:23 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-922</guid>
+		<description>Woot!  Namespaces are being a PITA.  Thanks for this.</description>
+		<content:encoded><![CDATA[<p>Woot!  Namespaces are being a PITA.  Thanks for this.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: bharath</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-31</link>
+		<dc:creator>bharath</dc:creator>
+		<pubDate>Sun, 01 Mar 2009 03:50:31 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-31</guid>
+		<description>Okay the rendering of data in the grid works, but how do we go about constructing the XML with namespaces back - especially when you edit the cell in the datagrid.
+
+I&#039;m stuck here. Any thoughts?</description>
+		<content:encoded><![CDATA[<p>Okay the rendering of data in the grid works, but how do we go about constructing the XML with namespaces back &#8211; especially when you edit the cell in the datagrid.</p>
+<p>I&#8217;m stuck here. Any thoughts?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: sreedhar</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-29</link>
+		<dc:creator>sreedhar</dc:creator>
+		<pubDate>Thu, 05 Feb 2009 20:16:50 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-29</guid>
+		<description>Thanks a Lot.</description>
+		<content:encoded><![CDATA[<p>Thanks a Lot.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Philip Wilder</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-30</link>
+		<dc:creator>Philip Wilder</dc:creator>
+		<pubDate>Fri, 30 Jan 2009 16:02:10 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-30</guid>
+		<description>Thanks for the post Ben, forms an excellent support group for us silent Flex datagrid namespace sufferers.
+
+Also, many thanks to Rick George. Your elegant solution works like a charm.</description>
+		<content:encoded><![CDATA[<p>Thanks for the post Ben, forms an excellent support group for us silent Flex datagrid namespace sufferers.</p>
+<p>Also, many thanks to Rick George. Your elegant solution works like a charm.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben (yes, really)</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-26</link>
+		<dc:creator>Ben (yes, really)</dc:creator>
+		<pubDate>Wed, 03 Sep 2008 18:29:56 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-26</guid>
+		<description>another (possible) option here is to just remove the namespace from the XML.
+
+the following code will not work out of context, but this is what i did to get my dataGrid/dataField to work right:
+
+var xStr:String = incomingXML.toXMLString();
+	var rg:RegExp = /&lt;v3:/g; // my namespace was &#039;v3&#039;
+	xStr = xStr.replace(rg,&quot;&lt;&quot;); take out the v3 but leave the open bracket
+	rg = new RegExp(&quot;&lt;/v3:&quot;, &quot;g&quot;); // dont forget the closing tags
+	xStr = xStr.replace(rg,&quot;&lt;/&quot;); // again, you have to leave the bracket and close
+	incomingXML = XML(xStr); // make back your XML object.
+
+this assumes that you dont need the namespace anywhere else in  your code; i did not.  and this worked like a charm with no hacks.</description>
+		<content:encoded><![CDATA[<p>another (possible) option here is to just remove the namespace from the XML.</p>
+<p>the following code will not work out of context, but this is what i did to get my dataGrid/dataField to work right:</p>
+<p>var xStr:String = incomingXML.toXMLString();<br />
+	var rg:RegExp = /&lt;v3:/g; // my namespace was &#8216;v3&#8242;<br />
+	xStr = xStr.replace(rg,&#8221;&lt;&#8221;); take out the v3 but leave the open bracket<br />
+	rg = new RegExp(&#8220;&lt;/v3:&#8221;, &#8220;g&#8221;); // dont forget the closing tags<br />
+	xStr = xStr.replace(rg,&#8221;&lt;/&#8221;); // again, you have to leave the bracket and close<br />
+	incomingXML = XML(xStr); // make back your XML object.</p>
+<p>this assumes that you dont need the namespace anywhere else in  your code; i did not.  and this worked like a charm with no hacks.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Paul</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-27</link>
+		<dc:creator>Paul</dc:creator>
+		<pubDate>Wed, 27 Aug 2008 14:24:03 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-27</guid>
+		<description>Ben kicks ass!</description>
+		<content:encoded><![CDATA[<p>Ben kicks ass!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: l</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-28</link>
+		<dc:creator>l</dc:creator>
+		<pubDate>Mon, 23 Jun 2008 22:38:18 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-28</guid>
+		<description>Hi,
+
+Thanks for the post!  Do you have the source file for this example somewhere?
+
+Thanks!</description>
+		<content:encoded><![CDATA[<p>Hi,</p>
+<p>Thanks for the post!  Do you have the source file for this example somewhere?</p>
+<p>Thanks!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: shri</title>
+		<link>http://www.benclinkinbeard.com/2006/07/datagrid-labelfunction-and-namespaces/comment-page-1/#comment-25</link>
+		<dc:creator>shri</dc:creator>
+		<pubDate>Sat, 18 Aug 2007 12:25:30 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/datagrid-labelfunction-and-namespaces/#comment-25</guid>
+		<description>Actually i am using httpservice and datagrid and i am generating xml from j2ee server that the httpservice will look on and i want some thing like this the xml should contain value and want attibute to be my column name in datagrid could u suggest me some thing</description>
+		<content:encoded><![CDATA[<p>Actually i am using httpservice and datagrid and i am generating xml from j2ee server that the httpservice will look on and i want some thing like this the xml should contain value and want attibute to be my column name in datagrid could u suggest me some thing</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.941 seconds -->
+<!-- Cached page served by WP-Cache -->

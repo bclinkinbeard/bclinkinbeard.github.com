@@ -1,0 +1,722 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ben &laquo;  benclinkinbeard.com</title>    
+    <link rel="stylesheet" href="../../../../wordpress/wp-content/themes/min/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../../../../wordpress/wp-content/themes/min/superfish.css" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" href="http://www.benclinkinbeard.com/wordpress/wp-content/themes/min/ie6.css" type="text/css" media="screen" /><![endif]-->
+	<!-- Additional CSS add-ons from custom admin page --><style type='text/css' media='screen'>a, .post h2 a:hover { color:#639c01; }</style>	
+
+	<link rel="pingback" href="../../../../wordpress/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/return_undefined" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://feeds.feedburner.com/return_undefined" />
+	
+    <link rel="alternate" type="application/rss+xml" title="benclinkinbeard.com &raquo; Posts by Ben Feed" href="../../feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../wordpress/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../../wordpress/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='benclinkinbeard.com' href='../../../../index.html' />
+<meta name="generator" content="WordPress 3.1" />
+<link rel="stylesheet" href="http://www.benclinkinbeard.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+<body class="archive paged author author-ben author-2 paged-6 author-paged-6">
+
+
+<div id="top">
+
+	<div id="header" class="clearfix">
+        <div class="contentwidth">
+<!--
+            <div id="logo" class="left"><p><a href="http://www.benclinkinbeard.com"><img src="http://www.benclinkinbeard.com/wordpress/wp-content/themes/min/images/logo.jpg" alt="benclinkinbeard.com" /></a> </p></div>
+-->
+            <div id="menu" class="right">
+            
+            	<ul class="sf-menu">
+					<li  ><a href="../../../../index.html" title="Home">Home</a></li>
+                	<li class="page_item page-item-43"><a href="../../../../about/index.html" title="About">About</a></li>
+                </ul>
+                
+            
+            </div>
+        </div>
+    </div><!-- end header -->
+    
+    
+    <div id="promos" class="clearfix">
+    	<div class='promo'><div class='contentwidth'><p>Hi, I'm Ben. This is my blog. I write about <a href="../../../../category/flex/index.html">Flex</a>, <br /><a href="../../../../category/flash/index.html">Flash</a>, software development, and other <a href="../../../../category/misc/index.html">miscellany</a>.</p></div></div>    </div><!-- end promos -->
+    
+    <div id="main" class="clearfix">
+    	<div class="contentwidth">
+
+
+			<div class="column columnLarge">
+		
+                <div class="post" id="post-14">
+                	                    <h2><a href="../../../../2007/01/quickdateformatter-class-updated/index.html" rel="bookmark" title="Permanent Link to QuickDateFormatter class updated">QuickDateFormatter class updated</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>01.22.07</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>Just a quick update to my <a href="../../../../2006/07/quickdateformatter-efficient-date-formatting-in-as3/index.html">QuickDateFormatter</a> class. Raymond Camden <a href="http://ray.camdenfamily.com/index.cfm/2007/1/22/Flex-date-gotcha">noticed a peculiar hiccup</a> when using DateFormatter to format GMT dates without constructing an actual Date object. Since my wrapper class skipped that usually optional step, it was affected by the same issue. Here is the updated code.</p>
+<div class="syntax_hilite">
+<div id="actionscript-1">
+<div class="actionscript">package<br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">formatters</span>.<span style="color: #006600;">DateFormatter</span>;</p>
+<p>&nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">class</span> QuickDateFormatter<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #0066CC;">static</span> <span style="color: #000000; font-weight: bold;">function</span> format<span style="color: #66cc66;">&#40;</span>str_dateString:<span style="color: #0066CC;">String</span>, str_dateFormat:<span style="color: #0066CC;">String</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">String</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> f:DateFormatter = <span style="color: #000000; font-weight: bold;">new</span> DateFormatter<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.<span style="color: #006600;">formatString</span> = str_dateFormat;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> f.<span style="color: #006600;">format</span><span style="color: #66cc66;">&#40;</span><span style="color: #000000; font-weight: bold;">new</span> <span style="color: #0066CC;">Date</span><span style="color: #66cc66;">&#40;</span>str_dateString<span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p></p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-13">
+                	                    <h2><a href="../../../../2006/11/creating-truly-reusable-renderers-with-classfactory/index.html" rel="bookmark" title="Permanent Link to Creating truly reusable renderers with ClassFactory">Creating truly reusable renderers with ClassFactory</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>11.14.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/as3/index.html" title="View all posts in AS3" rel="category tag">AS3</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p><strong>Update:</strong> I have come up with <strike>better solutions</strike> alternate approaches since writing this post. For a more compact and self-contained approach check out <a href="../../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/index.html">this post</a> as well.</p>
+<p>In <a href="../../../../2006/10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html">my last post</a>, I outlined some ways to ensure that your item renderers behave predictably. In that article, however, I admitted that I had yet to figure out the best way to create renderers that were completely decoupled from the data they represented and therefore wholly reusable across projects. As of yesterday afternoon, I believe that has changed. I have extended my previous example to demonstrate, and the new version can be seen <a href="../../../../files/ItemRendererExampleV2/index.html">here</a>. Right-click for source.</p>
+<p>My current project requires a DataGrid with the commonly seen select/unselect all functionality. The design depicts this simply as a column that is a centered CheckBox as both the itemRenderer and headerRenderer. When you click the CheckBox in the header, it toggles the state of all the items to match its own. I first addressed the item renderers. I managed to create a component that was completely decoupled (hooray!), predictable, and easy to use. It implemented the <a href="http://livedocs.macromedia.com/flex/2/langref/mx/controls/listClasses/IDropInListItemRenderer.html">IDropInListItemRenderer</a> interface, which allowed it to be tied to the appropriate property in its data item through the familiar dataField attribute of <a href="http://livedocs.macromedia.com/flex/2/langref/mx/controls/dataGridClasses/DataGridColumn.html">DataGridColumn</a>. When I moved on to implement the headerRenderer, however, I ran into a <a href="http://tech.groups.yahoo.com/group/flexcoders/messages/55781?threaded=1&#038;m=e&#038;var=1&#038;tidx=1">bit of a problem</a>. This turned out to be a blessing in disguise though, as it led me to the real star of the show here: <a href="http://livedocs.macromedia.com/flex/2/langref/mx/core/ClassFactory.html">ClassFactory</a>. ClassFactory essentially just allows you to specify a class (that implements <a href="http://livedocs.macromedia.com/flex/2/langref/mx/core/IFactory.html">IFactory</a>), specify some properties for it, and then assign it as the itemRenderer or headerRenderer for your column.</p>
+<p>The headerRenderer is probably the simpler of the two, so I'll go into more detail on that first. The problems I initially had with my headerRenderer were related to the fact that headerRenderers seem to be recreated, or at least reinitialized, every time there is an event in the DataGrid in which they live. (If anyone can more accurately explain how they behave please post in the comments.) As a result, you must bind their state to a value that is held outside of said DataGrid. In my case, I called this variable allSelected. You also need to set up the ClassFactory variable that you will assign as the headerRenderer. Here is what that code looks like:</p>
+<div class="syntax_hilite">
+<div id="actionscript-2">
+<div class="actionscript"><span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">var</span> checkBoxHeaderRenderer:ClassFactory;<br />
+...<br />
+<span style="color: #006600;">checkBoxHeaderRenderer</span> = <span style="color: #000000; font-weight: bold;">new</span> ClassFactory<span style="color: #66cc66;">&#40;</span>GenericCheckBoxHeaderRenderer<span style="color: #66cc66;">&#41;</span>;<br />
+checkBoxHeaderRenderer.<span style="color: #006600;">properties</span> = <span style="color: #66cc66;">&#123;</span>externalObject: <span style="color: #0066CC;">this</span>, externalPropertyName: <span style="color: #ff0000;">"allSelected"</span><span style="color: #66cc66;">&#125;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>This tells Flex to use the GenericCheckBoxHeaderRenderer class as the renderer, and to set 2 properties on each instance it creates. It should be apparent that I am giving each instance a reference to the allSelected property mentioned above. Here is what our GenericCheckBoxHeaderRenderer class looks like.</p>
+<div class="syntax_hilite">
+<div id="actionscript-3">
+<div class="actionscript">&lt;?<span style="color: #0066CC;">xml</span> <span style="color: #0066CC;">version</span>=<span style="color: #ff0000;">"1.0"</span> encoding=<span style="color: #ff0000;">"utf-8"</span>?&gt;<br />
+&lt;mx:HBox xmlns:mx=<span style="color: #ff0000;">"http://www.adobe.com/2006/mxml"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"100%"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"100%"</span> horizontalAlign=<span style="color: #ff0000;">"center"</span> preinitialize=<span style="color: #ff0000;">"init()"</span> <span style="color: #0066CC;">implements</span>=<span style="color: #ff0000;">"mx.core.IFactory"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:Script&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!<span style="color: #66cc66;">&#91;</span>CDATA<span style="color: #66cc66;">&#91;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">binding</span>.<span style="color: #006600;">utils</span>.<span style="color: #006600;">BindingUtils</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// will be set by &quot;properties&quot; property of ClassFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// allows us to bind to an external value while remaining decoupled</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> externalObject:*;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> externalPropertyName:<span style="color: #0066CC;">String</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local property that will be bound to external value held in externalObject[externalPropertyName]</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// CheckBox's selected property in turn bound to this</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> isSelected:<span style="color: #0066CC;">Boolean</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// method required by IFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> newInstance<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:*<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> GenericCheckBoxHeaderRenderer<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set up binding of local property to value specified by ClassFactory::properties</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> init<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BindingUtils.<span style="color: #006600;">bindProperty</span><span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">this</span>, <span style="color: #ff0000;">"isSelected"</span>, externalObject, externalPropertyName<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local click handler that dispatches the event</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// so it can be handled in a&nbsp; more appropriate place (such as the document holding the DataGrid)</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onClick<span style="color: #66cc66;">&#40;</span>event:MouseEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> evt:SimpleHeaderClickEvent = <span style="color: #000000; font-weight: bold;">new</span> SimpleHeaderClickEvent<span style="color: #66cc66;">&#40;</span>cb<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dispatchEvent<span style="color: #66cc66;">&#40;</span>evt<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#93;</span><span style="color: #66cc66;">&#93;</span>&gt;<br />
+&nbsp; &nbsp; &lt;/mx:Script&gt;<br />
+&nbsp; &nbsp; &lt;mx:CheckBox id=<span style="color: #ff0000;">"cb"</span> click=<span style="color: #ff0000;">"onClick(event)"</span> selected=<span style="color: #ff0000;">"{isSelected}"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"15"</span>/&gt;<br />
+&lt;/mx:HBox&gt;</div>
+</div>
+</div>
+<p></p>
+<p>One thing to note in that class is that I have created a local variable that is bound to the external value (allSelected) that is passed in via the properties property, and my CheckBox then binds to that local value.</p>
+<p>The itemRenderer version of this code is very similar, the main difference being that it is tied to a specific property on the data object that is passed to it in the list rather than a single, external value. As a result, we only need to pass it one value, that being the name of the property to which we want to tie the renderer. The ClassFactory variable is set up in the same fashion:</p>
+<div class="syntax_hilite">
+<div id="actionscript-4">
+<div class="actionscript"><span style="color: #66cc66;">&#91;</span>Bindable<span style="color: #66cc66;">&#93;</span> <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">var</span> checkBoxItemRenderer:ClassFactory;<br />
+...<br />
+<span style="color: #006600;">checkBoxItemRenderer</span> = <span style="color: #000000; font-weight: bold;">new</span> ClassFactory<span style="color: #66cc66;">&#40;</span>GenericCheckBoxItemRenderer<span style="color: #66cc66;">&#41;</span>;<br />
+checkBoxItemRenderer.<span style="color: #006600;">properties</span> = <span style="color: #66cc66;">&#123;</span>dataField: <span style="color: #ff0000;">"isKnown"</span><span style="color: #66cc66;">&#125;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>and the GenericCheckBoxItemRenderer class is also similar:</p>
+<div class="syntax_hilite">
+<div id="actionscript-5">
+<div class="actionscript">&lt;?<span style="color: #0066CC;">xml</span> <span style="color: #0066CC;">version</span>=<span style="color: #ff0000;">"1.0"</span> encoding=<span style="color: #ff0000;">"utf-8"</span>?&gt;<br />
+&lt;mx:HBox xmlns:mx=<span style="color: #ff0000;">"http://www.adobe.com/2006/mxml"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"100%"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"100%"</span> horizontalAlign=<span style="color: #ff0000;">"center"</span> <span style="color: #0066CC;">implements</span>=<span style="color: #ff0000;">"mx.core.IFactory"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:Script&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!<span style="color: #66cc66;">&#91;</span>CDATA<span style="color: #66cc66;">&#91;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">controls</span>.<span style="color: #006600;">dataGridClasses</span>.<span style="color: #006600;">DataGridColumn</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// name of property on our VO we're concerned with</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">var</span> dataField:<span style="color: #0066CC;">String</span>;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// method required by IFactory</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> newInstance<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>:*<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">new</span> GenericCheckBoxItemRenderer<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// this override is essential for preventing random (un)checking when your DataGrid is scrolled</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; override <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> <span style="color: #0066CC;">set</span> <span style="color: #0066CC;">data</span><span style="color: #66cc66;">&#40;</span>value:<span style="color: #0066CC;">Object</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// not sure of the details on when or why, but sometimes this method is passed a null value</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>value != <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span> = value;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// the parent DataGridColumn is passed as value before the real data arrives</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>!<span style="color: #66cc66;">&#40;</span>value is DataGridColumn<span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set itemRenderer's state based on the value held in the property specified by _dataField</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cb.<span style="color: #006600;">selected</span> = value<span style="color: #66cc66;">&#91;</span>dataField<span style="color: #66cc66;">&#93;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local click handler that dispatches the event</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// so it can be handled in a&nbsp; more appropriate place (such as the document holding the DataGrid)</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onClick<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">e</span>:MouseEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// attach our VO and _dataField onto the event so that it can be manipulated in the handler</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// wherever that handler may be</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> evt:SimpleItemClickEvent = <span style="color: #000000; font-weight: bold;">new</span> SimpleItemClickEvent<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span>, dataField<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dispatchEvent<span style="color: #66cc66;">&#40;</span>evt<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#93;</span><span style="color: #66cc66;">&#93;</span>&gt;<br />
+&nbsp; &nbsp; &lt;/mx:Script&gt;<br />
+&nbsp; &nbsp; &lt;mx:CheckBox id=<span style="color: #ff0000;">"cb"</span> click=<span style="color: #ff0000;">"onClick(event)"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"15"</span>/&gt;<br />
+&lt;/mx:HBox&gt;</div>
+</div>
+</div>
+<p></p>
+<p>Here you can see that the override method no longer relies on any specific property (and therefore datatype), instead using the property specified by dataField on whatever type of object is passed to the itemRenderer by the dataProvider.</p>
+<p>And that's my system. If you look at the source code you can see that we still handle the events in the parent file of our DataGrid, but note that these event handlers are the only place where we are tightly coupled to specific properties and/or data types, which is exactly what we want. We have moved all type references out of our renderers, making them completely reusable across varying parts of a project or in different projects altogether. It would likely be very easy to genericize the renderers even further to allow specifying what type of control should be used (CheckBox, ComboBox, etc), which property of said control you're interested in and on and on all through the properties property, but I decided not to go that far. There is something to be said for retaining semantic meaning in your class/component names and code and not extrapolating to oblivion.</p>
+<p>Sorry these posts are so long. As it turns out, conciseness is not a trait I possess. Hopefully someone will find this information useful though, and feel free to post any questions or other thoughts in the comments. Enjoy!</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-12">
+                	                    <h2><a href="../../../../2006/10/item-renderers-in-datagrids-a-primer-for-predictable-behavior/index.html" rel="bookmark" title="Permanent Link to Item Renderers in DataGrids &#8211; A Primer for Predictable Behavior">Item Renderers in DataGrids &#8211; A Primer for Predictable Behavior</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>10.27.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/as3/index.html" title="View all posts in AS3" rel="category tag">AS3</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>ItemRenderers within DataGrids in Flex seem to be a topic that is <a href="http://tech.groups.yahoo.com/group/flexcoders/msearch?query=itemRenderer&#038;submit=Search&#038;charset=ISO-8859-1">often discussed</a> and often <a href="http://www.trajiklyhip.com/blog/index.cfm/2006/10/19/DataGrid-Weirdness-With-Checkboxes">struggled with</a>. This is my attempt at a short and sweet explanation/example to get newcomers up-to-speed. This will also address the issues many people have with inconsistent rendering during scrolling and sorting of their DataGrid. Check out <a href="../../../../files/ItemRendererExample/index.html">this example</a> (right-click for source) and do as much clicking, scrolling and sorting as you want. Things should stay in the correct state regardless of how hard you bang on it.</p>
+<p>There are three basic parts involved in successfully implementing IRs in DGs. The first is dispatching an event when the user interacts with the IR. This is a pretty straightforward step, but there do seem to be some differing opinions on exactly what and how information should be attached to the event. Let's look at my IR component, SimpleItemRenderer.mxml.</p>
+<div class="syntax_hilite">
+<div id="actionscript-6">
+<div class="actionscript">&lt;?<span style="color: #0066CC;">xml</span> <span style="color: #0066CC;">version</span>=<span style="color: #ff0000;">"1.0"</span> encoding=<span style="color: #ff0000;">"utf-8"</span>?&gt;<br />
+&lt;mx:HBox xmlns:mx=<span style="color: #ff0000;">"http://www.adobe.com/2006/mxml"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"100%"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"100%"</span> horizontalAlign=<span style="color: #ff0000;">"center"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:Script&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;!<span style="color: #66cc66;">&#91;</span>CDATA<span style="color: #66cc66;">&#91;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// this override is essential for preventing random (un)checking when your DataGrid is scrolled</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; override <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> <span style="color: #0066CC;">set</span> <span style="color: #0066CC;">data</span><span style="color: #66cc66;">&#40;</span>value:<span style="color: #0066CC;">Object</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// not sure of the details on when or why, but sometimes this method is passed a null value</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>value != <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span> = value;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set itemRenderer's state based on data value</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cb.<span style="color: #006600;">selected</span> = value.<span style="color: #006600;">isKnown</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// local click handler that dispatches the event</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// so it can be handled in a&nbsp; more appropriate place (such as the document holding the DataGrid)</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onClick<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">e</span>:MouseEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// attach our VO onto the event so that it can be manipulated in the handler</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// wherever that handler may be</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> evt:SimpleClickEvent = <span style="color: #000000; font-weight: bold;">new</span> SimpleClickEvent<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dispatchEvent<span style="color: #66cc66;">&#40;</span>evt<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#93;</span><span style="color: #66cc66;">&#93;</span>&gt;<br />
+&nbsp; &nbsp; &lt;/mx:Script&gt;<br />
+&nbsp; &nbsp; &lt;mx:CheckBox id=<span style="color: #ff0000;">"cb"</span> click=<span style="color: #ff0000;">"onClick(event)"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"15"</span>/&gt;<br />
+&lt;/mx:HBox&gt;</div>
+</div>
+</div>
+<p></p>
+<p>As you can see, it is simply a CheckBox inside of an HBox. Using an HBox allows me to center the CheckBox and take advantage of other layout conveniences if I need to. I've declared a click handler for the CheckBox but its purpose is really just to package whatever data we need and pass it up the chain via dispatchEvent. You'll notice a reference to super.data, which refers to the item from your dataProvider that was passed to this row of the DataGrid. If we weren't worried about things like loose coupling we could simply update our data from here and be done with it. However, to promote modularity we will simply attach this data to our SimpleClickEvent and let it bubble up to a component that is better suited to handle the user interaction and any associated logic.</p>
+<p>That better suited component is usually the container that is holding your DataGrid. Here is the event handler that will ultimately be fired when a user clicks on our IR's CheckBox:</p>
+<div class="syntax_hilite">
+<div id="actionscript-7">
+<div class="actionscript"><span style="color: #808080; font-style: italic;">// this is the function that will catch the click event</span><br />
+<span style="color: #808080; font-style: italic;">// that will bubble up from the Checkbox in our DataGrid's itemRenderer</span><br />
+<span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> onSimpleClickEvent<span style="color: #66cc66;">&#40;</span><span style="color: #0066CC;">e</span>:SimpleClickEvent<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// create refs to the items we care about</span><br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> ir:SimpleItemRenderer = <span style="color: #0066CC;">e</span>.<span style="color: #0066CC;">target</span> as SimpleItemRenderer;<br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> cb:CheckBox = ir.<span style="color: #006600;">cb</span> as CheckBox;<br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> personVO:PersonVO = <span style="color: #0066CC;">e</span>.<span style="color: #006600;">vo</span> as PersonVO;</p>
+<p>&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// update the appropriate data property based on the CheckBox's selected state</span><br />
+&nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>cb.<span style="color: #006600;">selected</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; personVO.<span style="color: #006600;">isKnown</span> = <span style="color: #000000; font-weight: bold;">true</span>;<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #b1b100;">else</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; personVO.<span style="color: #006600;">isKnown</span> = <span style="color: #000000; font-weight: bold;">false</span>;<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p></p>
+<p>The important things to note here are that we are finally checking the type of our event's data payload, which is PersonVO. In our SimpleItemRenderer and SimpleClickEvent we avoided depending on any specific type so that they can be reused in other contexts. We then update the appropriate value in our dataProvider based on the state of our CheckBox. This is an essential step, as it records what the on-record value of this item should be for future reference.</p>
+<p>The third and final step in our (very) basic implementation will be one such future reference and is necessary to maintain predictable behavior in the ItemRenderer, particularly if the DataGrid scrolls. This is because of the way DataGrids actually work behind-the-scenes. If your DataGrid's dataProvider has 100 items, but it is only big enough to display 10 at any given time, the DataGrid only actually draws 10 items, in order to maximize performance. When you scroll the DataGrid there aren't any new items being drawn, it is simply swapping the data properties between the already drawn items. So scrolling down one row means that the piece of data for the second item is switched to be the data for the first item, the second item receives the third item's data, and so on and so on. During these reassignments, things like whether or not the CheckBox should be checked get all messed up. Some get checked, some get unchecked... its completely unpredictable. To handle this problem, we must override the data's setter method and use our own logic to determine whether or not the CheckBox should be checked. Here is the relevant piece from SimpleItemRenderer (also shown above).</p>
+<div class="syntax_hilite">
+<div id="actionscript-8">
+<div class="actionscript"><span style="color: #808080; font-style: italic;">// this override is essential for preventing random (un)checking when your DataGrid is scrolled</span><br />
+override <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">function</span> <span style="color: #0066CC;">set</span> <span style="color: #0066CC;">data</span><span style="color: #66cc66;">&#40;</span>value:<span style="color: #0066CC;">Object</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">void</span><br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// not sure of the details on when or why, but sometimes this method is passed a null value</span><br />
+&nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">&#40;</span>value != <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">super</span>.<span style="color: #0066CC;">data</span> = value;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// set itemRenderer's state based on data value</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; cb.<span style="color: #006600;">selected</span> = value.<span style="color: #006600;">isKnown</span>;<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p></p>
+<p>Yes, this is somewhat tightly coupled to this particular usage since we are assuming value has an isKnown property. I haven't figured out the best way to get around this dependency yet but am leaning towards creating an interface or a generic superclass and having all of my ItemRenderers implement/extend it. To see the scrolling wackiness in action just comment out this method.</p>
+<p>OK, so I lied. This definitely wasn't a short explanation, but hopefully it will prove thorough and clear enough to help someone else get their head around using ItemRenderers in Flex.</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-11">
+                	                    <h2><a href="../../../../2006/10/flex-net-and-insight/index.html" rel="bookmark" title="Permanent Link to Flex, .NET and insight">Flex, .NET and insight</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>10.17.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>I just discovered Graeme Harker's Flex.NET blog (via <a href="http://www.jessewarden.com/">Jesse Warden</a>) and I must say I am impressed. His article concerning <a href="http://graemeharker.blogspot.com/2006/10/why-dont-more-developers-use-flex.html">marketing Flex to developers</a> is dead on, and I really hope Adobe listens to some of his suggestions.</p>
+<p>As someone who has successfully convinced their .NET development shop employer to adopt Flex, I can attest to the fact that Adobe's insistence on literally ignoring the .NET community was one of the hurdles I had to overcome. As a developer that learned Flex in the context of a .NET environment, I can tell you that the lack of tutorials using anything but FDS was a real disappointment and a significant hindrance. If I were a .NET developer investigating Flex, rather than a Flash developer doing so, I probably would have given up thinking that Flex is intended as a front-end for Java stacks. At the very least put some Web Service tutorials out there!</p>
+<p>Anyhow, this post was intended to point you to <a href="http://graemeharker.blogspot.com/">Graeme Harker</a>. He seems to know his stuff and I look forward to working my way through his past articles.</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-10">
+                	                    <h2><a href="../../../../2006/08/conditional-selection-based-on-sibling-value-in-e4x/index.html" rel="bookmark" title="Permanent Link to Conditional selections based on sibling values in E4X">Conditional selections based on sibling values in E4X</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>08.18.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/as3/index.html" title="View all posts in AS3" rel="category tag">AS3</a>, <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>This may be obvious to others but I found it a bit counter intuitive and thought I would post a note as much for my own reference as for others. Consider the following code:</p>
+<div class="syntax_hilite">
+<div id="actionscript-9">
+<div class="actionscript"><span style="color: #000000; font-weight: bold;">var</span> x:<span style="color: #0066CC;">XML</span> =<br />
+&lt;plans&gt;<br />
+&nbsp; &nbsp; &lt;plan&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;industry&gt;MFG&lt;/industry&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;contact&gt;Bob Cratchett&lt;/contact&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;planNumber&gt;<span style="color: #cc66cc;">11111</span>&lt;/planNumber&gt;<br />
+&nbsp; &nbsp; &lt;/plan&gt;<br />
+&nbsp; &nbsp; &lt;plan&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;industry&gt;AEROSPACE&lt;/industry&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;contact&gt;Bo Peep&lt;/contact&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;planNumber&gt;<span style="color: #cc66cc;">22222</span>&lt;/planNumber&gt;<br />
+&nbsp; &nbsp; &lt;/plan&gt;<br />
+&nbsp; &nbsp; &lt;plan&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;industry&gt;ENTERTAINMENT&lt;/industry&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;contact&gt;Scrooge McDuck&lt;/contact&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;planNumber&gt;<span style="color: #cc66cc;">33333</span>&lt;/planNumber&gt;<br />
+&nbsp; &nbsp; &lt;/plan&gt;<br />
+&lt;/plans&gt;;</p>
+<p><span style="color: #0066CC;">trace</span><span style="color: #66cc66;">&#40;</span>x.<span style="color: #006600;">Plan</span>.<span style="color: #66cc66;">&#40;</span>Industry == <span style="color: #ff0000;">"AEROSPACE"</span><span style="color: #66cc66;">&#41;</span>.<span style="color: #006600;">PlanNumber</span><span style="color: #66cc66;">&#41;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>This will return the correct value (22222), but I thought it was a bit odd that the dot that precedes the condition does not actually take you down into the node, allowing you to still directly access the property you're after. I think this is a very smart implementation because otherwise it would be very difficult and convoluted to select a value based on a sibling value. It would likely require something similar to, albeit more complicated than, the methodology <a href="http://weblogs.macromedia.com/mesh/archives/2006/08/e4x_retrieving.html">recently discussed by Mike Chambers</a>.</p>
+<p>E4X definitely rocks the house.</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-9">
+                	                    <h2><a href="../../../../2006/08/as3-support-in-flashdevelop/index.html" rel="bookmark" title="Permanent Link to AS3 support in FlashDevelop">AS3 support in FlashDevelop</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>08.06.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/as3/index.html" title="View all posts in AS3" rel="category tag">AS3</a>, <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a>, <a href="../../../../category/flashdevelop/index.html" title="View all posts in FlashDevelop" rel="category tag">FlashDevelop</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>Over the past week or so I have been fortunate enough to get to help out the guys from <a href="http://www.flashdevelop.org/">FlashDevelop</a>, as they added <a href="http://www.flashdevelop.org/community/viewtopic.php?t=806">support for AS3</a>. This has been really fun so far. Even though I have not used FlashDevelop very much, my limited exposure to it along with ringing <a href="http://www.flashmagazine.com/1243.htm">endorsements</a> from some <a href="http://www.timwalling.com/2006/03/09/flashdevelop-rc1-released/">well</a> <a href="http://www.bit-101.com/blog/?p=849">known</a> and respected Flash developers makes it obvious that it is a great editor with a very bright future. This is reinforced by the talented, enthusiastic and very responsive people behind the program, and my hat certainly goes off to them for implementing a feature requested by the community so quickly.</p>
+<p>This work gave me a chance to finally try my hand at C# and to dig deeper into regex than I've dared before. Thanks to <a href="http://www.ultrapico.com/Expresso.htm">Expresso</a> and some knowledgeable, helpful co-workers it was quite a positive experience. I am really looking forward to continuing to work on this.</p>
+<p>Anyhow, rather than crud up my main page every time there is an update to announce, I have created a <a href="../../../../fdas3/index.html">page</a> devoted to my tiny piece of the pie. I would expect that any new developments (like Javadoc info) will be announced on the FD site, but the instrinsic class files will always reside in the same place. Unless they move. But they probably won't.</p>
+<p>Now go <a href="http://www.flashdevelop.org/community/viewforum.php?f=11">try FlashDevelop</a>! I know I'm gonna <img src='../../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-7">
+                	                    <h2><a href="../../../../2006/07/smart-home-functionality-in-flex-builder-2/index.html" rel="bookmark" title="Permanent Link to Smart Home functionality in Flex Builder 2">Smart Home functionality in Flex Builder 2</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>07.26.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>One of the simplest yet most important features I require in a code editor is what is generally referred to as 'smart home' functionality. This is where pressing the home key will move the cursor to the first non-whitespace character on the line, respecting whatever indentation may exist. Well, apparently this is something that did not make the cut for the initial launch of Flex Builder, but it is quite easy (and free) to accomplish.</p>
+<ol>
+<li>Install the awesome <a href="http://fdt.powerflasher.com/" onclick="javascript:urchinTracker('/links/FDT');">FDT ActionScript plugin</a></li>
+<li>'Activate' the plugin by opening a file with it: <img src="http://www.returnundefined.com/files/misc/fdt.gif" /></li>
+</ol>
+<p>That's it! You can now go back to using FB as your AS editor (the one with the black dot in the image above; it will still be set as the default editor for .as files), but now you have smart home functionality!</p>
+<p>The FDT plugin does only provide a 30 day trial before you are required to purchase it, but this will work even after the trial expires. You are not actually using FDT for anything, but something happens when you install and 'activate' it that gives Flex Builder this functionality. Hopefully others will find this as useful as I did.</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-6">
+                	                    <h2><a href="../../../../2006/07/quickdateformatter-efficient-date-formatting-in-as3/index.html" rel="bookmark" title="Permanent Link to QuickDateFormatter &#8211; efficient date formatting in AS3">QuickDateFormatter &#8211; efficient date formatting in AS3</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>07.21.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>I've known that AS3 included some formatter classes, including <code>DateFormatter</code>, for some time now but didn't have cause to use them until today. I'm not sure if its laziness or that I just don't understand some level of abstraction Adobe was striving for with their implementation, but I found it maddeningly complicated to use. I was expecting something like php's <code>date()</code>, which usually looks something like this:</p>
+<div class="syntax_hilite">
+<div id="php-10">
+<div class="php"><span style="color:#0000FF;">$formattedDate</span> = <a href="http://www.php.net/date"><span style="color:#000066;">date</span></a><span style="color:#006600; font-weight:bold;">&#40;</span><span style="color:#0000FF;">$myDateString</span>, <span style="color:#FF0000;">'d/m/Y'</span><span style="color:#006600; font-weight:bold;">&#41;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>Well, you can imagine my horror (exaggerate much?) when I discovered that the same functionality in AS3 looked like this:</p>
+<div class="syntax_hilite">
+<div id="actionscript-11">
+<div class="actionscript"><span style="color: #000000; font-weight: bold;">var</span> df:DateFormatter = <span style="color: #000000; font-weight: bold;">new</span> DateFormatter<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+df.<span style="color: #006600;">formatString</span> = <span style="color: #ff0000;">"MM/DD/YYYY"</span>;<br />
+<span style="color: #000000; font-weight: bold;">var</span> formattedDate:<span style="color: #0066CC;">String</span> = df.<span style="color: #006600;">format</span><span style="color: #66cc66;">&#40;</span>myUnformattedString<span style="color: #66cc66;">&#41;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>My solution? <a href="../../../../files/misc/QuickDateFormatter.as" onClick="javascript:urchinTracker('/files/misc/QuickDateFormatter.as');">QuickDateFormatter</a>, whose usage looks like this:</p>
+<div class="syntax_hilite">
+<div id="actionscript-12">
+<div class="actionscript"><span style="color: #000000; font-weight: bold;">var</span> formattedDate:<span style="color: #0066CC;">String</span> = QuickDateFormatter.<span style="color: #006600;">format</span><span style="color: #66cc66;">&#40;</span>myUnformattedString, <span style="color: #ff0000;">"MM/DD/YYYY"</span><span style="color: #66cc66;">&#41;</span>;</div>
+</div>
+</div>
+<p></p>
+<p>Much quicker and cleaner, specially made for us lazy folk. I suppose to match the robustness of the built-in DateFormatter I would need to add some error handling but I am not really worried about that. This is meant for cases where you know the input is a valid date but you need to alter the formatting. You can grab the source <a href="../../../../files/misc/QuickDateFormatter.as" onClick="javascript:urchinTracker('/files/misc/QuickDateFormatter.as');">here</a> or simply copy and paste from below.</p>
+<div class="syntax_hilite">
+<div id="actionscript-13">
+<div class="actionscript">package com.<span style="color: #006600;">fmr</span>.<span style="color: #006600;">utils</span><br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; <span style="color: #0066CC;">import</span> mx.<span style="color: #006600;">formatters</span>.<span style="color: #006600;">DateFormatter</span>;</p>
+<p>&nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #000000; font-weight: bold;">class</span> QuickDateFormatter<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0066CC;">public</span> <span style="color: #0066CC;">static</span> <span style="color: #000000; font-weight: bold;">function</span> format<span style="color: #66cc66;">&#40;</span>str_dateString:<span style="color: #0066CC;">String</span>, str_dateFormat:<span style="color: #0066CC;">String</span><span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">String</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> f:DateFormatter = <span style="color: #000000; font-weight: bold;">new</span> DateFormatter<span style="color: #66cc66;">&#40;</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.<span style="color: #006600;">formatString</span> = str_dateFormat;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> f.<span style="color: #006600;">format</span><span style="color: #66cc66;">&#40;</span>str_dateString<span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p>
+Enjoy!</p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-5">
+                	                    <h2><a href="../../../../2006/07/datagrid-labelfunction-and-namespaces/index.html" rel="bookmark" title="Permanent Link to DataGrid, labelFunction and namespaces">DataGrid, labelFunction and namespaces</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>07.18.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a>, <a href="../../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>In a <a href="../../../../2006/07/dealing-with-default-namespaces-in-flex-2as3/index.html">previous post</a> I talked about my preferred method in Flex 2 for dealing with XML data that contains namespaces. Another task that gets complicated by the presence of 'namespaced XML' is populating a DataGrid with that data. Despite the usefulness of the <code>use namespace</code> directive, I have been unable to populate a <code>DataGrid</code> just by using the <code>dataField</code> attribute, as can be done when your data does not contain namespaces.</p>
+<div class="syntax_hilite">
+<div id="actionscript-14">
+<div class="actionscript">&lt;mx:DataGrid x=<span style="color: #ff0000;">"10"</span> y=<span style="color: #ff0000;">"291"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:columns&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Column 1"</span> dataField=<span style="color: #ff0000;">"col1"</span>/&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Column 2"</span> dataField=<span style="color: #ff0000;">"col2"</span>/&gt;<br />
+&nbsp; &nbsp; &lt;/mx:columns&gt;<br />
+&lt;/mx:DataGrid&gt;</div>
+</div>
+</div>
+<p></p>
+<p>The method I employ uses the <code>labelFunction</code> attribute of <code>DataGridColumn</code>, something that is most commonly used to let you specify a function to handle the formatting of data you would like displayed in that column. This approach allows you to use a single function for both special formatting of data and to gain access to data that resides in a namespace. Here is the basic format of my labelFunction:</p>
+<div class="syntax_hilite">
+<div id="actionscript-15">
+<div class="actionscript"><span style="color: #0066CC;">private</span> <span style="color: #000000; font-weight: bold;">function</span> genericLabelFunction<span style="color: #66cc66;">&#40;</span>obj_data:<span style="color: #0066CC;">Object</span>, obj_dataGridColumn:DataGridColumn<span style="color: #66cc66;">&#41;</span>:<span style="color: #0066CC;">String</span><br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; use namespace DOCUMENT_METADATA_NAMESPACE;<br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> q:QName = <span style="color: #000000; font-weight: bold;">new</span> QName<span style="color: #66cc66;">&#40;</span>DOCUMENT_METADATA_NAMESPACE, obj_dataGridColumn.<span style="color: #006600;">dataField</span><span style="color: #66cc66;">&#41;</span>;<br />
+&nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">var</span> str_data:<span style="color: #0066CC;">String</span> = obj_data<span style="color: #66cc66;">&#91;</span>q<span style="color: #66cc66;">&#93;</span>;</p>
+<p>&nbsp; &nbsp; <span style="color: #b1b100;">switch</span><span style="color: #66cc66;">&#40;</span>obj_dataGridColumn.<span style="color: #006600;">dataField</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">case</span> <span style="color: #ff0000;">"Status"</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #66cc66;">&#40;</span>str_data == <span style="color: #ff0000;">"InProgress"</span><span style="color: #66cc66;">&#41;</span> ? <span style="color: #ff0000;">"In Progress"</span> : str_data;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">case</span> <span style="color: #ff0000;">"PlanDataDate"</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> str_data.<span style="color: #0066CC;">substr</span><span style="color: #66cc66;">&#40;</span><span style="color: #cc66cc;">0</span>, str_data.<span style="color: #0066CC;">indexOf</span><span style="color: #66cc66;">&#40;</span><span style="color: #ff0000;">" "</span><span style="color: #66cc66;">&#41;</span><span style="color: #66cc66;">&#41;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">default</span>:<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> str_data;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;<br />
+&nbsp; &nbsp; <span style="color: #66cc66;">&#125;</span><br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p></p>
+<p>Another item that has proven useful for dealing with namespaced XML is the <code>QName</code> class. Short for 'qualified name', the QName constructor allows you to specify a namespace and a local name, which it uses to address the data you are targeting. Once we establish our QName object, we use it to reference the desired property of the data object (obj_data) that is passed into our labelFunction. Also notice that the local name is determined by the dataField attribute of the DataGridColumn object that was passed into the function. We now have a variable (str_data) that should contain the data from the node in our XML that has the same name as specified by our dataField attribute.</p>
+<p>As shown in the first two cases, you can do further formatting to this data if desired. The default case takes care of all non-special cases, for when you would like to display the data as it exists in the XML and were simply using the labelFunction to get around namespace issues. Finally, here is a simple example of a DataGrid that uses our <code>genericLabelFunction</code>.</p>
+<div class="syntax_hilite">
+<div id="actionscript-16">
+<div class="actionscript">&lt;mx:DataGrid dataProvider=<span style="color: #ff0000;">"{ModelLocator.getInstance().clientPlanList}"</span> id=<span style="color: #ff0000;">"planList_dg"</span>&gt;<br />
+&nbsp; &nbsp; &lt;mx:columns&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Industry"</span> dataField=<span style="color: #ff0000;">"Industry"</span> labelFunction=<span style="color: #ff0000;">"genericLabelFunction"</span>/&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Plan Date"</span> dataField=<span style="color: #ff0000;">"PlanDataDate"</span> labelFunction=<span style="color: #ff0000;">"genericLabelFunction"</span>/&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Status"</span> dataField=<span style="color: #ff0000;">"Status"</span> labelFunction=<span style="color: #ff0000;">"genericLabelFunction"</span>/&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;mx:DataGridColumn headerText=<span style="color: #ff0000;">"Group Size"</span> dataField=<span style="color: #ff0000;">"PlanSizeGroup"</span> labelFunction=<span style="color: #ff0000;">"genericLabelFunction"</span>/&gt;<br />
+&nbsp; &nbsp; &lt;/mx:columns&gt;<br />
+&lt;/mx:DataGrid&gt;</div>
+</div>
+</div>
+<p></p>
+                    </div>
+                   	
+                </div>
+                
+		
+                <div class="post" id="post-4">
+                	                    <h2><a href="../../../../2006/07/flash-extension-convert-bitmaps-to-symbols/index.html" rel="bookmark" title="Permanent Link to Flash Extension: Convert Bitmaps to Symbols">Flash Extension: Convert Bitmaps to Symbols</a></h2>
+                    <div class="postmeta">
+                    	<p class="clearfix"><span>07.17.06</span><span>Posted by <a href="../../index.html" title="Posts by Ben">Ben</a> in <a href="../../../../category/flash/index.html" title="View all posts in Flash" rel="category tag">Flash</a>, <a href="../../../../category/jsfl/index.html" title="View all posts in JSFL" rel="category tag">JSFL</a></span><span><span>Comments Off</span></span></p>
+                    </div>
+                    <div class="postcontent">
+						<p>A while back I worked on a project that required the conversion of about 100 images to one-frame movieclip symbols. No way was I going to do it by hand, so a <a href="http://www.wearebent.com/">friend</a> and I developed this nifty little extension to avoid doing the monotonous task ourselves. I have seen a few similarly capable extensions out there but I think ours offers a few features the others didn't.</p>
+<p>From the source: Allows you to convert selected bitmaps from your library to a symbol type of your choice. Other features include: slicing leading/trailing characters of the symbol names, adding a prefix and/or suffix to the symbol names, adding the symbols to a folder, and setting the registration point of the symbols.</p>
+<p>Anyhow, if you find it useful post a comment and let us know. <a href="../../../../files/jsfl/ConvertBitmapsToSymbols.zip" onClick="javascript:urchinTracker('/files/jsfl/ConvertBitmapsToSymbols');">Zip</a> includes MXP file and source.</p>
+<p>Enjoy!</p>
+                    </div>
+                   	
+                </div>
+                
+			<script type="text/javascript">
+	// <![CDATA[
+		var disqus_shortname = 'benclinkinbeard';
+		var disqus_domain = 'disqus.com';
+		(function () {
+			var nodes = document.getElementsByTagName('span');
+			for (var i = 0, url; i < nodes.length; i++) {
+				if (nodes[i].className.indexOf('dsq-postid') != -1) {
+					nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+					url = nodes[i].parentNode.href.split('#', 1);
+					if (url.length == 1) url = url[0];
+					else url = url[1]
+					nodes[i].parentNode.href = url + '#disqus_thread';
+				}
+			}
+			var s = document.createElement('script'); s.async = true;
+			s.type = 'text/javascript';
+			s.src = 'http://' + disqus_domain + '/forums/' + disqus_shortname + '/count.js';
+			(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+		}());
+	//]]>
+	</script>
+
+	
+            <div class="navigation">
+                <div class="alignleft"><a href="../7/index.html" >Older Entries</a></div>
+                <div class="alignright"><a href="../5/index.html" >Newer Entries</a></div>
+            </div>
+        	
+        </div>
+        
+        <div class="column columnSmall sidebar last">
+			<div id="text-3" class="widget widget_text">			<div class="textwidget"><a href="http://www.360flex.com"><img src="../../../../wordpress/wp-content/uploads/2010/07/360dc.png" /></a></div>
+		</div><div id="search-3" class="widget widget_search"><h3 class="widgettitle">Search</h3><form name="searchform" id="searchform" class="clearfix" method="get" action="../../../../index.html">
+	<input class="text" type="text" name="s" id="s" value=""/>
+	<input id="searchsubmit" type="image" src="../../../../wordpress/wp-content/themes/min/images/icon_search.jpg" value="" />
+</form></div><div id="categories-3" class="widget widget_categories"><h3 class="widgettitle">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../../../category/360flex/index.html" title="View all posts filed under 360|Flex">360|Flex</a> (7)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../../../category/as2/index.html" title="View all posts filed under AS2">AS2</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../../../category/as3/index.html" title="View all posts filed under AS3">AS3</a> (28)
+</li>
+	<li class="cat-item cat-item-6"><a href="../../../../category/flare/index.html" title="View all posts filed under Flare">Flare</a> (2)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../../../category/flash/index.html" title="View all posts filed under Flash">Flash</a> (16)
+</li>
+	<li class="cat-item cat-item-8"><a href="../../../../category/flashdevelop/index.html" title="View all posts filed under FlashDevelop">FlashDevelop</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="../../../../category/flex/index.html" title="View all posts filed under Flex">Flex</a> (56)
+</li>
+	<li class="cat-item cat-item-10"><a href="../../../../category/flexmdi/index.html" title="View all posts filed under flexmdi">flexmdi</a> (10)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/jsfl/index.html" title="View all posts filed under JSFL">JSFL</a> (2)
+</li>
+	<li class="cat-item cat-item-12"><a href="../../../../category/misc/index.html" title="View all posts filed under miscellany">miscellany</a> (17)
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../../category/misc/pointless-blather/index.html" title="View all posts filed under pointless blather">pointless blather</a> (11)
+</li>
+	<li class="cat-item cat-item-14"><a href="../../../../category/swiz/index.html" title="View all posts filed under Swiz">Swiz</a> (5)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html" title="View all posts filed under Uncategorized">Uncategorized</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/universal-mind/index.html" title="View all posts filed under Universal Mind">Universal Mind</a> (1)
+</li>
+		</ul>
+</div><div id="archives-3" class="widget widget_archive"><h3 class="widgettitle">Archives</h3>		<ul>
+			<li><a href='../../../../2010/10/index.html' title='October 2010'>October 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../../2010/09/index.html' title='September 2010'>September 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../../2010/08/index.html' title='August 2010'>August 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../../2010/03/index.html' title='March 2010'>March 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../../2010/02/index.html' title='February 2010'>February 2010</a>&nbsp;(2)</li>
+	<li><a href='../../../../2009/12/index.html' title='December 2009'>December 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../../2009/11/index.html' title='November 2009'>November 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../../2009/10/index.html' title='October 2009'>October 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../../2009/09/index.html' title='September 2009'>September 2009</a>&nbsp;(5)</li>
+	<li><a href='../../../../2009/08/index.html' title='August 2009'>August 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../../2009/05/index.html' title='May 2009'>May 2009</a>&nbsp;(2)</li>
+	<li><a href='../../../../2009/03/index.html' title='March 2009'>March 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../../2009/02/index.html' title='February 2009'>February 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../../2009/01/index.html' title='January 2009'>January 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../../2008/09/index.html' title='September 2008'>September 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../../2008/08/index.html' title='August 2008'>August 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../../2008/07/index.html' title='July 2008'>July 2008</a>&nbsp;(3)</li>
+	<li><a href='../../../../2008/05/index.html' title='May 2008'>May 2008</a>&nbsp;(6)</li>
+	<li><a href='../../../../2008/03/index.html' title='March 2008'>March 2008</a>&nbsp;(4)</li>
+	<li><a href='../../../../2008/02/index.html' title='February 2008'>February 2008</a>&nbsp;(5)</li>
+	<li><a href='../../../../2008/01/index.html' title='January 2008'>January 2008</a>&nbsp;(2)</li>
+	<li><a href='../../../../2007/12/index.html' title='December 2007'>December 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../../2007/11/index.html' title='November 2007'>November 2007</a>&nbsp;(2)</li>
+	<li><a href='../../../../2007/10/index.html' title='October 2007'>October 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../../2007/09/index.html' title='September 2007'>September 2007</a>&nbsp;(4)</li>
+	<li><a href='../../../../2007/07/index.html' title='July 2007'>July 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../../2007/06/index.html' title='June 2007'>June 2007</a>&nbsp;(3)</li>
+	<li><a href='../../../../2007/01/index.html' title='January 2007'>January 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../../2006/11/index.html' title='November 2006'>November 2006</a>&nbsp;(1)</li>
+	<li><a href='../../../../2006/10/index.html' title='October 2006'>October 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../../2006/08/index.html' title='August 2006'>August 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../../2006/07/index.html' title='July 2006'>July 2006</a>&nbsp;(5)</li>
+		</ul>
+</div>			<!-- Add widgets to sidebar-all -->        </div>
+            
+
+	
+
+        
+        </div>
+    </div><!-- end main -->
+    
+
+	<div id="footer-top" class="clearfix">
+    	<div class="contentwidth clearfix">
+        
+        <div class="column columnSmall">
+        			<div id="recent-posts-3" class="widget widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+				<li><a href="../../../../2010/10/fixing-drawcircle-distortion-to-create-smooth-circles/index.html" title="Fixing drawCircle() distortion to create smooth circles">Fixing drawCircle() distortion to create smooth circles</a></li>
+				<li><a href="../../../../2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/index.html" title="Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC</a></li>
+				<li><a href="../../../../2010/08/you-need-to-be-at-360flex-dc/index.html" title="You need to be at 360|Flex DC.">You need to be at 360|Flex DC.</a></li>
+				<li><a href="../../../../2010/03/injecting-into-custom-namespaces-yea-swiz-can-do-that-too/index.html" title="Injecting into custom namespaces? Yea, Swiz can do that too.">Injecting into custom namespaces? Yea, Swiz can do that too.</a></li>
+				<li><a href="../../../../2010/02/what-windshield-wipers-taught-me-about-user-experience/index.html" title="What Windshield Wipers Taught Me About User Experience">What Windshield Wipers Taught Me About User Experience</a></li>
+				</ul>
+		</div>        </div>
+        
+        <div class="column columnSmall">
+        	<div id="recent-comments-3" class="widget widget_recent_comments"><h3>Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1275">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1274">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1273">Smooth Scrolling Flex List</a></li><li class="recentcomments">faha on <a href="../../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1272">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li><li class="recentcomments">Prakashm88 on <a href="../../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1271">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li></ul></div>        </div>
+        
+		<!-- Disable contact form in the admin area to use widgets instead. -->
+					<!-- contact form -->
+        	<div class="widget">
+            	<h3>Contact Ben</h3>
+                
+                
+                                
+                <form action="index.html" method="post" class="standardForm" onsubmit="javascript:return validate(this)">
+                    <div class="column columnSmall">
+                        <textarea class="textarea" rows="3" cols="3" name="cfmessage"></textarea>
+                    </div>
+                    <div class="column columnSmall last">
+                        <input type="text" name="cfname" class="textbox" value="Name" onclick="this.value=''" />
+                        <input type="text" name="cfemail" class="textbox" value="you@email.com" onclick="this.value=''" />
+                        <input type="text" value="" name="email" class="hidden" />
+						<input type="hidden" value="1" name="contact_form_attempt" class="hidden" />
+                        <input type="submit" class="submit" value="Send Message" /><span id="message" class="hidden"></span>
+                    </div>
+                </form>
+            </div>
+			<!-- contact form end -->
+				
+	    
+		
+		
+		
+        
+          
+        
+        
+        </div>
+    </div><!-- end footer-top -->
+    
+    
+    
+    <div id="footer-bottom" class="clearfix">
+		<div class="contentwidth"><p class="right"><small><a href="index.html#top">Back to the Top</a></small></p>
+			<p><small>All source code shared on this site is available under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a> unless otherwise noted.</small></p>    	</div>
+    </div><!-- end footer-bottom -->
+
+
+</div><!-- end outer -->
+
+<script type="text/javascript" src="../../../../wordpress/wp-content/themes/min/js/jquery.js"></script>
+<script type="text/javascript" src="../../../../wordpress/wp-content/themes/min/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../../../wordpress/wp-content/themes/min/js/superfish.js"></script>
+<script type="text/javascript" src="../../../../wordpress/wp-content/themes/min/js/supersubs.js"></script>
+<script type="text/javascript" src="../../../../wordpress/wp-content/themes/min/js/general.js"></script>
+
+<!-- ***** GOOGLE TRANSLATE ***** -->
+<div id="google_translate_element"></div><script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en'
+  }, 'google_translate_element');
+}
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ***** GOOGLE ANALYTICS ***** -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-494911-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+        	
+<!-- Dynamic Page Served (once) in 0.971 seconds -->
+<!-- Cached page served by WP-Cache -->

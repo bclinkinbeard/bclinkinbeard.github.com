@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: DepthToggleButtonBar &#8211; a simple custom component example</title>
+	<atom:link href="http://www.benclinkinbeard.com/2008/05/depthtogglebuttonbar-a-simple-custom-component-example/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com/2008/05/depthtogglebuttonbar-a-simple-custom-component-example/</link>
+	<description></description>
+	<lastBuildDate>Sun, 28 Aug 2011 09:56:00 -0700</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+	<item>
+		<title>By: Shawn Y</title>
+		<link>http://www.benclinkinbeard.com/2008/05/depthtogglebuttonbar-a-simple-custom-component-example/comment-page-1/#comment-497</link>
+		<dc:creator>Shawn Y</dc:creator>
+		<pubDate>Sat, 07 Jun 2008 00:47:57 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=54#comment-497</guid>
+		<description>Where does he get those wonderful toys!</description>
+		<content:encoded><![CDATA[<p>Where does he get those wonderful toys!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Ben</title>
+		<link>http://www.benclinkinbeard.com/2008/05/depthtogglebuttonbar-a-simple-custom-component-example/comment-page-1/#comment-496</link>
+		<dc:creator>Ben</dc:creator>
+		<pubDate>Mon, 19 May 2008 12:37:58 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=54#comment-496</guid>
+		<description>Thanks Nick. You could certainly do what you mentioned very easily, it just wasn&#039;t required/desired for my component so I didn&#039;t implement it. You could replace the click handler with something like this:
+
+
+&lt;code&gt;for( var i:int = 0; i &lt; buttonList.length; i++ )
+{
+   var btn:Button = buttonList[i];
+   btn.selected = false;
+   setChildIndex( btn, 0 );
+}
+
+setChildIndex( DisplayObject( event.target ), numChildren - 1 );&lt;/code&gt;</description>
+		<content:encoded><![CDATA[<p>Thanks Nick. You could certainly do what you mentioned very easily, it just wasn&#8217;t required/desired for my component so I didn&#8217;t implement it. You could replace the click handler with something like this:</p>
+<p><code>for( var i:int = 0; i < buttonList.length; i++ )<br />
+{<br />
+   var btn:Button = buttonList[i];<br />
+   btn.selected = false;<br />
+   setChildIndex( btn, 0 );<br />
+}</p>
+<p>setChildIndex( DisplayObject( event.target ), numChildren - 1 );</code></code></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nick</title>
+		<link>http://www.benclinkinbeard.com/2008/05/depthtogglebuttonbar-a-simple-custom-component-example/comment-page-1/#comment-495</link>
+		<dc:creator>Nick</dc:creator>
+		<pubDate>Mon, 19 May 2008 12:30:49 +0000</pubDate>
+		<guid isPermaLink="false">http://www.returnundefined.com/?p=54#comment-495</guid>
+		<description>Great Component! The only issue I can see is that when one item is selected, the z-order of other buttons should be reset. For example, if I click the third button, then click the first again, it shows both as being &quot;on top&quot;.</description>
+		<content:encoded><![CDATA[<p>Great Component! The only issue I can see is that when one item is selected, the z-order of other buttons should be reset. For example, if I click the third button, then click the first again, it shows both as being &#8220;on top&#8221;.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.374 seconds -->
+<!-- Cached page served by WP-Cache -->

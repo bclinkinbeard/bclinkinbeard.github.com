@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>benclinkinbeard.com &#187; JSFL</title>
+	<atom:link href="http://www.benclinkinbeard.com/category/jsfl/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.benclinkinbeard.com</link>
+	<description></description>
+	<lastBuildDate>Tue, 26 Oct 2010 12:51:10 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1</generator>
+		<item>
+		<title>Coding in Flex Builder, Compiling in Flash Authoring</title>
+		<link>http://www.benclinkinbeard.com/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/</link>
+		<comments>http://www.benclinkinbeard.com/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/#comments</comments>
+		<pubDate>Tue, 08 Sep 2009 12:15:06 +0000</pubDate>
+		<dc:creator>Ben</dc:creator>
+				<category><![CDATA[AS2]]></category>
+		<category><![CDATA[AS3]]></category>
+		<category><![CDATA[Flash]]></category>
+		<category><![CDATA[Flex]]></category>
+		<category><![CDATA[JSFL]]></category>
+		<category><![CDATA[miscellany]]></category>
+
+		<guid isPermaLink="false">http://www.benclinkinbeard.com/?p=214</guid>
+		<description><![CDATA[Nostalgia and complaining Years ago, before AS3 and Flex 2 were on the scene, I was a Flash developer. I dabbled in other things like PHP, JavaScript and the horrific &#8220;classic&#8221; ASP, but Flash development with AS2 was always more interesting to me. I worked with great designers who of course used Macs, while me [...]]]></description>
+			<content:encoded><![CDATA[<h5>Nostalgia and complaining</h5>
+<p>Years ago, before AS3 and Flex 2 were on the scene, I was a Flash developer. I dabbled in other things like PHP, JavaScript and the horrific &#8220;classic&#8221; ASP, but Flash development with AS2 was always more interesting to me. I worked with <a href="http://www.openfieldcreative.com/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/ofc');">great</a> <a href="http://www.helloample.com/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/ample');">designers</a> who of course used Macs, while me and the rest of the developers were on PCs. (Don&#8217;t worry, I use a Mac now.) In order to preserve the designers&#8217; fonts and hand crafted animations, we taught them how to assign linkage names to their symbols and would have them deliver a .swf to us that had nothing on the stage, allowing us to pull symbols out of the library as we needed. Using the fantastic <a href="http://www.mtasc.org/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/mtasc');">MTASC</a> compiler and an editor like <a href="http://www.primalscript.com/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/primalscript');">PrimalScript</a>, our class-based AS2 code would be injected into the designers&#8217; .swf, bringing the site/game/whatever to life. Ahh, those were the days.</p>
+<p>Fast forward to last week when I was assigned to my first ever non-Flex AS3 project and discovered that developing like we used to in Flash (tying AS classes to library symbols) is pretty painful these days. Or at least it was for me, until I constructed a very convenient workflow that you can probably guess at based on the title of this post. Now, I should probably explain what I mean by painful. You can write your AS3 classes in Flash authoring, and the process is very straightforward; just create classes whose names match the symbol linkage names and you&#8217;re done. Just like AS2. However, Flash authoring&#8217;s code editor is absolutely abysmal. I mean, I knew it was bad, but I was actually shocked at how bad it is. It won&#8217;t even create import statements for you when you create properties! If you have used Flex Builder or any other decent editor for more than 10 minutes, this is completely unacceptable. You could also write your code in Flex Builder, save, switch to Flash authoring and then test movie or publish from there. Honestly though, do you really want to do that 500 times a day? Me neither.</p>
+<p>So, what is this better way you ask? Well, we use one improvement that did come with Flash authoring&#8217;s support of AS3, which is the <a href="http://www.adobe.com/devnet/flash/quickstart/external_files_as3/#section2" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/documentClass');">document class</a> construct. This means that you simply create a custom class to represent your application, make sure it extends <a href="http://livedocs.adobe.com/flex/3/langref/flash/display/MovieClip.html">MovieClip</a>, and tell the .fla to use it. We don&#8217;t need any code at all in our .fla, unlike <a href="http://www.bit-101.com/blog/?p=857" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/bit101');">back in the day</a>. This essentially means that your custom class is your root timeline, and adding display objects to it is like adding them to the stage.</p>
+<h5>Coding in Flex Builder</h5>
+<p>Since I use a Mac, Flex Builder and <a href="http://fdt.powerflasher.com/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/fdt');">FDT</a> are the only realistic options for AS3 editors, as far as I know. If you are on a PC, <a href="http://www.flashdevelop.org/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/flashdevelop');">FlashDevelop</a> is also a great program. Now, Flex Builder allows you to create ActionScript projects. In contrast to a Flex project, I assumed an ActionScript would be devoid of any reference to Flex SDKs, but this is not the case. Your ActionScript project will still reference an SDK in the compiler settings and in the build path dialog, but that is OK. Since you don&#8217;t reference any Flex classes, you will not be pulling the framework into your .swf. I think it is only referenced so Flex Builder knows where to find mxmlc, but I am not completely sure. In order to use library symbols as class instances, you will need to create corresponding classes (that extend MovieClip) for them that match the name specified in the their linkage field. Whether you need to add custom code or not, the classes must exist in order for you to reference them in Flex Builder. To reference their properties, like child text fields or buttons I declare those properties in the class and <a href="http://jessewarden.com/2008/06/designer-vs-developer-declaring-stage-instances.html" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/jessewarden');">turn off &#8220;Automatically declare stage instances&#8221;</a> in the .fla&#8217;s publish settings.</p>
+<h5>Compiling in Flash authoring</h5>
+<p>OK, none of that was revolutionary but now comes the hard part. How do you compile/test your project without having to switch back to Flash every time? The first piece of the puzzle is to use the <a href="http://code.google.com/p/flashcommand/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/flashcommand');">flashcommand</a> Python script that <a href="http://www.mikechambers.com/blog/2004/02/20/flashcommand-flash-command-line-compiler-for-os-x/" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/mikechambers');">Mike Chambers posted</a> a long time ago. (It is only for OS X in its current state but I would assume creating a PC-friendly version wouldn&#8217;t be too hard.) All this really does is open Flash if necessary, and compile the .fla(s) you tell it to, by writing JSFL to a temporary file and then running a line of AppleScript to execute the JSFL code. That is really great, but switching to Terminal every time I want to compile is no better than switching to Flash. I needed something I could trigger from within Flex Builder, so I naturally turned to Ant. All you need is a super simple build file, like this:<br />
+<script src='http://pastie.org/607458.js'></script></p>
+<blockquote></blockquote>
+<p>As you can see, it just sets up a couple of properties and asks Python to run the flashcommand script. The <code>-e</code> argument tells flashcommand to include <code>doc.exportSWF()</code> in the generated JSFL, which will publish the .swf to the location specified in the <code>-o</code> argument. If this is all you need to do, but want to then launch the newly created file in Flash Player, you can add the following to your build.xml file.<br />
+<script src='http://pastie.org/609620.js'></script></p>
+<blockquote></blockquote>
+<p>That was my initial approach but it makes viewing your traces kind of a pain. The easiest way I found was to <a href="http://en.wikipedia.org/wiki/Tail_%28Unix%29" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/links/tail');">tail</a> your flashlog.txt file but that still kind of sucks. Its especially bad because a LOT of .swfs on the web still include trace statements, meaning your Terminal is flooded with statements generated by every banner ad running in your open browsers.</p>
+<p>What I ended up doing was to edit flashcommand so that the <code>-e</code> argument also adds <code>fl.getDocumentDOM().testMovie()</code> to the generated JSFL, causing Flash authoring to execute a test movie action. I also added <code>activate</code> to the end of the generated AppleScript so that Flash&#8217;s test movie window would be brought into focus and ready for interaction. This allows you to use Flash&#8217;s built in Output panel to view your trace statements, and your trace statements only. (I tried making the test movie option a separate command line argument but couldn&#8217;t get it working correctly. If any Python hackers out there want to show me the way I&#8217;d be much obliged.)</p>
+<p>Set up a keyboard shortcut in Flex Builder for running Ant and your workflow is almost identical to a Flex or code-only ActionScript project. Your .swf will be generated and published to whatever location you&#8217;ve specified, and will also be opened in Flash authoring for visual inspection and testing. I am probably not the first to come up with something like this, but I didn&#8217;t find any good links on the subject and other people expressed an interest in hearing about my workflow. If you have suggestions on further improvements (like how to use Flex Builder&#8217;s debugger for these projects) I would love to hear them. Regardless, I hope this is useful to other coders who find themselves needing to develop AS3 projects that associate custom classes with library symbols.</p>
+<p>If you&#8217;d like to replicate this setup, you can <a href="../../../wordpress/wp-content/uploads/2009/09/flashcommand" onClick="javascript: pageTracker._trackPageview('/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/files/flashcommand');">download my modified version of flashcommand</a>.</p>
+<p>Enjoy!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.benclinkinbeard.com/2009/09/coding-in-flex-builder-compiling-in-flash-authoring/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+		<item>
+		<title>Flash Extension: Convert Bitmaps to Symbols</title>
+		<link>http://www.benclinkinbeard.com/2006/07/flash-extension-convert-bitmaps-to-symbols/</link>
+		<comments>http://www.benclinkinbeard.com/2006/07/flash-extension-convert-bitmaps-to-symbols/#comments</comments>
+		<pubDate>Mon, 17 Jul 2006 15:05:16 +0000</pubDate>
+		<dc:creator>Ben</dc:creator>
+				<category><![CDATA[Flash]]></category>
+		<category><![CDATA[JSFL]]></category>
+
+		<guid isPermaLink="false">http://www.returnundefined.com/2006/07/flash-extension-convert-bitmaps-to-symbols/</guid>
+		<description><![CDATA[A while back I worked on a project that required the conversion of about 100 images to one-frame movieclip symbols. No way was I going to do it by hand, so a friend and I developed this nifty little extension to avoid doing the monotonous task ourselves. I have seen a few similarly capable extensions [...]]]></description>
+			<content:encoded><![CDATA[<p>A while back I worked on a project that required the conversion of about 100 images to one-frame movieclip symbols. No way was I going to do it by hand, so a <a href="http://www.wearebent.com/">friend</a> and I developed this nifty little extension to avoid doing the monotonous task ourselves. I have seen a few similarly capable extensions out there but I think ours offers a few features the others didn&#8217;t.</p>
+<p>From the source: Allows you to convert selected bitmaps from your library to a symbol type of your choice. Other features include: slicing leading/trailing characters of the symbol names, adding a prefix and/or suffix to the symbol names, adding the symbols to a folder, and setting the registration point of the symbols.</p>
+<p>Anyhow, if you find it useful post a comment and let us know. <a href="../../../files/jsfl/ConvertBitmapsToSymbols.zip" onClick="javascript:urchinTracker('/files/jsfl/ConvertBitmapsToSymbols');">Zip</a> includes MXP file and source.</p>
+<p>Enjoy!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.benclinkinbeard.com/2006/07/flash-extension-convert-bitmaps-to-symbols/feed/</wfw:commentRss>
+		<slash:comments>14</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic Page Served (once) in 0.569 seconds -->
+<!-- Cached page served by WP-Cache -->
