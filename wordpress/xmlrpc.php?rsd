@@ -2,13 +2,13 @@
   <service>
     <engineName>WordPress</engineName>
     <engineLink>http://wordpress.org/</engineLink>
-    <homePageLink>http://archive.benclinkinbeard.com</homePageLink>
+    <homePageLink>http://benclinkinbeard.com</homePageLink>
     <apis>
-      <api name="WordPress" blogID="1" preferred="true" apiLink="http://archive.benclinkinbeard.com/wordpress/xmlrpc.php" />
-      <api name="Movable Type" blogID="1" preferred="false" apiLink="http://archive.benclinkinbeard.com/wordpress/xmlrpc.php" />
-      <api name="MetaWeblog" blogID="1" preferred="false" apiLink="http://archive.benclinkinbeard.com/wordpress/xmlrpc.php" />
-      <api name="Blogger" blogID="1" preferred="false" apiLink="http://archive.benclinkinbeard.com/wordpress/xmlrpc.php" />
-      <api name="Atom" blogID="" preferred="false" apiLink="http://archive.benclinkinbeard.com/wordpress/wp-app.php/service" />
+      <api name="WordPress" blogID="1" preferred="true" apiLink="http://benclinkinbeard.com/wordpress/xmlrpc.php" />
+      <api name="Movable Type" blogID="1" preferred="false" apiLink="http://benclinkinbeard.com/wordpress/xmlrpc.php" />
+      <api name="MetaWeblog" blogID="1" preferred="false" apiLink="http://benclinkinbeard.com/wordpress/xmlrpc.php" />
+      <api name="Blogger" blogID="1" preferred="false" apiLink="http://benclinkinbeard.com/wordpress/xmlrpc.php" />
+      <api name="Atom" blogID="" preferred="false" apiLink="http://benclinkinbeard.com/wordpress/wp-app.php/service" />
     </apis>
   </service>
 </rsd>

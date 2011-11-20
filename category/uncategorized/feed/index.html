@@ -10,8 +10,8 @@
 
 <channel>
 	<title>benclinkinbeard.com &#187; Uncategorized</title>
-	<atom:link href="http://archive.benclinkinbeard.com/category/uncategorized/feed/" rel="self" type="application/rss+xml" />
-	<link>http://archive.benclinkinbeard.com</link>
+	<atom:link href="http://benclinkinbeard.com/category/uncategorized/feed/" rel="self" type="application/rss+xml" />
+	<link>http://benclinkinbeard.com</link>
 	<description></description>
 	<lastBuildDate>Tue, 26 Oct 2010 12:51:10 +0000</lastBuildDate>
 	<language>en</language>
@@ -20,37 +20,37 @@
 	<generator>http://wordpress.org/?v=3.1</generator>
 		<item>
 		<title>Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360&#124;Flex DC</title>
-		<link>http://archive.benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/</link>
-		<comments>http://archive.benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/#comments</comments>
+		<link>http://benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/</link>
+		<comments>http://benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/#comments</comments>
 		<pubDate>Tue, 28 Sep 2010 14:24:13 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[Uncategorized]]></category>
 
-		<guid isPermaLink="false">http://archive.benclinkinbeard.com/?p=340</guid>
+		<guid isPermaLink="false">http://benclinkinbeard.com/?p=340</guid>
 		<description><![CDATA[360&#124;Flex DC was last week, and it was a great time. I got to see a lot of old friends and met a ton of new, cool people. I&#8217;m not sure how useful they will be on their own, but I wanted to post my slides here for anyone who might be interested in them. [...]]]></description>
 			<content:encoded><![CDATA[<p>360|Flex DC was last week, and it was a great time. I got to see a lot of old friends and met a ton of new, cool people. I&#8217;m not sure how useful they will be on their own, but I wanted to post my slides here for anyone who might be interested in them. I had planned to do a walk through of a Swiz application that includes Flex modules, but was pretty low on time and had to run through it pretty quickly. I will be cleaning up that example soon and pushing it to GitHub as our reference implementation of using Swiz with Flex Modules, but it&#8217;s not quite ready yet.</p>
-<p><a href="http://archive.benclinkinbeard.com/files/talks/360Flex_DC/Clinkinbeard_360FlexDC.pdf">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0</a></p>
+<p><a href="http://benclinkinbeard.com/files/talks/360Flex_DC/Clinkinbeard_360FlexDC.pdf">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0</a></p>
 <p>Enjoy!</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/feed/</wfw:commentRss>
 		<slash:comments>0</slash:comments>
 		</item>
 		<item>
 		<title>Workaround for FB-12316 &#8211; Code hinting doesn&#8217;t work with DefaultProperty</title>
-		<link>http://archive.benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/</link>
-		<comments>http://archive.benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/#comments</comments>
+		<link>http://benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/</link>
+		<comments>http://benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/#comments</comments>
 		<pubDate>Thu, 10 Dec 2009 14:57:52 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[Uncategorized]]></category>
 
-		<guid isPermaLink="false">http://archive.benclinkinbeard.com/?p=300</guid>
+		<guid isPermaLink="false">http://benclinkinbeard.com/?p=300</guid>
 		<description><![CDATA[Last night while working on Swiz I ran into FB-12316 &#8211; Code hinting doesn&#8217;t work with DefaultProperty. It has been fixed in Flash Builder, but those of us still using Flex Builder were apparently out of luck. What the problem boils down to is that if you are using the [DefaultProperty] metadata tag to point [...]]]></description>
 			<content:encoded><![CDATA[<p>Last night while working on <a href="http://swizframework.org/">Swiz</a> I ran into <a href="http://bugs.adobe.com/jira/browse/FB-12316">FB-12316 &#8211; Code hinting doesn&#8217;t work with DefaultProperty</a>. It has been fixed in Flash Builder, but those of us still using Flex Builder were apparently out of luck. What the problem boils down to is that if you are using the <a href="http://livedocs.adobe.com/flex/3/html/help.html?content=metadata_3.html#197532">[DefaultProperty] metadata tag</a> to point to an Array property, code completion breaks unless the property is decorated with <a href="http://livedocs.adobe.com/flex/3/html/metadata_3.html#162732">[ArrayElementType] metadata</a>.</p>
 <p>My Array was not decorated because it can hold items of any type. Therefore, code completion was borked. I wrestled with the problem for a long time, and then as I was waiting to fall asleep last night it occurred to me that in ActionScript everything is actually a descendant of Object. So this morning the first thing I tried was decorating the property with <strong>[ArrayElementType( "Object" )]</strong> and it worked!</p>
 <p>So there you have it, an easy workaround for Flex Builder users! I hope this helps someone get past this a lot quicker than I did.</p>
 <p>Enjoy!</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2009/12/workaround-for-fb-12316-code-hinting-doesnt-work-with-defaultproperty/feed/</wfw:commentRss>
 		<slash:comments>0</slash:comments>
 		</item>
 	</channel>

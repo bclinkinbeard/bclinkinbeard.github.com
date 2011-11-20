@@ -10,8 +10,8 @@
 
 <channel>
 	<title>benclinkinbeard.com &#187; pointless blather</title>
-	<atom:link href="http://archive.benclinkinbeard.com/category/misc/pointless-blather/feed/" rel="self" type="application/rss+xml" />
-	<link>http://archive.benclinkinbeard.com</link>
+	<atom:link href="http://benclinkinbeard.com/category/misc/pointless-blather/feed/" rel="self" type="application/rss+xml" />
+	<link>http://benclinkinbeard.com</link>
 	<description></description>
 	<lastBuildDate>Tue, 26 Oct 2010 12:51:10 +0000</lastBuildDate>
 	<language>en</language>
@@ -20,24 +20,24 @@
 	<generator>http://wordpress.org/?v=3.1</generator>
 		<item>
 		<title>Switching domains</title>
-		<link>http://archive.benclinkinbeard.com/2009/09/switching-domains/</link>
-		<comments>http://archive.benclinkinbeard.com/2009/09/switching-domains/#comments</comments>
+		<link>http://benclinkinbeard.com/2009/09/switching-domains/</link>
+		<comments>http://benclinkinbeard.com/2009/09/switching-domains/#comments</comments>
 		<pubDate>Sat, 05 Sep 2009 17:14:21 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[miscellany]]></category>
 		<category><![CDATA[pointless blather]]></category>
 
-		<guid isPermaLink="false">http://archive.benclinkinbeard.com/?p=188</guid>
+		<guid isPermaLink="false">http://benclinkinbeard.com/?p=188</guid>
 		<description><![CDATA[If you subscribe to the RSS feed it should hopefully be seamless (don&#8217;t fail me now Feedburner), but I thought I should mention it here just in case. This blog is moving to benclinkinbeard.com, and returnundefined.com will be forwarded to the new domain. Please let me know at ben.clinkinbeard AT gmail.com if you encounter any [...]]]></description>
 			<content:encoded><![CDATA[<p>If you subscribe to the RSS feed it should hopefully be seamless (don&#8217;t fail me now Feedburner), but I thought I should mention it here just in case. This blog is moving to <a href="../../../../index.html">benclinkinbeard.com</a>, and <a href="http://www.returnundefined.com/">returnundefined.com</a> will be forwarded to the new domain. Please let me know at ben.clinkinbeard AT gmail.com if you encounter any issues. Thanks!</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2009/09/switching-domains/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2009/09/switching-domains/feed/</wfw:commentRss>
 		<slash:comments>4</slash:comments>
 		</item>
 		<item>
 		<title>Google Group for Flare</title>
-		<link>http://archive.benclinkinbeard.com/2009/08/google-group-for-flare/</link>
-		<comments>http://archive.benclinkinbeard.com/2009/08/google-group-for-flare/#comments</comments>
+		<link>http://benclinkinbeard.com/2009/08/google-group-for-flare/</link>
+		<comments>http://benclinkinbeard.com/2009/08/google-group-for-flare/#comments</comments>
 		<pubDate>Fri, 21 Aug 2009 15:17:08 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[AS3]]></category>
@@ -49,13 +49,13 @@
 			<content:encoded><![CDATA[<p>I have created a <a href="http://groups.google.com/group/flare-data-viz">Google Group</a> for the <a href="http://flare.prefuse.org/">Flare</a> data visualization library. Flare is currently hosted on SourceForge and their forums are terrible. I have started (and will continue for some time) working with Flare pretty extensively, so rather than suffer in silence (something I may in fact be incapable of doing) I decided to create a group somewhere better. Hopefully this better platform will help boost the level of discussion, because it is currently pretty low. If you know current or potential Flare developers, or are one yourself, please help spread the word and join the discussion.</p>
 <p>I will soon be starting a series of posts about Flare, so if the library interests you be sure to check back soon.</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2009/08/google-group-for-flare/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2009/08/google-group-for-flare/feed/</wfw:commentRss>
 		<slash:comments>0</slash:comments>
 		</item>
 		<item>
 		<title>What the Flex? &#8211; HierarchicalCollectionView</title>
-		<link>http://archive.benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/</link>
-		<comments>http://archive.benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/#comments</comments>
+		<link>http://benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/</link>
+		<comments>http://benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/#comments</comments>
 		<pubDate>Mon, 26 Jan 2009 22:54:34 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[AS3]]></category>
@@ -69,13 +69,13 @@
 <p>There are likely myriad reasons to despise this class but the one that burned me was this gem: any filterFunction applied to your HierarchicalCollectionView is also applied directly to your underlying child collections. In case the ramifications of that are not immediately clear, what it means is that you cannot simultaneously have two distinct views of a single data set that you have wrapped into a HierarchicalCollectionView. In fact, once applied you will have to manually clear the filter from underlying collections in order to get them back to normal. Because of this, the class is of extremely limited utility, and I would submit that its name is highly misleading. The &#8216;View&#8217; at the end of the name implies that it will be creating a &#8220;virtual&#8221; view of the underlying data, leaving the source intact. This is how the immensely useful <a href="http://livedocs.adobe.com/flex/3/langref/mx/collections/ListCollectionView.html">ListCollectionView</a> class works. Apparently, other languages/frameworks also have &#8220;collection view&#8221; classes that do not modify the underlying data, so this is quite a departure from convention, not to mention common sense.</p>
 <p>If you happen to look at the docs for <a href="http://livedocs.adobe.com/flex/3/langref/mx/collections/HierarchicalCollectionView.html">HierarchicalCollectionView</a> you will notice that <code>filterFunction</code> isn&#8217;t even listed as a supported property. Maybe the thinking was if they don&#8217;t tell anyone about it, we&#8217;ll overlook how poorly implemented it is?</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2009/01/what-the-flex-hierarchicalcollectionview/feed/</wfw:commentRss>
 		<slash:comments>2</slash:comments>
 		</item>
 		<item>
 		<title>Open Web: Fifteen year old third grader?</title>
-		<link>http://archive.benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/</link>
-		<comments>http://archive.benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/#comments</comments>
+		<link>http://benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/</link>
+		<comments>http://benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/#comments</comments>
 		<pubDate>Tue, 06 May 2008 13:29:56 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[Flash]]></category>
@@ -94,13 +94,13 @@
 <p>A bit slower? Seriously? Just a bit? Far as I can tell HTML 4.01 was finalized in December of 1999. Nineteen ninety freakin&#8217; nine. Best I can tell the latest Flash Player back then was version 4. So in the 9 YEARS we&#8217;ve been stuck with HTML 4 there have been 5 full version releases of Flash Player. If thats a bit then I am just a bit shy of being a billionaire. Yes, Firefox has had a few releases in that time but it wasn&#8217;t adding any new capabilities, just improving its implementation of the same old spec.</p>
 <p>So be patient everyone, for by 2011 you will almost certainly have a finalized HTML 5 spec and, not only that, your choice of no less than 4 major implementations of it to choose from!</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2008/05/open-web-fifteen-year-old-third-grader/feed/</wfw:commentRss>
 		<slash:comments>3</slash:comments>
 		</item>
 		<item>
 		<title>Feedback from my session at 360&#124;Flex Atlanta</title>
-		<link>http://archive.benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/</link>
-		<comments>http://archive.benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/#comments</comments>
+		<link>http://benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/</link>
+		<comments>http://benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/#comments</comments>
 		<pubDate>Wed, 05 Mar 2008 14:33:13 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[360|Flex]]></category>
@@ -115,13 +115,13 @@
 <p><a href="http://www.360conferences.com/surveyresponses/?attendeeID=1591388">View the feedback</a></p>
 <p>Thanks to everyone who attended, even if you didn&#8217;t provide feedback! Though I <em>really</em> like those of you who did <img src='../../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2008/03/feedback-from-my-session-at-360flex-atlanta/feed/</wfw:commentRss>
 		<slash:comments>4</slash:comments>
 		</item>
 		<item>
 		<title>Universal-er Mind</title>
-		<link>http://archive.benclinkinbeard.com/2008/02/universal-er-mind/</link>
-		<comments>http://archive.benclinkinbeard.com/2008/02/universal-er-mind/#comments</comments>
+		<link>http://benclinkinbeard.com/2008/02/universal-er-mind/</link>
+		<comments>http://benclinkinbeard.com/2008/02/universal-er-mind/#comments</comments>
 		<pubDate>Mon, 11 Feb 2008 15:04:19 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[Flex]]></category>
@@ -139,13 +139,13 @@
 <p>So to everyone at Fidelity, best of luck and thank you for the past two years. I thoroughly enjoyed and genuinely appreciate everything I experienced there. Hopefully our paths will cross again at some point down the road.</p>
 <p>To everyone at UM I can&#8217;t wait to get settled, meet those of you I haven&#8217;t, and start building first class Flex applications with you. The industry is on fire, lets get our gas cans.</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2008/02/universal-er-mind/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2008/02/universal-er-mind/feed/</wfw:commentRss>
 		<slash:comments>3</slash:comments>
 		</item>
 		<item>
 		<title>I guess donating code isn&#039;t enough anymore</title>
-		<link>http://archive.benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/</link>
-		<comments>http://archive.benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/#comments</comments>
+		<link>http://benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/</link>
+		<comments>http://benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/#comments</comments>
 		<pubDate>Mon, 04 Feb 2008 18:29:15 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[Flex]]></category>
@@ -186,13 +186,13 @@ Thanks for ummm..  Well nothing I guess. Enjoy</p></blockquote>
 <p>Unbelievable.</p>
 <p>Ben</p></blockquote>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2008/02/i-guess-donating-code-isnt-enough-anymore/feed/</wfw:commentRss>
 		<slash:comments>37</slash:comments>
 		</item>
 		<item>
 		<title>Come heckle me at 360&#124;Flex Atlanta</title>
-		<link>http://archive.benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/</link>
-		<comments>http://archive.benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/#comments</comments>
+		<link>http://benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/</link>
+		<comments>http://benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/#comments</comments>
 		<pubDate>Tue, 29 Jan 2008 14:11:29 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[360|Flex]]></category>
@@ -207,13 +207,13 @@ Thanks for ummm..  Well nothing I guess. Enjoy</p></blockquote>
 <p>As the title implies, I will be speaking at the conference. My session is titled &#8220;Creating Flexible Components for Reuse and Distribution&#8221; and will discuss just that. I will be covering considerations and practices that are useful when you want to create something that will be useful beyond your immediate need or project. Most of the main ideas will be accompanied by examples from <a href="http://code.google.com/p/flexmdi/">flexmdi</a> since reuse and flexibility were main goals of the project, but the concepts will definitely be widely applicable. I would consider it an intermediate level session so you don&#8217;t need to be a guru to attend, but hopefully the content will be interesting to developers of all skill levels, including you rock stars out there. Last time I checked I was speaking opposite Ben Forta so if you&#8217;re a CFer I will understand if I don&#8217;t see you. Otherwise come join me! The session will be pretty free-form and casual; if people want to shout out questions (or insults, whatever) in the middle thats fine by me. In fact, I hope there will be audience participation in the form of questions, comments, alternative approaches, etc. Should be a good time.</p>
 <p>So I hope to see you in the audience, but even more so I hope to see you at the conference. Tom and John put on amazing events, have amazing passion for our industry and deserve nothing less than a stellar turnout. If you&#8217;ve never been to a 360 event, you owe it to yourself to experience it firsthand. Its awful friggin&#8217; cool. So come out, learn something, meet someone or just enjoy the ATL. I promise you won&#8217;t regret it.</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2008/01/come-heckle-me-at-360flex-atlanta/feed/</wfw:commentRss>
 		<slash:comments>1</slash:comments>
 		</item>
 		<item>
 		<title>360Flex + $480 = lots of learnin&#039; and lots of fun</title>
-		<link>http://archive.benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/</link>
-		<comments>http://archive.benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/#comments</comments>
+		<link>http://benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/</link>
+		<comments>http://benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/#comments</comments>
 		<pubDate>Thu, 13 Dec 2007 17:25:35 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[360|Flex]]></category>
@@ -227,13 +227,13 @@ Thanks for ummm..  Well nothing I guess. Enjoy</p></blockquote>
 <p>So do yourself a favor and head to 360Flex in February. Whether you&#8217;re a Flex n00b, novice or ninja it will be worth your time and your career will probably thank you for it. I hear they even have some pretty sweet <a href="http://www.360conferences.com/360flex/2007/11/360flex-atlanta-speaker-list-is-on-fire.html">new speakers</a> this time around. <img src='../../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
 <p>See you in Atlanta!</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2007/12/360flex-480-lots-of-learnin-and-lots-of-fun/feed/</wfw:commentRss>
 		<slash:comments>9</slash:comments>
 		</item>
 		<item>
 		<title>Should I get a Master&#039;s degree?</title>
-		<link>http://archive.benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/</link>
-		<comments>http://archive.benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/#comments</comments>
+		<link>http://benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/</link>
+		<comments>http://benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/#comments</comments>
 		<pubDate>Tue, 23 Oct 2007 19:27:30 +0000</pubDate>
 		<dc:creator>Ben</dc:creator>
 				<category><![CDATA[miscellany]]></category>
@@ -245,7 +245,7 @@ Thanks for ummm..  Well nothing I guess. Enjoy</p></blockquote>
 <p>Are there things you can&#8217;t learn from a book/article/tutorial/experimenting? Do you have a master&#8217;s degree? Would you get one if it was super cheap? Do employers care about that stuff? These are all questions I am curious about. On one hand I think it would be cool to have the degree, would look good on a resume, would be a good example to my children, etc, but on the other hand I wonder if my time wouldn&#8217;t be better spent learning on my own, trial by fire stylie. Enrolling in a program would almost certainly result in taking classes I am not interested in and that don&#8217;t really apply to my career goals/interests, so I wonder if my 10% of the cost would be better applied to my Amazon card and a self-imposed course of study.</p>
 <p>What do you think? Should I take the plunge?</p>
 ]]></content:encoded>
-			<wfw:commentRss>http://archive.benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/feed/</wfw:commentRss>
+			<wfw:commentRss>http://benclinkinbeard.com/2007/10/should-i-get-a-masters-degree/feed/</wfw:commentRss>
 		<slash:comments>8</slash:comments>
 		</item>
 	</channel>
