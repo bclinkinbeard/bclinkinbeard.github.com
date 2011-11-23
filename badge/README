@@ -1,7 +1,0 @@
-* Enabling web based installation of the Growth Model Application *
-
-1 - Replace the {absolute_url} token on line 11 of index.html with the absolute 
-	URL of the directory where NewHampshireGrowthModel.air will be hosted.
-	
-2 - Upload the entire contents of the directory (7 files) to the server
-	at the location specified in step 1.
