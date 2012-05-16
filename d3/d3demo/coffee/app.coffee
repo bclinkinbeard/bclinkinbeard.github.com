@@ -25,12 +25,12 @@ class School extends ChartableObject
 dataset = []
 selectedDistrict = null
 
-for i in [1..10]
+for i in [1..50]
 	do (i) ->
 		d = new District( "District #{i}" )
 		dataset.push d
 
-		for j in [1..10]
+		for j in [1..50]
 			do (j) ->
 				s = new School( "School #{j} (District #{i})" )
 				d.schools.push( s )
@@ -74,7 +74,7 @@ yAxis = d3.svg.axis()
 rScale = d3.scale
 					 .linear()
 					 .domain([0, d3.max(dataset, (d) -> d.count)])
-					 .range([5, 30])
+					 .range([4, 25])
 
 svg.append("g")
 .attr("class", "axis")
@@ -99,7 +99,7 @@ createCircles = ->
 
 fadeInCircles = ->
 	svg.selectAll("circle").transition()
-	.duration(1000)
+	.duration(500)
 	.attr("opacity", 0.75)
 
 drillIntoDistrict = (district) ->
@@ -112,7 +112,7 @@ drillIntoDistrict = (district) ->
 	.attr("r", (d) -> rScale district.count)
 
 	svg.selectAll("circle").transition()
-	.duration(1000)
+	.duration(500)
 	.attr("cx", (d) -> xScale d.growth)
 	.attr("cy", (d) -> yScale d.proficiency)
 	.attr("r", (d) -> rScale d.count)
@@ -125,7 +125,7 @@ reset = ->
 	circles = svg.selectAll("circle")
 
 	circles.transition()
-	.duration(1000)
+	.duration(500)
 	.attr("cx", (d) -> xScale selectedDistrict.growth)
 	.attr("cy", (d) -> yScale selectedDistrict.proficiency)
 	.attr("r", (d) -> rScale selectedDistrict.count)
@@ -133,13 +133,13 @@ reset = ->
 	dataset = districts
 
 	circles.data(districts)
-	circles.transition().delay(1000).duration(0.0001)
+	circles.transition().delay(500).duration(0.0001)
 	.attr("cx", (d) -> xScale d.growth)
 	.attr("cy", (d) -> yScale d.proficiency)
 	.attr("r", (d) -> rScale d.count)
 	.attr("opacity", (d) -> if d is selectedDistrict then return .75 else return 0.0001)
 	.transition()
-	.duration(1000)
+	.duration(500)
 	.attr("opacity", 0.75)
 
 

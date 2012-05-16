@@ -59,7 +59,7 @@ _fn = function(i) {
   d = new District("District " + i);
   dataset.push(d);
   _results = [];
-  for (j = _j = 1; _j <= 10; j = ++_j) {
+  for (j = _j = 1; _j <= 50; j = ++_j) {
     _results.push((function(j) {
       var s;
       s = new School("School " + j + " (District " + i + ")");
@@ -68,7 +68,7 @@ _fn = function(i) {
   }
   return _results;
 };
-for (i = _i = 1; _i <= 10; i = ++_i) {
+for (i = _i = 1; _i <= 50; i = ++_i) {
   _fn(i);
 }
 
@@ -94,7 +94,7 @@ rScale = d3.scale.linear().domain([
   0, d3.max(dataset, function(d) {
     return d.count;
   })
-]).range([5, 30]);
+]).range([4, 25]);
 
 svg.append("g").attr("class", "axis").attr("transform", "translate(0, " + (h - padding) + ")").call(xAxis);
 
@@ -112,7 +112,7 @@ createCircles = function() {
 };
 
 fadeInCircles = function() {
-  return svg.selectAll("circle").transition().duration(1000).attr("opacity", 0.75);
+  return svg.selectAll("circle").transition().duration(500).attr("opacity", 0.75);
 };
 
 drillIntoDistrict = function(district) {
@@ -125,7 +125,7 @@ drillIntoDistrict = function(district) {
   }).attr("r", function(d) {
     return rScale(district.count);
   });
-  return svg.selectAll("circle").transition().duration(1000).attr("cx", function(d) {
+  return svg.selectAll("circle").transition().duration(500).attr("cx", function(d) {
     return xScale(d.growth);
   }).attr("cy", function(d) {
     return yScale(d.proficiency);
@@ -140,7 +140,7 @@ reset = function() {
   var circles;
   svg.on("click", null);
   circles = svg.selectAll("circle");
-  circles.transition().duration(1000).attr("cx", function(d) {
+  circles.transition().duration(500).attr("cx", function(d) {
     return xScale(selectedDistrict.growth);
   }).attr("cy", function(d) {
     return yScale(selectedDistrict.proficiency);
@@ -149,7 +149,7 @@ reset = function() {
   });
   dataset = districts;
   circles.data(districts);
-  return circles.transition().delay(1000).duration(0.0001).attr("cx", function(d) {
+  return circles.transition().delay(500).duration(0.0001).attr("cx", function(d) {
     return xScale(d.growth);
   }).attr("cy", function(d) {
     return yScale(d.proficiency);
@@ -161,7 +161,7 @@ reset = function() {
     } else {
       return 0.0001;
     }
-  }).transition().duration(1000).attr("opacity", 0.75);
+  }).transition().duration(500).attr("opacity", 0.75);
 };
 
 createCircles();
