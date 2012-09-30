@@ -1,0 +1,603 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link rel="stylesheet" href="reveal.js/css/main.css">
+		<link rel="stylesheet" href="css/um.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<script>
+			// If the query includes 'print-pdf' we'll use the PDF print sheet
+			document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Data Visualization with D3.js</h1>
+					<h3>Ben Clinkinbeard</h3>
+				</section>
+				
+				<section>
+					<h2>Who?</h2>
+					<ul>
+						<li>Principal Architect @ Universal Mind</li>
+						<li>Swiz Framework</li>
+						<li>FlexMDI</li>
+						<li>Data visualization with Flare</li>
+					</ul>
+				</section>
+
+                <section>
+                    <h2>D3.js background</h2>
+                    <ul>
+                        <li>Open source</li>
+                        <li>Hosted on GitHub</li>
+                        <li>Mike Bostock</li>
+                        <li>Academic pedigree</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>D3.js predecessors</h2>
+                    <ul>
+                        <li>Prefuse - Java</li>
+                        <li>Flare - AS3</li>
+                        <li>Protovis - JavaScript</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1 style="padding-top: 220px;">But is it COOL?!?!</h1>
+                </section>
+
+				<section>
+					<h2>Streamgraph</h2>
+                    <object data="demos/stream.html" type="text/html" width="800" height="500"></object>
+                    <small><a href="http://mbostock.github.com/d3/ex/stream.html" target="_blank">Credit: Mike Bostock</a></small>
+				</section>
+
+                <section>
+                    <h2>Rounded Rectangles</h2>
+                    <object data="demos/rects.html" type="text/html" width="800" height="500"></object>
+                    <small><a href="http://bl.ocks.org/1123639" target="_blank">Credit: Mike Bostock</a></small>
+                </section>
+
+                <section>
+                    <h2>Collision Detection</h2>
+                    <object data="demos/collision.html" type="text/html" width="800" height="500"></object>
+                    <small><a href="http://mbostock.github.com/d3/talk/20111018/collision.html" target="_blank">Credit: Mike Bostock</a></small>
+                </section>
+
+                <section>
+                    <h2>Data-Driven Documents</h2>
+                    <ul>
+                        <li>Fairly low level</li>
+                        <li>DOM manipulation based on data</li>
+                        <li>SVG (for the good stuff)</li>
+                        <li class="fragment">HTML and CSS... natch</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Be warned</h2>
+                    <ul>
+                        <li>SVG means IE8 and below is out</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>SVG element types</h2>
+					<pre><code contenteditable>
+&lt;rect x="0" y="0" width="20" height="100" /&gt;
+
+&lt;circle cx="50" y="50" r="20" /&gt;
+
+&lt;ellipse cx="250" cy="25" rx="100" ry="25" /&gt;
+
+&lt;line x1="0" y1="0" x2="500" y2="50" stroke="black" /&gt;
+
+&lt;text x="250" y="25">Easy-peasy&lt;/text&gt;
+
+&lt;path d="M150 0 L75 200 L225 200 Z"&gt;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>SVG (super) basics</h2>
+                    <ul>
+                        <li>Must have a base svg element</li>
+                        <li>Element declaration order determines depth</li>
+                    </ul>
+					<pre class="fragment"><code contenteditable>
+&lt;svg width="800" height="600"&gt;
+    <span class="fragment">&lt;circle cx="50" y="50" r="20" /&gt;</span>
+    <span class="fragment">&lt;circle cx="100" y="250" r="20" /&gt;</span>
+&lt;/svg&gt;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Enough already!</h2>
+                    <h3>How do we build stuff?!</h3>
+                </section>
+				
+				<section>
+				    <section>
+                        <h2>Basic bar chart</h2>
+                        <pre><code contenteditable>
+var dataset = [ 5, 10, 15, 20, 25 ];
+
+<span class="fragment">d3.select( "body" )</span>
+  <span class="fragment">.selectAll( "div" )</span>
+  <span class="fragment">.data( dataset )</span>
+  <span class="fragment">.enter()</span>
+    <span class="fragment">.append( "div" )</span>
+    <span class="fragment">.attr( "class", "bar" )</span>
+    <span class="fragment">.style( "height", function( d ) {
+        var barHeight = d * 5;
+        return barHeight + "px";
+    } );</span>
+                        </code></pre>
+                        <pre class="fragment"><code contenteditable>
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px;  /* Gets overriden by D3-assigned height */
+    margin-right: 2px;
+    background-color: teal;
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Ta-da</h2>
+                        <object data="demos/basicBar.html" type="text/html" width="800" height="500"></object>
+                        <small><a href="http://alignedleft.com/tutorials/d3/drawing-divs/" target="_blank">Credit: Scott Murray</a></small>
+                    </section>
+				</section>
+
+                <section>
+                    <h2>Here's the thing...</h2>
+                    <pre><code contenteditable>
+&lt;body&gt;&lt;/body&gt;
+                    </code></pre>
+                    <div class="fragment">But what about this code?
+                    <pre><code contenteditable>
+var dataset = [ 5, 10, 15, 20, 25 ];
+
+d3.select( "body" )
+  .selectAll( "div" )
+  .data( dataset )
+                    </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Selections</h2>
+                    <ul>
+                        <li>Selections are a core concept of D3</li>
+                        <li>Array of elements pulled from the current document</li>
+                        <li>Uses CSS3 to select elements</li>
+                        <li><code>data()</code> joins a selection to data
+                            <ul><li>Everything beyond <code>data()</code> in a chain is executed for each data point</li></ul>
+                        </li>
+                        <li><a href="https://github.com/mbostock/d3/wiki/Selections">Read the wiki</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Selections API</h2>
+                    <ul class="nodots">
+                        <li><code>.attr(name[, value])</code></li>
+                        <li><code>.style(name[, value[, priority]])</code></li>
+                        <li><code>.property(name[, value])</code></li>
+                        <li><code>.html([value])</code></li>
+                        <li><code>.text([value])</code></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Selections API</h2>
+                    <ul class="nodots">
+                        <li><code>.attr(name, {constant})</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+d3.select( "body" )
+  .selectAll( "div" )
+  .attr( "class", "bar" )
+                    </code></pre>
+
+                    <ul class="nodots" style="padding-top: 20px;">
+                        <li><code>.attr(name, {function})</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+d3.select( "body" )
+  .selectAll( "div" )
+  .attr( "class", function( d, i ) {
+    // d is datum being rendered
+    // i is datum's index in dataset
+    // return value based on logic
+  } )
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Selections API</h2>
+                    <ul class="nodots">
+                        <li><code>.style(name, {constant})</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+d3.select( "body" )
+  .selectAll( "div" )
+  .style( "background-color", "teal" )
+                    </code></pre>
+
+                    <ul class="nodots" style="padding-top: 20px;">
+                        <li><code>.style(name, {function})</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+d3.select( "body" )
+  .selectAll( "div" )
+  .style( "background-color", function( d, i ) {
+    // d is datum being rendered
+    // i is datum's index in dataset
+    // return value based on logic
+  } )
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Selections API</h2>
+                    <ul class="nodots">
+                        <li><code>.attr(name)</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+var className = d3.select( "body" )
+  .selectAll( "div" )
+  .style( "background-color" )
+                    </code></pre>
+
+                    <ul class="nodots" style="padding-top: 20px;">
+                        <li><code>.style(name)</code></li>
+                    </ul>
+                    <pre><code contenteditable>
+var bgColor = d3.select( "body" )
+  .selectAll( "div" )
+  .style( "background-color" )
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2><code>enter()</code> and <code>exit()</code></h2>
+                    <ul>
+                        <li>Subselections representing elements to be added or removed</li>
+                        <li><code>enter()</code> creates new, data-bound DOM elements and is generally followed by <code>append()</code></li>
+                        <li><code>exit()</code> is generally followed (eventually) by <code>remove()</code></li>
+                        <li class="fragment">We'll come back to this...</li>
+                    </ul>
+                </section>
+
+            <section>
+                <section>
+                    <h2>Scales</h2>
+                    <ul style="max-width: 700px;">
+                        <li>“Scales are functions that map from an input domain to an output range.” -Mike Bostock</li>
+                        <li>Normalize values</li>
+                        <li>Make charts infinitely more flexible</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Scatterplot without scales</h2>
+                    <pre><code contenteditable>
+var dataset = [ 5, 10, 15, 20, 25 ];
+var w = 200;
+var h = 200;
+
+var svg = d3.select( "body" )
+        .append( "svg" )
+        .attr( "width", w ).attr( "height", h )
+        .style( "background-color", "#DDDDDD" );
+
+svg.selectAll( "circle" )
+        .data( dataset )
+        .enter()
+        .append( "circle" )
+        .attr( "opacity", .3 )
+        .attr( "cx", function( d ) {
+            return d;
+        } )
+        .attr( "cy", function( d ) {
+            return d;
+        } )
+        .attr( "r", 12 );
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Scatterplot without scales</h2>
+                    <object data="demos/svgScatter.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Scatterplot with X scale</h2>
+                    <pre><code contenteditable>
+// instead of simply returning the data value
+.attr( "cx", function( d ) {
+    return d;
+} )
+
+// create a scale and use it to transform the value
+var xScale = d3.scale.linear()
+        .domain( [d3.min( dataset ), d3.max( dataset )] )
+        .range( [0, w] );
+
+.attr( "cx", function( d ) {
+    return xScale( d );
+} )
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Scatterplot with X scale</h2>
+                    <object data="demos/svgScatterWithXScale.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Scatterplot with X and Y scale</h2>
+                    <pre><code contenteditable>
+var xScale = d3.scale.linear()
+        .domain( [d3.min( dataset ), d3.max( dataset )] )
+        .range( [0, w] );
+
+var yScale = d3.scale.linear()
+        .domain( [d3.min( dataset ), d3.max( dataset )] )
+        .range( [0, h] );
+
+        .attr( "cx", function( d ) {
+            return xScale( d );
+        } )
+        .attr( "cy", function( d ) {
+            return yScale( d );
+        } )
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Scatterplot with X and Y scale</h2>
+                    <object data="demos/svgScatterWithScales.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Flexible you say?</h2>
+                    Changing this
+                    <pre><code contenteditable>
+var w = 600;
+var h = 300;
+                    </code></pre>
+                    Gets you this
+                    <object data="demos/svgScatterWithScalesResized.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Prevent run off with padding</h2>
+                    <pre><code contenteditable>
+var padding = 30;
+
+var xScale = d3.scale.linear()
+        .domain( [d3.min( dataset ), d3.max( dataset )] )
+        .range( [padding, w - padding] );
+
+var yScale = d3.scale.linear()
+        .domain( [d3.min( dataset ), d3.max( dataset )] )
+        .range( [padding, h - padding] );
+                    </code></pre>
+                    <object data="demos/svgScatterWithScalesAndPadding.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Scumbag SVG orients top-left</h2>
+                    Wouldn't you expect this data
+                    <pre><code contenteditable>
+var dataset = [ 5, 10, 15, 20, 25 ];
+                    </code></pre>
+                    To produce something like this?
+                    <object data="demos/svgScatterWithScalesAndPaddingReoriented.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Scales to the rescue</h2>
+                    Reversing the range does the trick
+                    <pre><code contenteditable>
+    .range( [padding, h - padding] );
+                    </code></pre>
+                    becomes
+                    <pre><code contenteditable>
+    .range( [h - padding, padding] );
+                    </code></pre>
+                    <object data="demos/svgScatterWithScalesAndPaddingReoriented.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Scales normalize...</h2>
+                    <pre><code contenteditable>
+var dataset = [ 5, 10, 15, 20, 25, 100 ];
+                    </code></pre>
+                    <object data="demos/svgScatterWithScalesAndPaddingReorientedPlusOutlyingData.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>...and interpolate</h2>
+                    <pre><code contenteditable>
+var colorScale = d3.scale.linear()
+        .domain( [ 5, 15, 25 ] )
+        .range( ["red", "purple", "green"] );
+
+.attr( "fill", function( d ) {
+    return colorScale( d );
+} )
+                    </code></pre>
+                    <object data="demos/svgScatterWithScalesAndPaddingReorientedWithColorScale.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>OK, let's move on!</h2>
+                    <ul>
+                        <li>But seriously, get comfy with scales</li>
+                        <li>Read <a href="http://www.jeromecukier.net/blog/2011/08/11/d3-scales-and-color/">d3: scales, and color.</a> by <a href="http://www.jeromecukier.net/">Jerome Cukier</a></li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <h2>Axes</h2>
+                <pre><code contenteditable>
+var xScale = d3.scale.linear()
+        .domain( [0, 50] )
+        .range( [padding, w - padding] );
+
+var xAxis = d3.svg.axis()
+    .scale( xScale ).orient( "bottom" ).ticks( 5 );
+
+svg.append( "g" )
+    .attr( "class", "axis" )
+    .attr( "transform", "translate(0, " + (h - padding) + " )" )
+    .call( xAxis );
+                </code></pre>
+                <object data="demos/svgScatterWithAxes.html" type="text/html" width="800" height="400"></object>
+            </section>
+
+            <section>
+                <section>
+                    <h2>Transitions</h2>
+                    <pre><code contenteditable>
+    .enter()
+    .append( "circle" )
+    .attr( "cx", w )
+    .attr( "cy", h )
+    .attr( "r", 0 )
+        .transition()
+            .delay( 250 )
+            .duration( 500 )
+            .attr( "cx", function( d ) {
+                return xScale( d );
+            } )
+            .attr( "cy", function( d ) {
+                return yScale( d );
+            } )
+            .attr( "r", 12 );
+                    </code></pre>
+                    <a href="demos/svgScatterWithTransitions1.html" target="_blank">Open Demo</a>
+                </section>
+                <section>
+                    <h2>Transitions</h2>
+                    Values swapped for functions... again
+                    <pre><code contenteditable>
+    .enter()
+    .append( "circle" )
+    .attr( "cx", w )
+    .attr( "cy", h )
+    .attr( "r", 0 )
+        .transition()
+            .delay( function( d, i ) {
+               return i * 100;
+            } )
+            .duration( 500 )
+            .attr( "cx", function( d ) {
+                return xScale( d );
+            } )
+            .attr( "cy", function( d ) {
+                return yScale( d );
+            } )
+            .attr( "r", 12 );
+                    </code></pre>
+                    <a href="demos/svgScatterWithTransitions2.html" target="_blank">Open Demo</a>
+                </section>
+            </section>
+            
+            <section>
+                <h2>Further Reading</h2>
+                <ul>
+                    <li><a href="http://alignedleft.com/tutorials/d3/">Scott Murray's D3 Tutorial</a></li>
+                    <li><a href="http://bost.ocks.org/mike/join/">Thinking with Joins</a></li>
+                    <li><a href="http://bost.ocks.org/mike/constancy/">Object Constancy</a></li>
+                    <li><a href="http://www.jeromecukier.net/blog/2012/05/28/manipulating-data-like-a-boss-with-d3/">Manipulating data like a boss with d3</a></li>
+                    <li><a href="http://www.jeromecukier.net/blog/2012/07/16/animations-and-transitions/">animations and transitions</a></li>
+                    <li><a href="http://bost.ocks.org/mike/">Mike Bostock</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h1 style="padding-top: 230px;">Questions?</h1>
+            </section>
+
+            <section>
+                <h1 style="padding-top: 230px;">Thank You!</h1>
+            </section>
+
+			</div> <!-- END OF SLIDES -->
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
+
+		<script>
+			
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				
+				theme: 'um', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'reveal.js/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+				]
+			});
+			
+		</script>
+
+	</body>
+</html>
