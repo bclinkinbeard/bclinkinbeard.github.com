@@ -28,8 +28,8 @@ var yScale = d3.scale.linear()
         .range( [h - padding, padding] );
 
 var colorScale = d3.scale.linear()
-        .domain( [ 5, 15, 25 ] )
-        .range( ["red", "purple", "green"] );
+        .domain( [ 5, 25 ] )
+        .range( ["orange", "purple"] );
 
 svg.selectAll( "circle" )
         .data( dataset )

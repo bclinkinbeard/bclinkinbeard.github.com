@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Data Visualization with D3.js</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -55,7 +55,8 @@
                 <section>
                     <h2>D3.js background</h2>
                     <ul>
-                        <li>Open source</li>
+                        <li>Open source - BSD</li>
+                        <li><a href="http://d3js.org/">http://d3js.org/</a></li>
                         <li>Hosted on GitHub</li>
                         <li>Mike Bostock</li>
                         <li>Academic pedigree</li>
@@ -63,7 +64,7 @@
                 </section>
 
                 <section>
-                    <h2>D3.js predecessors</h2>
+                    <h2>D3.js lineage</h2>
                     <ul>
                         <li>Prefuse - Java</li>
                         <li>Flare - AS3</li>
@@ -198,6 +199,11 @@ d3.select( "body" )
                 </section>
 
                 <section>
+                    <h2>Keep this in mind</h2>
+                    <blockquote>Instead of telling D3 how to do something, tell D3 what you want.</blockquote>
+                </section>
+
+                <section>
                     <h2>Selections</h2>
                     <ul>
                         <li>Selections are a core concept of D3</li>
@@ -279,7 +285,7 @@ d3.select( "body" )
                     <pre><code contenteditable>
 var className = d3.select( "body" )
   .selectAll( "div" )
-  .style( "background-color" )
+  .attr( "class" )
                     </code></pre>
 
                     <ul class="nodots" style="padding-top: 20px;">
@@ -298,7 +304,6 @@ var bgColor = d3.select( "body" )
                         <li>Subselections representing elements to be added or removed</li>
                         <li><code>enter()</code> creates new, data-bound DOM elements and is generally followed by <code>append()</code></li>
                         <li><code>exit()</code> is generally followed (eventually) by <code>remove()</code></li>
-                        <li class="fragment">We'll come back to this...</li>
                     </ul>
                 </section>
 
@@ -455,6 +460,20 @@ var dataset = [ 5, 10, 15, 20, 25, 100 ];
                     <h2>...and interpolate</h2>
                     <pre><code contenteditable>
 var colorScale = d3.scale.linear()
+        .domain( [ 5, 25 ] )
+        .range( ["orange", "purple"] );
+
+.attr( "fill", function( d ) {
+    return colorScale( d );
+} )
+                    </code></pre>
+                    <object data="demos/svgScatterWithScalesAndPaddingReorientedWithColorScale.html" type="text/html" width="800" height="400"></object>
+                </section>
+
+                <section>
+                    <h2>Crazy powerful</h2>
+                    <pre><code contenteditable>
+var colorScale = d3.scale.linear()
         .domain( [ 5, 15, 25 ] )
         .range( ["red", "purple", "green"] );
 
@@ -462,7 +481,7 @@ var colorScale = d3.scale.linear()
     return colorScale( d );
 } )
                     </code></pre>
-                    <object data="demos/svgScatterWithScalesAndPaddingReorientedWithColorScale.html" type="text/html" width="800" height="400"></object>
+                    <object data="demos/svgScatterWithScalesAndPaddingReorientedWithColorScale2.html" type="text/html" width="800" height="400"></object>
                 </section>
 
                 <section>
@@ -537,6 +556,8 @@ svg.append( "g" )
             .attr( "r", 12 );
                     </code></pre>
                     <a href="demos/svgScatterWithTransitions2.html" target="_blank">Open Demo</a>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <a href="demos/svgScatterWithTransitions3.html" target="_blank">Open Gratuitous Demo</a>
                 </section>
             </section>
             
