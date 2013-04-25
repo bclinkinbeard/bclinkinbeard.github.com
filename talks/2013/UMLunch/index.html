@@ -216,17 +216,6 @@
 
 				<section>
 					<h2>Browserify</h2>
-					<ul>
-						<li>Write client side code using CommonJS style modules</li>
-						<li>Specify one or more 'entry' files</li>
-						<li>Browserify walks <pre>require()</pre> statements and concatenates files</li>
-						<li>Each file's contents wrapped in a closure</li>
-						<li>Supports source maps and all kinds of other goodies</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Browserify</h2>
 					<pre style="display: block">var Class = require( 'Class' );
 
 var AppController = module.exports = Class.extend( {
@@ -239,6 +228,17 @@ var AppController = module.exports = Class.extend( {
 
 AppController.$inject = [ '$scope' ];
 </pre>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<ul>
+						<li>Write client side code using CommonJS style modules</li>
+						<li>Specify one or more 'entry' files</li>
+						<li>Browserify walks <pre>require()</pre> statements and concatenates files</li>
+						<li>Each file's contents wrapped in a closure</li>
+						<li>Supports source maps and all kinds of other goodies</li>
+					</ul>
 				</section>
 
 				<section>
