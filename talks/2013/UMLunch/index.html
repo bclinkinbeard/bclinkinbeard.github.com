@@ -237,8 +237,29 @@ AppController.$inject = [ '$scope' ];
 						<li>Specify one or more 'entry' files</li>
 						<li>Browserify walks <pre>require()</pre> statements and concatenates files</li>
 						<li>Each file's contents wrapped in a closure</li>
+						<li>Generates a single bundled .js file</li>
 						<li>Supports source maps and all kinds of other goodies</li>
 					</ul>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<pre style="display: block"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>my-demo</title>
+    <script src='app.js'></script>
+	  <link rel='stylesheet' href='app.css'>
+</head>
+
+<body data-ng-app="my-demo">
+
+<div class="container" data-ng-view></div>
+
+</body>
+</html>
+</pre>
 				</section>
 
 				<section>
