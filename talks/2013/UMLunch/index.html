@@ -47,6 +47,10 @@
 				</section>
 
 				<section>
+					<h1>Node.js</h1>
+				</section>
+
+				<section>
 					<h2>Node.js</h2>
 					<ul>
 						<li>"Server-side JavaScript"</li>
@@ -72,6 +76,10 @@
 						<li><pre>node myFile.js</pre></li>
 						<li>Really solid core API</li>
 					</ul>
+				</section>
+
+				<section>
+					<h1>NPM</h1>
 				</section>
 
 				<section>
@@ -102,6 +110,10 @@
                         <li><pre>npm install {name} --save-dev|-D</pre> (!!!)</li>
                     </ul>
                 </section>
+
+				<section>
+					<h1>Grunt</h1>
+				</section>
 
 				<section>
 					<h2>Grunt</h2>
@@ -145,6 +157,10 @@
 	}
 }</pre></li>
 					</ul>
+				</section>
+
+				<section>
+					<h1>Browserify</h1>
 				</section>
 
 				<section>
@@ -225,6 +241,81 @@ AppController.$inject = [ '$scope' ];
 </pre>
 				</section>
 
+				<section>
+					<h1>Yeoman</h1>
+				</section>
+
+				<section>
+					<h2>Yeoman</h2>
+					<ul>
+						<li>Scaffolding and automation tool</li>
+						<li>Built on top of Grunt and Bower</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>yo</h2>
+					<ul>
+						<li>Scaffolds files and directory structure</li>
+						<li>package.json</li>
+						<li>Gruntfile.js</li>
+						<li>bower.json</li>
+						<li>test harnesses</li>
+						<li>Process templates</li>
+						<li>etc.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>yo</h2>
+					<ul>
+						<li><pre>yo angular my-demo</pre></li>
+						<li><pre>yo angular:route EditUser</pre></li>
+						<ul>
+							<li>EditUserController.js</li>
+							<li>EditUserControllerSpec.js</li>
+							<li>editUser.html</li>
+							<li><pre style="display: block">$routeProvider.when( '/', {
+	templateUrl: 'views/editUser.html',
+	controller: 'EditUserController'
+} )</pre></li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Gruntfile.js</h2>
+					<ul>
+						<li>dev</li>
+						<li>release</li>
+						<li>test</li>
+						<li>server</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bower</h2>
+					<ul>
+						<li>Like NPM for client-side libs</li>
+						<li>bower.json manifest</li>
+						<li><pre>bower install</pre> will fetch jQuery, Angular, etc.</li>
+						<li>Made by Twitter</li>
+						<li>Still early</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>So what?</h2>
+					<ul>
+						<li class="fragment"><pre>yo um-webapp my-app</pre></li>
+						<li class="fragment">Answer some questions</li>
+						<li class="fragment">Yeoman runs <pre>npm install && bower install</pre></li>
+						<li class="fragment">Sip some coffee while dependencies are downloaded</li>
+						<li class="fragment">Bask in the glow of fully configured app skeleton</li>
+						<li class="fragment"><strong>PROFIT!!!</strong></li>
+					</ul>
+				</section>
+
 	            <section>
 	                <h2>Further Reading</h2>
 	                <ul>
@@ -233,6 +324,8 @@ AppController.$inject = [ '$scope' ];
 	                    <li><a href="http://gruntjs.com/">Grunt</a></li>
 	                    <li><a href="http://browserify.org/">Browserify</a></li>
 	                    <li><a href="http://yeoman.io/">Yeoman</a></li>
+	                    <li><a href="http://bower.io/">Bower</a></li>
+	                    <li><a href="http://tech.pro/tutorial/1190/package-managers-an-introductory-guide-for-the-uninitiated-front-end-developer">Package managers in detail</a></li>
 	                </ul>
 	            </section>
 
