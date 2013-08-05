@@ -1,5 +1,5 @@
 title: External bundles for faster Browserify builds
-date: 2013-07-24 22:34:47
+date: 2013-08-05 16:00:00
 tags: [browserify, grunt, javascript, nodejs]
 ---
 Browserify is changing the way we write client side JavaScript applications. In my opinion it's one of the most important tools to come on the scene in a long time. However, to get the most out of it, and your time, there are some things you can do to make sure your builds are as fast as possible. Less time building means more time coding, right? This post focuses on what is probably the biggest speed win when configuring your Browserify build.
