@@ -1,3 +1,5 @@
 .DS_Store
 .idea
 blog-src/public
+node_modules
+dist
