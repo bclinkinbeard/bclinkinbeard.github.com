@@ -2,3 +2,5 @@
 .idea
 node_modules
 db.json
+.sass-cache
+.grunt

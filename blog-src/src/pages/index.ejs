@@ -1,0 +1,22 @@
+<% include ../layouts/_header %>
+<% posts.forEach(function(post){ %>
+  <% include ../layouts/_post %>
+  <div class="comments">
+    <a href="<%= data.baseUrl %><%= post.url %>#comments">
+      <span class="icon-bubbles"></span>
+      Comments
+    </a>
+  </div>
+<% }) %>
+
+<div class="pagination group">
+  <% for (var i = 0; i < pages.length; i++) { %>
+    <% var page = pages[i] %>
+    <% if (i === currentIndex - 1) { %>
+      <a href="<%= data.baseUrl %><%= page.url %>" class="newer"> Newer &#8594;</a>
+    <% } else if (i === currentIndex + 1) { %>
+      <a href="<%= data.baseUrl %><%= page.url %>" class="older"> &#8592; Older</a>
+    <% } %>
+  <% } %>
+</div>
+<% include ../layouts/_footer %>

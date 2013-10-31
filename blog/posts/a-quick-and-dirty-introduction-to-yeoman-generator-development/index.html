@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="/images/cabin.png" >
+    <link href="/styles/main.css" rel="stylesheet">
+    
+    <title>A quick and dirty introduction to Yeoman generator development</title>
+    
+    
+    <meta name="description" content="Yeoman intro">
+    
+  </head>
+  <body>
+    <nav>
+      <h1 class="name">
+        <a href="/">bclinkinbeard</a>
+      </h1>
+      <div class="menu icon-menu"></div>
+      <ul class="nav-links">
+        <!--li class="text-link">
+          <a href="/about.html">about</a>
+        </li>
+        <li class="text-link">
+          <a href="/projects.html">projects</a>
+        </li>
+        <li class="text-link">
+          <a href="/archives.html">archives</a>
+        </li-->
+      </ul>
+      <div class="social-media">
+        <a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+        <a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+      </div>
+    </nav>
+    <div class="content">
+
+<div class="post-head group">
+  <a href="/posts/a-quick-and-dirty-introduction-to-yeoman-generator-development/">
+    <h1 class="post-title">A quick and dirty introduction to Yeoman generator development</h1>
+  </a>
+  <span class="post-date">2013 &#183; 4 &#183; 13</span>
+</div>
+
+<div class="post-body markdown"><p><a href="http://yeoman.io/">Yeoman</a> is a fairly new tool from a group of well known open source developers, including some from Google, Twitter, and elsewhere. If you&#39;re not familiar with it go check it out,
+because that&#39;s not the intention of this post. This post is simply my attempt to document some of the things I&#39;ve
+figured out while hacking around in the generators provided by the Yeoman team and working to create my own. (That
+being the case, it is entirely possible that something I say here could be wrong. If so,
+kindly tell me I am an idiot on Twitter or something, and I will fix it.) As you
+know or can probably guess, a generator is a module that can be run by Yeoman to perform some kind of task. These
+tasks are usually related to scaffolding an application or automating a task related to file creation that would
+otherwise become repetitive during the course of development.</p>
+<h2><a name="creating-a-generator" class="anchor" href="#creating-a-generator"><span class="header-link"></span></a>Creating a generator</h2>
+<p>There are a handful of generators available out of the box after installing Yeoman. I think these are just installed
+in a centralized location during installation but am not sure, and I think there are plans to change how/if
+&quot;global&quot; generators work. Either way, we&#39;re going to install our generator locally,
+just like we&#39;ve all learned is usually the best idea when installing Node modules. In fact,
+our generator <em>is</em> going to be a Node module. This means that until your generator is published and is <code>npm install</code>-able, you will just manually place it in your project&#39;s <code>node_modules</code> directory.</p>
+<p>In order to make your generator discoverable by Yeoman, its directory name must begin with <code>generator-</code>,
+and the rest of the name becomes the name by which it is addressed. So if you create a directory in
+<code>node_modules</code> called <code>generator-be-awesome</code>, you will run it on the command line with <code>yo be-awesome</code>.
+Pretty straightforward, but as far as I can tell, totally undocumented at this point in time.</p>
+<p>By default, Yeoman will run the code located at <code>app/index.js</code> within your generator&#39;s directory.</p>
+<h2><a name="multi-purpose-generators" class="anchor" href="#multi-purpose-generators"><span class="header-link"></span></a>Multi-purpose generators</h2>
+<p>Some generators, like the excellent <a href="https://github.com/yeoman/generator-angular">AngularJS generator</a>,
+offer multiple capabilities that you can target specifically depending on what you are trying to accomplish. The
+syntax for doing so is to add <code>:targetName</code> to the generator&#39;s name, where <code>targetName</code> is the name of
+another directory within the generator. For example, to have the Angular generator create a controller for you,
+you run <code>yo angular:controller Users</code>, which will run the code located at <code>controller/index.js</code> within the
+<code>generator-angular</code> directory. If you are familiar with <a href="http://gruntjs.com">Grunt</a> (which you had better be),
+you can think of generators as tasks, and targets as... targets, I guess. I don&#39;t know if there is a specific name
+for these sub-tasks in Yeoman generators, so I just call them targets.</p>
+<p>Make sure to have your editor show directory names in file tabs while doing Yeoman development,
+unless you think having 5 tabs that just say <code>index.js</code> sounds like fun.</p>
+<h2><a name="templates" class="anchor" href="#templates"><span class="header-link"></span></a>Templates</h2>
+<p>One of the primary things Yeoman generators do is to create files from templates. Since I assume you will be creating a generator by modifying an existing one, your generator will be extending one of Yeoman&#39;s built in generator types, and will have access to a <code>this.template( src, dest )</code> method. By default,
+this method will look up the <code>src</code> path within a templates directory in your target directory. So <code>this.template( &#39;Gruntfile.tpl.js&#39;, &#39;Gruntfile.js&#39; );</code> in <code>app/index.js</code> will process the template file at <code>app/templates/Gruntfile.tpl.js</code> and copy the output to your working directory as <code>Gruntfile.js</code>.</p>
+<p>Speaking of Gruntfiles, most of them use variables to make configuration easier. These variables look like <code>&lt;%=
+src_dir %&gt;</code> and are passed to various tasks and targets in the file. However, Yeoman uses the same variable syntax,
+ so having them in templates that Yeoman processes will cause issues. To define variables in template files you need
+ to put an extra % on the opening tag, resulting in the <code>&lt;%%= src_dir %&gt;</code> syntax. During processing,
+ Yeoman will turn this back into <code>&lt;%= src_dir %&gt;</code> so that Grunt can process it as needed.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p> There is a ton more to Yeoman (vastly more than I am even aware of, surely), but these basics should be enough to
+ get you hacking away. I would definitely recommend using <a href="https://github.com/yeoman/generator-webapp">generator-webapp</a> and <a href="https://github.com/yeoman/generator-angular">generator-angular</a> as starting points. Just copy them down,
+ change the directory name and start playing around. The worst that could happen is you format your hard drive. I
+ kid, I kid. But seriously, you could. Be careful out there. :)</p>
+</div>
+
+<!--Social sharing icons-->
+<div class="social">
+  <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+  <div data-size="medium" data-annotation="bubble" data-width="300" class="g-plusone"></div>
+  <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
+</div>
+<!--Disqus comments, Make sure to replace `colinwren` with your account name in the Disqus helper script below-->
+<div id="comments">
+  <div id="disqus_thread"></div>
+</div>
+
+<!--Helper scripts for social share icons-->
+<!--Hacker News-->
+<script type="text/javascript">
+  (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.src = '//hnbutton.appspot.com/static/hn.min.js';
+    s.parentNode.insertBefore(g, s);
+  }(document, 'script'));
+</script>
+
+<!--Twitter-->
+<script type="text/javascript">
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+
+<!--Google Plus-->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!--Disqus-->
+<script type="text/javascript">
+  var disqus_shortname = 'colinwren'; // Change this to your Disqus account name
+
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+        // Add your analytics code here
+    </script>
+  </body>
+</html>
+

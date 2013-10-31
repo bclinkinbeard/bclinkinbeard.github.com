@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="/images/cabin.png" >
+    <link href="/styles/main.css" rel="stylesheet">
+    
+    <title>My Blog</title>
+    
+    
+  </head>
+  <body>
+    <nav>
+      <h1 class="name">
+        <a href="/">bclinkinbeard</a>
+      </h1>
+      <div class="menu icon-menu"></div>
+      <ul class="nav-links">
+        <!--li class="text-link">
+          <a href="/about.html">about</a>
+        </li>
+        <li class="text-link">
+          <a href="/projects.html">projects</a>
+        </li>
+        <li class="text-link">
+          <a href="/archives.html">archives</a>
+        </li-->
+      </ul>
+      <div class="social-media">
+        <a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+        <a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+      </div>
+    </nav>
+    <div class="content">
+
+
+  <div class="post-head group">
+  <a href="/posts/external-bundles-for-faster-browserify-builds/">
+    <h1 class="post-title">External bundles for faster Browserify builds</h1>
+  </a>
+  <span class="post-date">2013 &#183; 8 &#183; 5</span>
+</div>
+
+<div class="post-body markdown"><p>Browserify is changing the way we write client side JavaScript applications. In my opinion it&#39;s one of the most important tools to come on the scene in a long time. However, to get the most out of it, and your time, there are some things you can do to make sure your builds are as fast as possible. Less time building means more time coding, right? This post focuses on what is probably the biggest speed win when configuring your Browserify build.</p>
+<p>This technique took the build times in response to file changes from about 8 seconds to less than 2 on my current project. You <em>are</em> using a file watcher to rebuild your app whenever a file changes. Right?</p>
+<h2><a name="the-scenario" class="anchor" href="#the-scenario"><span class="header-link"></span></a>The scenario</h2>
+<p>Browserify works by walking the <code>require()</code> statements in your code to build up a dependency tree and then generates a bundle containing all those dependencies. That being the case, it seems obvious that you should avoid having it process files that you know don&#39;t contain any <code>require()</code> statements.</p>
+<p>Generally speaking, the files that you know to be devoid of <code>require()</code> statements are going to be library files. At least I haven&#39;t come across and libraries using them. Additionally, some of those library files can be quite large. AngularJS and jQuery, for example, are fairly hefty files that you can safely ignore parsing for <code>require()</code> calls. You need those files in your app though, right? So Browserify has to know about them… right?</p>
+<h2><a name="externalizing-libraries" class="anchor" href="#externalizing-libraries"><span class="header-link"></span></a>Externalizing libraries</h2>
+<p>Among the handful of options Browserify supports, one of them is <code>external</code>. This is simply a way to tell Browserify &quot;Hey, when you see <code>require()</code> statement looking for X, don&#39;t worry about finding it in the tree. It will be available, trust me.&quot;</p>
+<p>So, how do you make it available, and avoid looking like a liar in front of Browserify? Easy, you stick them in their own bundle, and only build that one when necessary.</p>
+<p>These code examples will assume you are using grun-browserify. If you are hardcore and writing your own Browserify build scripts I trust you are capable of converting them to plain JS instructions. The shim option is necessary because neither jQuery nor AngularJS provide a CommonJS compatible export, which Browserify requires.</p>
+<pre><code><div class="highlight"><pre><span class="nx">browserify</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">libs</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">shim</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">jquery</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;./libs/jquery.js&#39;</span><span class="p">,</span>
+          <span class="nx">exports</span><span class="o">:</span> <span class="s1">&#39;$&#39;</span>
+        <span class="p">},</span>
+        <span class="nx">angular</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;./libs/angular.js&#39;</span><span class="p">,</span>
+          <span class="nx">exports</span><span class="o">:</span> <span class="s1">&#39;angular&#39;</span><span class="p">,</span>
+          <span class="nx">depends</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">jquery</span><span class="o">:</span> <span class="s1">&#39;$&#39;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;./libs/*.js&#39;</span><span class="p">],</span>
+    <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= distdir %&gt;/libs.js&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>So what is happening here? We are creating  <code>libs</code> target for our <code>browserify</code> task that will package up all the JavaScript files it finds in the <code>libs</code> directory into a <code>libs.js</code> file, and save it in our <code>dist</code> folder. We could run this target directly by running <code>grunt browserify:libs</code> from the command line.</p>
+<h2><a name="marking-dependencies-external" class="anchor" href="#marking-dependencies-external"><span class="header-link"></span></a>Marking dependencies external</h2>
+<p>Now that we&#39;ve taken care of bundling the libraries our app will need, we need to tell Browserify not to bundle those same files again, and not to freak out when it sees a request for one of these files. We do this using the <code>external</code> config option.</p>
+<pre><code><div class="highlight"><pre><span class="nx">app</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;./libs/jquery.js:jquery&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;./libs/angular.js:angular&#39;</span>
+    <span class="p">],</span>
+    <span class="nx">external</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s1">&#39;./libs/jquery.js&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;./libs/angular.js&#39;</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;src/app.js&#39;</span><span class="p">],</span>
+  <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;&lt;%= distdir %&gt;/app.js&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>The <code>alias</code> block above is simply a convenience setting that will allow us to load these libraries with syntax like <code>require(&#39;angular&#39;)</code> and not have to worry about file path issues.</p>
+<p>The <code>external</code> block is the important part though. That is what tells Browserify not to actually search for <code>./libs.agular.js</code> when it sees a request for it. When it encounters a request for that file (or an alias to that file) it will simply carry on, trusting that it will be provided externally.</p>
+<h2><a name="see-it-in-action" class="anchor" href="#see-it-in-action"><span class="header-link"></span></a>See it in action</h2>
+<p>I have put together a very simple demo project that illustrates the concepts discussed above. To set it up on your machine, <a href="http://benclinkinbeard.com/demos/external-bundles.zip">download this zip file</a> and unpack it. From the new directory run <code>npm install</code>. (I am assuming you already have the Grunt CLI installed.) You now have 2 Grunt tasks available that will demonstrate the build speed difference.</p>
+<p>To see the slow, un-optimized version that does not externalize dependencies, run <code>grunt server-slow</code>. This will build everything and start the watch process. To then trigger a rebuild, edit the <code>app.js</code> file and save it. In your terminal you should see output showing the files are being rebuilt, with a message at the end telling you how long everything took. Over the course of several builds I saw times between 1.9 seconds and 2.2 seconds. YMMV, obviously.</p>
+<p>To see the optimized, externalized dependencies version, stop the watch process. You can do this using Ctrl-C on OS X. Now run <code>grunt server</code>. You should see the same startup messages as last time, and the initial build will not be any different than it was last time. Once it completes, go edit <code>app.js</code> again and see how long it takes. Again, YMMV, but I consistently see times of less than half a second. That equate to a roughly 75% speed increase.</p>
+<h2><a name="what-s-the-big-deal-" class="anchor" href="#what-s-the-big-deal-"><span class="header-link"></span></a>What&#39;s the big deal?</h2>
+<p>While saving 1.5 seconds may not seem like a huge deal, do a quick extrapolation on those numbers. (Also remember we cut our build times from about 8 seconds to less than 2, so in a real project the gains will likely be larger in terms of actual seconds gained.) Saving even a few seconds, 50+ times a day, times every developer on your project, that is a not insignificant improvement. Even more than the raw time gained, I find it&#39;s extremely helpful for maintaining focus. Developers are notoriously easily distracted, and 8+ seconds can be long enough for my mind to switch to another task, or to decide to check Twitter, or… you get the picture.</p>
+<p>In closing, this technique isn&#39;t going to change your life, but I do think it&#39;s an easily implemented and maintained solution that pays real dividends. It&#39;s an incremental improvement, and that&#39;s what we&#39;re continually seeking anyhow. Right?</p>
+</div>
+
+  <div class="comments">
+    <a href="/posts/external-bundles-for-faster-browserify-builds/#comments">
+      <span class="icon-bubbles"></span>
+      Comments
+    </a>
+  </div>
+
+  <div class="post-head group">
+  <a href="/posts/a-quick-and-dirty-introduction-to-yeoman-generator-development/">
+    <h1 class="post-title">A quick and dirty introduction to Yeoman generator development</h1>
+  </a>
+  <span class="post-date">2013 &#183; 4 &#183; 13</span>
+</div>
+
+<div class="post-body markdown"><p><a href="http://yeoman.io/">Yeoman</a> is a fairly new tool from a group of well known open source developers, including some from Google, Twitter, and elsewhere. If you&#39;re not familiar with it go check it out,
+because that&#39;s not the intention of this post. This post is simply my attempt to document some of the things I&#39;ve
+figured out while hacking around in the generators provided by the Yeoman team and working to create my own. (That
+being the case, it is entirely possible that something I say here could be wrong. If so,
+kindly tell me I am an idiot on Twitter or something, and I will fix it.) As you
+know or can probably guess, a generator is a module that can be run by Yeoman to perform some kind of task. These
+tasks are usually related to scaffolding an application or automating a task related to file creation that would
+otherwise become repetitive during the course of development.</p>
+<h2><a name="creating-a-generator" class="anchor" href="#creating-a-generator"><span class="header-link"></span></a>Creating a generator</h2>
+<p>There are a handful of generators available out of the box after installing Yeoman. I think these are just installed
+in a centralized location during installation but am not sure, and I think there are plans to change how/if
+&quot;global&quot; generators work. Either way, we&#39;re going to install our generator locally,
+just like we&#39;ve all learned is usually the best idea when installing Node modules. In fact,
+our generator <em>is</em> going to be a Node module. This means that until your generator is published and is <code>npm install</code>-able, you will just manually place it in your project&#39;s <code>node_modules</code> directory.</p>
+<p>In order to make your generator discoverable by Yeoman, its directory name must begin with <code>generator-</code>,
+and the rest of the name becomes the name by which it is addressed. So if you create a directory in
+<code>node_modules</code> called <code>generator-be-awesome</code>, you will run it on the command line with <code>yo be-awesome</code>.
+Pretty straightforward, but as far as I can tell, totally undocumented at this point in time.</p>
+<p>By default, Yeoman will run the code located at <code>app/index.js</code> within your generator&#39;s directory.</p>
+<h2><a name="multi-purpose-generators" class="anchor" href="#multi-purpose-generators"><span class="header-link"></span></a>Multi-purpose generators</h2>
+<p>Some generators, like the excellent <a href="https://github.com/yeoman/generator-angular">AngularJS generator</a>,
+offer multiple capabilities that you can target specifically depending on what you are trying to accomplish. The
+syntax for doing so is to add <code>:targetName</code> to the generator&#39;s name, where <code>targetName</code> is the name of
+another directory within the generator. For example, to have the Angular generator create a controller for you,
+you run <code>yo angular:controller Users</code>, which will run the code located at <code>controller/index.js</code> within the
+<code>generator-angular</code> directory. If you are familiar with <a href="http://gruntjs.com">Grunt</a> (which you had better be),
+you can think of generators as tasks, and targets as... targets, I guess. I don&#39;t know if there is a specific name
+for these sub-tasks in Yeoman generators, so I just call them targets.</p>
+<p>Make sure to have your editor show directory names in file tabs while doing Yeoman development,
+unless you think having 5 tabs that just say <code>index.js</code> sounds like fun.</p>
+<h2><a name="templates" class="anchor" href="#templates"><span class="header-link"></span></a>Templates</h2>
+<p>One of the primary things Yeoman generators do is to create files from templates. Since I assume you will be creating a generator by modifying an existing one, your generator will be extending one of Yeoman&#39;s built in generator types, and will have access to a <code>this.template( src, dest )</code> method. By default,
+this method will look up the <code>src</code> path within a templates directory in your target directory. So <code>this.template( &#39;Gruntfile.tpl.js&#39;, &#39;Gruntfile.js&#39; );</code> in <code>app/index.js</code> will process the template file at <code>app/templates/Gruntfile.tpl.js</code> and copy the output to your working directory as <code>Gruntfile.js</code>.</p>
+<p>Speaking of Gruntfiles, most of them use variables to make configuration easier. These variables look like <code>&lt;%=
+src_dir %&gt;</code> and are passed to various tasks and targets in the file. However, Yeoman uses the same variable syntax,
+ so having them in templates that Yeoman processes will cause issues. To define variables in template files you need
+ to put an extra % on the opening tag, resulting in the <code>&lt;%%= src_dir %&gt;</code> syntax. During processing,
+ Yeoman will turn this back into <code>&lt;%= src_dir %&gt;</code> so that Grunt can process it as needed.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p> There is a ton more to Yeoman (vastly more than I am even aware of, surely), but these basics should be enough to
+ get you hacking away. I would definitely recommend using <a href="https://github.com/yeoman/generator-webapp">generator-webapp</a> and <a href="https://github.com/yeoman/generator-angular">generator-angular</a> as starting points. Just copy them down,
+ change the directory name and start playing around. The worst that could happen is you format your hard drive. I
+ kid, I kid. But seriously, you could. Be careful out there. :)</p>
+</div>
+
+  <div class="comments">
+    <a href="/posts/a-quick-and-dirty-introduction-to-yeoman-generator-development/#comments">
+      <span class="icon-bubbles"></span>
+      Comments
+    </a>
+  </div>
+
+
+<div class="pagination group">
+  
+    
+    
+  
+</div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+        // Add your analytics code here
+    </script>
+  </body>
+</html>
+
