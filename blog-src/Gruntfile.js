@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         options: {
           pageSrc: 'src/pages',
           data: {
-            baseUrl: '/blog'
+            baseUrl: '/blog/'
           },
           pagination: {
             postsPerPage: 2,
