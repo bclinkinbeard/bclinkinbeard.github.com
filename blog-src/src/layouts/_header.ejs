@@ -13,6 +13,7 @@
     <% if (locals.description) { %>
     <meta name="description" content="<%= locals.description %>">
     <% locals.description = null;} %>
+    <script type="text/javascript" src="<%= data.baseUrl %>scripts/mixpanel.js"></script>
   </head>
   <body>
     <nav>
