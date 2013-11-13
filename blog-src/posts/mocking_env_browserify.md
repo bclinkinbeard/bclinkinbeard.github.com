@@ -4,7 +4,7 @@
 	description: "Mocking environment dependencies with Browserify"
 }
 
-Developer veteran and TDD afficianado [Todd Anderson](http://custardbelly.com/) recently remarked on Twitter that one of the things that keeps him using RequireJS is the ability to simulate/mock environment variables. Being the CommonJS/Browserify ~~zealot~~ fan that I am, I decided to confirm that the same could be done using Browserify.
+Developer veteran and TDD aficianado [Todd Anderson](http://custardbelly.com/) recently remarked on Twitter that one of the things that keeps him using RequireJS is the ability to simulate/mock environment variables. Being the CommonJS/Browserify ~~zealot~~ fan that I am, I decided to confirm that the same could be done using my toolset of choice.
 
 ## Accessing and mocking environment variables
 
