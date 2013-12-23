@@ -40,6 +40,16 @@ module.exports = function (grunt) {
             'styles/fonts/**',
           ]
         }]
+      },
+      misc: {
+      	files: [{
+      	  expand: true,
+          cwd: 'misc',
+          dest: 'dist',
+          src: [
+            '**'
+          ]
+      	}]
       }
     },
     watch: {
