@@ -1,0 +1,1297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>flexmdi: Starting out simple with MDICanvas &laquo;  benclinkinbeard.com</title>    
+    <link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/superfish.css" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" href="http://benclinkinbeard.com/wordpress/wp-content/themes/min/ie6.css" type="text/css" media="screen" /><![endif]-->
+	<!-- Additional CSS add-ons from custom admin page --><style type='text/css' media='screen'>a, .post h2 a:hover { color:#639c01; }</style>	
+
+	<link rel="pingback" href="../../../wordpress/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/return_undefined" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://feeds.feedburner.com/return_undefined" />
+	
+    <link rel="alternate" type="application/rss+xml" title="benclinkinbeard.com &raquo; flexmdi: Starting out simple with MDICanvas Comments Feed" href="feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../wordpress/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wordpress/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='benclinkinbeard.com' href='../../../index.html' />
+<link rel='start' title='Dealing with (default) namespaces in Flex 2/AS3' href='../../../2006/07/dealing-with-default-namespaces-in-flex-2as3/index.html' />
+<link rel='prev' title='Announcing flexmdi: Robust, extensible MDI framework for Adobe Flex' href='../announcing-flexmdi-robust-extensible-mdi-framework-for-adobe-flex/index.html' />
+<link rel='next' title='flexmdi: Customizing default behaviors' href='../flexmdi-customizing-default-behaviors/index.html' />
+<meta name="generator" content="WordPress 3.1" />
+<link rel='canonical' href='index.html' />
+<link rel='shortlink' href='index.html' />
+<link rel="stylesheet" href="http://benclinkinbeard.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+<body class="single single-post postid-26 single-format-standard">
+
+
+<div id="top">
+
+	<div id="header" class="clearfix">
+        <div class="contentwidth">
+<!--
+            <div id="logo" class="left"><p><a href="http://benclinkinbeard.com"><img src="http://benclinkinbeard.com/wordpress/wp-content/themes/min/images/logo.jpg" alt="benclinkinbeard.com" /></a> </p></div>
+-->
+            <div id="menu" class="right">
+            
+            	<ul class="sf-menu">
+					<li  ><a href="../../../index.html" title="Home">Home</a></li>
+                	<li class="page_item page-item-43"><a href="../../../about/index.html" title="About">About</a></li>
+                </ul>
+                
+            
+            </div>
+        </div>
+    </div><!-- end header -->
+    
+    
+    <div id="promos" class="clearfix">
+    	<div class='promo'><div class='contentwidth'><p>Hi, I'm Ben and this is my blog archive. <br /><a href="/blog/">Click here to read my latest ramblings.</a></p></div></div>    </div><!-- end promos -->
+    
+    <div id="main" class="clearfix">
+    	<div class="contentwidth">
+
+	<div class="column columnLarge">		
+		
+
+		<div class="post" id="post-26">
+				<h2>flexmdi: Starting out simple with MDICanvas</h2>
+		<div class="postmeta">
+			<p class="clearfix"><span>09.11.07</span><span>Posted by <a href="../../../author/ben/index.html" title="Posts by Ben">Ben</a> in <a href="../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a>, <a href="../../../category/flexmdi/index.html" title="View all posts in flexmdi" rel="category tag">flexmdi</a></span><span><span>Comments Off</span></span></p>
+		</div>
+		<div class="postcontent">
+			<p>The quickest, dirtiest, most basic way to use flexmdi is with the MDICanvas class. MDICanvas essentially wraps the manager (MDIManager) and container (Canvas) into one class, allowing you to define a basic MDI interface purely in MXML. Let's look at some code.</p>
+<div class="syntax_hilite">
+<div id="actionscript-1">
+<div class="actionscript">&lt;flexmdi:MDICanvas id=<span style="color: #ff0000;">"mdic"</span> <span style="color: #0066CC;">width</span>=<span style="color: #ff0000;">"500"</span> <span style="color: #0066CC;">height</span>=<span style="color: #ff0000;">"500"</span>&gt;<br />
+&nbsp; &nbsp; &lt;flexmdi:MDIWindow id=<span style="color: #ff0000;">"win1"</span> title=<span style="color: #ff0000;">"Window One"</span> x=<span style="color: #ff0000;">"10"</span> y=<span style="color: #ff0000;">"10"</span>&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;samples:SampleContent /&gt;<br />
+&nbsp; &nbsp; &lt;/flexmdi:MDIWindow&gt;<br />
+&nbsp; &nbsp; &lt;flexmdi:MDIWindow id=<span style="color: #ff0000;">"win2"</span> title=<span style="color: #ff0000;">"Window Two"</span> x=<span style="color: #ff0000;">"250"</span> y=<span style="color: #ff0000;">"250"</span>&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;samples:SampleContent /&gt;<br />
+&nbsp; &nbsp; &lt;/flexmdi:MDIWindow&gt;<br />
+&nbsp; &nbsp; &lt;flexmdi:MDIWindow id=<span style="color: #ff0000;">"win3"</span> title=<span style="color: #ff0000;">"Window Three"</span> x=<span style="color: #ff0000;">"100"</span> y=<span style="color: #ff0000;">"100"</span>&gt;<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &lt;samples:SampleContent /&gt;<br />
+&nbsp; &nbsp; &lt;/flexmdi:MDIWindow&gt;<br />
+&lt;/flexmdi:MDICanvas&gt;</div>
+</div>
+</div>
+<p></p>
+<p>As you can probably guess, this will create a 500 x 500 Canvas with three windows in it. The windows are created at the coordinates specified in the MXML, and since no size is specified they are created at the default size of 200 x 200.</p>
+<p>As it turns out, thats pretty much all there is to it. You could also use this approach for doing a quick layout in MXML but still use AS to gain a little more control and customize things. You can obviously address any of the windows by their id, but you can also address the MDIManager that is created for you with code like this: mdic.windowManager. I will discuss some of the more advanced topics in subsequent articles but feel free to leave questions or comments.</p>
+		</div>
+		
+		
+				
+		
+		<p>
+			<small>
+				Both comments and pings are currently closed.
+							</small>
+		</p>
+		</div>
+			
+		<div class="navigation clearfix">
+			<div class="alignleft"><a href="../announcing-flexmdi-robust-extensible-mdi-framework-for-adobe-flex/index.html" rel="prev">Announcing flexmdi: Robust, extensible MDI framework for Adobe Flex</a></div>
+			<div class="alignright"><a href="../flexmdi-customizing-default-behaviors/index.html" rel="next">flexmdi: Customizing default behaviors</a></div>
+		</div>
+
+	
+<div id="disqus_thread">
+					<div id="dsq-content">
+			<ul id="dsq-comments">
+					<li id="dsq-comment-320">
+					<div id="dsq-comment-header-320" class="dsq-comment-header">
+						<cite id="dsq-cite-320">
+	http://www.returnundefined.com/2007/09/announcing-flexmdi-robust-extensible-mdi-framework-for-adobe-flex/							<span id="dsq-author-user-320">return undefined; &raquo; Announcing flexmdi: Robust, extensible MDI framework for Adobe Flex</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-320" class="dsq-comment-body">
+						<div id="dsq-comment-message-320" class="dsq-comment-message"><p>[...] flexmdi: Starting out simple with MDICanvas [...]</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-311">
+					<div id="dsq-comment-header-311" class="dsq-comment-header">
+						<cite id="dsq-cite-311">
+	http://trendspurt.de							<span id="dsq-author-user-311">Amir</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-311" class="dsq-comment-body">
+						<div id="dsq-comment-message-311" class="dsq-comment-message"><p>Hi ,<br />
+ver y nice framework. I have been using it in a small project: However I have found some strange behaviour which i may need some help with.<br />
+Once the close Button is pushed, the MDIWindow is removed and disappears from stage. However it seems the window is still alive, although not visible.<br />
+Once i open the window the second time, my initial server call is being called twice, once for the visible window and once for the already closed window.<br />
+Further I didnt explicitly call the close method. Can you guys help please ? What am I doing wrong ? Any help is appreciated.<br />
+Thanx<br />
+Amir</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-310">
+					<div id="dsq-comment-header-310" class="dsq-comment-header">
+						<cite id="dsq-cite-310">
+								<span id="dsq-author-user-310">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-310" class="dsq-comment-body">
+						<div id="dsq-comment-message-310" class="dsq-comment-message"><p>Hi Amir,</p>
+<p>Thanks for the compliment. I think I would need to see some code before I could help diagnose your problem. What kind of listener are you attaching to the window that seems to get called even after closing it? You might want to try a weak listener or manually removing the listener(s) when the window is closed.</p>
+<p>As for the window closing without calling close(), the default behavior assigned to the close button&#8217;s click handler is to close the window. Instructions on how to modify and/or customize that behavior can be found here: <a href="http://www.returnundefined.com/2007/09/flexmdi-customizing-default-behaviors/" rel="nofollow">http://www.returnundefined.com/2007/09/flexmdi-customizing-default-behaviors/</a></p>
+<p>Let me know if you continue to have trouble.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-318">
+					<div id="dsq-comment-header-318" class="dsq-comment-header">
+						<cite id="dsq-cite-318">
+								<span id="dsq-author-user-318">Randy Martin</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-318" class="dsq-comment-body">
+						<div id="dsq-comment-message-318" class="dsq-comment-message"><p>Ben,</p>
+<p>I&#8217;m using flexmdi in a project to provide windows on one view of a viewstack. This is a very nice framework, BTW. The only problem I have is that the swc file doesn&#8217;t seem to have the graphics for the buttons (close, maximize, etc.) embedded in it. The only way to get the graphics to show up is to set up styles that embed the graphics and put the styles in my css file for the application. The only way to find out the style names is to either dig through the source code for MDIWindow or copy the styles from one of your examples.</p>
+<p>Shouldn&#8217;t the default graphics for the icons just be embedded in the compiled library? Also, I tried to recompile the library and include the assets, but this didn&#8217;t help.</p>
+<p>One more thing, some examples on how to change the content of the windows using AS would be nice to have. You&#8217;re examples show how to create the windows with AS, and the canvas example shows how to provide content for the windows via MXML, but there&#8217;s nothing for AS.</p>
+<p>I finally got it to work like this:</p>
+<p>      private function getViewComplaint(cn:Object):MDIWindow {<br />
+        var view:ViewComplaint = new ViewComplaint();<br />
+        view.cn = cn;<br />
+        view.addEventListener(&#8220;assignItem&#8221;, refreshList);<br />
+        return view;<br />
+      }</p>
+<p>Then in the MXML code:</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-319">
+					<div id="dsq-comment-header-319" class="dsq-comment-header">
+						<cite id="dsq-cite-319">
+	http://www.returnundefined.com/							<span id="dsq-author-user-319">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-319" class="dsq-comment-body">
+						<div id="dsq-comment-message-319" class="dsq-comment-message"><p>Hi Randy, I&#8217;m glad you&#8217;re enjoying flexmdi! Sorry about your comments getting cut off, it has something to do with the brackets in MXML. I deleted your second comment because the same thing happened to it. I need to look into fixing that but in the meantime if you wrap any code (AS or MXML) in tags like this [as ]// code goes here[ /as] it should get the same highlighting the code in the posts does. (&#8220;as&#8221; tags with square brackets, I only included spaces to prevent it being applied)</p>
+<p>Anyhow, on to your questions. Regarding the CSS and assets you&#8217;re exactly right. We actually just became aware of defaults.css the other day, which is supposed to embed everything in the SWC. Look for that type of implementation in the next release- there is one coming, I promise. Sorry we got it wrong the first time around.</p>
+<p>As for changing content, you can treat MDIWindow just like any Panel (MDIWIndow&#8217;s superclass) or other container class and use addChild() and removeChild() to modify the window&#8217;s contents. Hope that helps, let me know if you have additional questions.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-321">
+					<div id="dsq-comment-header-321" class="dsq-comment-header">
+						<cite id="dsq-cite-321">
+								<span id="dsq-author-user-321">Tom</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-321" class="dsq-comment-body">
+						<div id="dsq-comment-message-321" class="dsq-comment-message"><p>I&#8217;m adapting your great MDI framework for a project I started a while ago using another similar framework. A quick question: how would I execute the tiling while setting all the panels to a particular predetermined size rather than maximizing them? I&#8217;m being lazy in asking here before studying the MDIManager code, but I thought you might have a quick easy answer. Thanks!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-315">
+					<div id="dsq-comment-header-315" class="dsq-comment-header">
+						<cite id="dsq-cite-315">
+								<span id="dsq-author-user-315">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-315" class="dsq-comment-body">
+						<div id="dsq-comment-message-315" class="dsq-comment-message"><p>Hi Tom, you want to tile the windows but not use the window sizes that result? If I&#8217;m understanding your question correctly there is no way to do that out of the box. Sorry.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-314">
+					<div id="dsq-comment-header-314" class="dsq-comment-header">
+						<cite id="dsq-cite-314">
+								<span id="dsq-author-user-314">Tom</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-314" class="dsq-comment-body">
+						<div id="dsq-comment-message-314" class="dsq-comment-message"><p>What I&#8217;d like to do is tile the windows but set their sizes as well. Users would be able to reposition and resize windows, but tiling them would return them all to a particular size (say, 350 X 200 px) and arrange them in a grid starting at the upper left. Is that what you&#8217;re saying is not possible?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-317">
+					<div id="dsq-comment-header-317" class="dsq-comment-header">
+						<cite id="dsq-cite-317">
+								<span id="dsq-author-user-317">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-317" class="dsq-comment-body">
+						<div id="dsq-comment-message-317" class="dsq-comment-message"><p>Hi Tom, unfortunately that is not something we anticipated a need for, so we didn&#8217;t implement that functionality. I don&#8217;t think it would be too difficult to implement, so if you feel up to it I would encourage you to dive into MDIManager.tile() and see if you can make the necessary changes, or perhaps create a new function called tileWindowsToSize(w:Number, h:Number) or something. If you feel like this is something others would use and/or should be part of the standard library feel free to add an enhancement request on the project site on Google Code.</p>
+<p>Thanks!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-316">
+					<div id="dsq-comment-header-316" class="dsq-comment-header">
+						<cite id="dsq-cite-316">
+								<span id="dsq-author-user-316">Randy Martin</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-316" class="dsq-comment-body">
+						<div id="dsq-comment-message-316" class="dsq-comment-message"><p>OK. I give up. If you&#8217;ll send me your email address privately, I&#8217;ll send you the code I used to get this to work, and my suggestions for adding content to the windows.</p>
+<p>~randy</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-312">
+					<div id="dsq-comment-header-312" class="dsq-comment-header">
+						<cite id="dsq-cite-312">
+								<span id="dsq-author-user-312">Tom</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-312" class="dsq-comment-body">
+						<div id="dsq-comment-message-312" class="dsq-comment-message"><p>Randy &#8211; if that message was meant for me (I hope it was) &#8211; how do I send you my email address privately?</p>
+<p>Thanks.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-313">
+					<div id="dsq-comment-header-313" class="dsq-comment-header">
+						<cite id="dsq-cite-313">
+								<span id="dsq-author-user-313">Randy Martin</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-313" class="dsq-comment-body">
+						<div id="dsq-comment-message-313" class="dsq-comment-message"><p>Tom,</p>
+<p>Actually, that message was meant for Ben so I could send him the code for how I got content into an MDIWindow via actionscript.</p>
+<p>Sorry,<br />
+Randy</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-309">
+					<div id="dsq-comment-header-309" class="dsq-comment-header">
+						<cite id="dsq-cite-309">
+	http://mdavey.wordpress.com/2008/01/03/continuous-build-flex-builder-3-vs-visual-studio-2008/							<span id="dsq-author-user-309">Continuous Build: Flex vs Sliverlight &laquo; Tales from a Trading Desk</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-309" class="dsq-comment-body">
+						<div id="dsq-comment-message-309" class="dsq-comment-message"><p>[...] Update: If your using FlexMdi and don&#8217;t see the correct images for close, minimize etc, then read this, comment in this and this. [...]</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-306">
+					<div id="dsq-comment-header-306" class="dsq-comment-header">
+						<cite id="dsq-cite-306">
+								<span id="dsq-author-user-306">Mike</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-306" class="dsq-comment-body">
+						<div id="dsq-comment-message-306" class="dsq-comment-message"><p>Is there a sample of using the 1.0 version of FlexMDI using PB 3 with the latest SDK to extend the buttons?  I&#8217;ve looked at the sample on google for this and using PB 3 causes errors &#8211; in attempting to correct the errors the added button appears in the &#8216;main&#8217; content area instead of the top bar of the MDI Window.  And have been unable to add an additional button successfully.</p>
+<p>Thanks</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-308">
+					<div id="dsq-comment-header-308" class="dsq-comment-header">
+						<cite id="dsq-cite-308">
+								<span id="dsq-author-user-308">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-308" class="dsq-comment-body">
+						<div id="dsq-comment-message-308" class="dsq-comment-message"><p>Hi Mike,</p>
+<p>There are significant changes checked in to accommodate customized titleBars but no new release quite yet. I might be able to get a release out next week but if you feel comfortable checking out and examining the code I would encourage you to do so.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-284">
+					<div id="dsq-comment-header-284" class="dsq-comment-header">
+						<cite id="dsq-cite-284">
+								<span id="dsq-author-user-284">Keith</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-284" class="dsq-comment-body">
+						<div id="dsq-comment-message-284" class="dsq-comment-message"><p>I have a small problem trying to run the demo.  When I download the source code and extract it I open the MDIExampleExplorer.mxml file I get these errors :<br />
+Type was not found or was not a compile-time constant: MDICanvas line 148<br />
+Type was not found or was not a compile-time constant: MDIWindow line 151 and line 154</p>
+<p>Any ideas ???</p>
+<p>Thanks<br />
+Keith Lowry<br />
+Atlanta, GA</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-291">
+					<div id="dsq-comment-header-291" class="dsq-comment-header">
+						<cite id="dsq-cite-291">
+								<span id="dsq-author-user-291">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-291" class="dsq-comment-body">
+						<div id="dsq-comment-message-291" class="dsq-comment-message"><p>Hi Keith,</p>
+<p>How do you have your project pointing to the library? I don&#8217;t think Flex Builder will establish a link for you, you&#8217;ll need to manually point your project at the SWC or the source.</p>
+<p>Hope that helps,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-290">
+					<div id="dsq-comment-header-290" class="dsq-comment-header">
+						<cite id="dsq-cite-290">
+								<span id="dsq-author-user-290">Keith</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-290" class="dsq-comment-body">
+						<div id="dsq-comment-message-290" class="dsq-comment-message"><p>I changed it to read xmlns:flexmdi=&#8221;flexmdi.*&#8221; if thats what you mean ?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-289">
+					<div id="dsq-comment-header-289" class="dsq-comment-header">
+						<cite id="dsq-cite-289">
+								<span id="dsq-author-user-289">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-289" class="dsq-comment-body">
+						<div id="dsq-comment-message-289" class="dsq-comment-message"><p>No, I mean you need to go into your project&#8217;s properties -> Build Path -> Add SWC. There is a lot of good info on project configuration in the docs.</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-287">
+					<div id="dsq-comment-header-287" class="dsq-comment-header">
+						<cite id="dsq-cite-287">
+								<span id="dsq-author-user-287">Keith</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-287" class="dsq-comment-body">
+						<div id="dsq-comment-message-287" class="dsq-comment-message"><p>Hmmm.. I dont see a SWC file included ??</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-288">
+					<div id="dsq-comment-header-288" class="dsq-comment-header">
+						<cite id="dsq-cite-288">
+								<span id="dsq-author-user-288">Keith</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-288" class="dsq-comment-body">
+						<div id="dsq-comment-message-288" class="dsq-comment-message"><p>Ahh.. Nevermind.. Success.  I got it !!!  THANKS !</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-286">
+					<div id="dsq-comment-header-286" class="dsq-comment-header">
+						<cite id="dsq-cite-286">
+								<span id="dsq-author-user-286">Keith</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-286" class="dsq-comment-body">
+						<div id="dsq-comment-message-286" class="dsq-comment-message"><p>One ore thing.  I am trying to add code to an event (maximize) but I am getting &#8220;mdi.events:MDIWindowEvent is unavailable&#8221;</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-293">
+					<div id="dsq-comment-header-293" class="dsq-comment-header">
+						<cite id="dsq-cite-293">
+								<span id="dsq-author-user-293">Andy</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-293" class="dsq-comment-body">
+						<div id="dsq-comment-message-293" class="dsq-comment-message"><p>G&#8217;day,</p>
+<p>Great framework you&#8217;ve put together, just what I was looking for! I seem to be having some issues with instantiating the components using AS.. Any chance of a quick demo of an all AS implementation&#8230; I&#8217;ve been trying:</p>
+<p>protected function createMDICanvas():void {</p>
+<p>mainMDICanvas = new MDICanvas();<br />
+mainMDICanvas.percentHeight = 100;<br />
+mainMDICanvas.percentWidth = 100;<br />
+mainMDICanvas.horizontalScrollPolicy = &#8220;off&#8221;;<br />
+mainMDICanvas.verticalScrollPolicy = &#8220;off&#8221;;<br />
+mainMDICanvas.effectsLib = MDIVistaEffects;</p>
+<p>addChild(mainMDICanvas);</p>
+<p>}</p>
+<p>protected function displayMDICanvasItem(template:MDIWindow):void {</p>
+<p>mainMDICanvas.windowManager.add(template);</p>
+<p>}</p>
+<p>protected function removeMDICanvasItem(viewVO:ViewVO):void {</p>
+<p>			var template:* =mainMDICanvas.getChildByName(viewVO.instanceName);</p>
+<p>			mainMDICanvas.windowManager.remove(template);</p>
+<p>}</p>
+<p>These are called from an extended Application object.. Have I missed something important? &#8211; getting some undefined parent errors from MDIWindow.as line 623, when I add a window after removing one..</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-292">
+					<div id="dsq-comment-header-292" class="dsq-comment-header">
+						<cite id="dsq-cite-292">
+								<span id="dsq-author-user-292">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-292" class="dsq-comment-body">
+						<div id="dsq-comment-message-292" class="dsq-comment-message"><p>Hi Andy,</p>
+<p>Thanks, we worked hard so we&#8217;re glad people have found it useful. Your code looks correct at first glance, what is the error you&#8217;re getting? If you can send me a simple test case I can take a look. ben DOT clinkinbeard at Google&#8217;s email service <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-283">
+					<div id="dsq-comment-header-283" class="dsq-comment-header">
+						<cite id="dsq-cite-283">
+	http://www.returnundefined.com/2008/02/i-guess-donating-code-isnt-enough-anymore							<span id="dsq-author-user-283">return undefined; &raquo; I guess donating code isn&#8217;t enough anymore</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-283" class="dsq-comment-body">
+						<div id="dsq-comment-message-283" class="dsq-comment-message"><p>[...] The following is an unedited email thread I have had with a reader over the past week or so. I helped him learn how to add a SWC to a Flex project but apparently that (and FlexMDI) wasn&#8217;t good enough. The quotes next to the green bars are mine. Hey Ben, [...]</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-294">
+					<div id="dsq-comment-header-294" class="dsq-comment-header">
+						<cite id="dsq-cite-294">
+	http://www.xiao1983.cn/?p=1							<span id="dsq-author-user-294">?????? &raquo; Flash?Flex??</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-294" class="dsq-comment-body">
+						<div id="dsq-comment-message-294" class="dsq-comment-message"><p>[...] FlexMDI ????????Flex?????????MDI???????????????????????????????????? ???? ???? flexmdi?????MDICanvas?? MDIManager ?? flexmdi ???? ???? [...]</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-303">
+					<div id="dsq-comment-header-303" class="dsq-comment-header">
+						<cite id="dsq-cite-303">
+								<span id="dsq-author-user-303">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-303" class="dsq-comment-body">
+						<div id="dsq-comment-message-303" class="dsq-comment-message"><p>Hello,</p>
+<p>First of all, tnks for such amazing framework!</p>
+<p>Well, I&#8217;m kind of new into FLEX, so I appologise for my doubts.</p>
+<p>I&#8217;d like to know how can I have a function just to create a windows with something in it. Like something dynamic, that when I click on a menu, a windows with the parameters I put would open. For instance:</p>
+<p>function create_windows(&#8220;name_of_window&#8221;, &#8220;height&#8221;, &#8220;width&#8221;, &#8220;position x, &#8220;position y&#8221;, &#8220;etc&#8221;,){</p>
+<p>mywindow.createmywindow;<br />
+mywindow.addsomethingtomywindow;</p>
+<p>}</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-302">
+					<div id="dsq-comment-header-302" class="dsq-comment-header">
+						<cite id="dsq-cite-302">
+								<span id="dsq-author-user-302">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-302" class="dsq-comment-body">
+						<div id="dsq-comment-message-302" class="dsq-comment-message"><p>Hi Renan,</p>
+<p>MDIWindow extends Panel so you can treat it the same, or like any other Container for that matter. To set properties you would just iterate over the properties sent and assign them like myWindow.height = height.</p>
+<p>To add children to it you just use addChild() like for other containers.</p>
+<p>Hope that helps.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-301">
+					<div id="dsq-comment-header-301" class="dsq-comment-header">
+						<cite id="dsq-cite-301">
+								<span id="dsq-author-user-301">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-301" class="dsq-comment-body">
+						<div id="dsq-comment-message-301" class="dsq-comment-message"><p>Hello Ben,</p>
+<p>Tnks for answering so quickly!</p>
+<p>Would it be something like that?</p>
+<p>public function createMDICanvas():void {</p>
+<p>var mainMDICanvas:MDICanvas = new MDICanvas();<br />
+mainMDICanvas.horizontalScrollPolicy = &#8220;off&#8221;;<br />
+mainMDICanvas.verticalScrollPolicy = &#8220;off&#8221;;<br />
+mainMDICanvas.effectsLib = MDIVistaEffects;<br />
+mainMDICanvas.height = 200;<br />
+mainMDICanvas.width = 200;</p>
+<p>//How can I put this panel inside the window?<br />
+var myPanel:Panel = new Panel();<br />
+myPanel.id = &#8220;teste&#8221;;<br />
+myPanel.height = 20;<br />
+myPanel.width = 30;</p>
+<p>//Doing this the window should just appear?<br />
+addChild(mainMDICanvas);</p>
+<p>}</p>
+<p>I understand what you mean with the panel, it is really useful, but I still don&#8217;t know how to make the window show up.</p>
+<p>Tnks again!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-299">
+					<div id="dsq-comment-header-299" class="dsq-comment-header">
+						<cite id="dsq-cite-299">
+								<span id="dsq-author-user-299">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-299" class="dsq-comment-body">
+						<div id="dsq-comment-message-299" class="dsq-comment-message"><p>Close, but I think you would want to add an MDIWIndow instance to the mainMDICanvas, not a Panel. You would also need to add the mainMDICanvas to the display list.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-300">
+					<div id="dsq-comment-header-300" class="dsq-comment-header">
+						<cite id="dsq-cite-300">
+								<span id="dsq-author-user-300">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-300" class="dsq-comment-body">
+						<div id="dsq-comment-message-300" class="dsq-comment-message"><p>would you give me a simple example?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-296">
+					<div id="dsq-comment-header-296" class="dsq-comment-header">
+						<cite id="dsq-cite-296">
+								<span id="dsq-author-user-296">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-296" class="dsq-comment-body">
+						<div id="dsq-comment-message-296" class="dsq-comment-message"><p>Hey m8!</p>
+<p>Tnks, I got it&#8230; And I&#8217;m like UOUUUU&#8230;</p>
+<p>Seriously&#8230; it&#8217;s very good! Congratulations!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-297">
+					<div id="dsq-comment-header-297" class="dsq-comment-header">
+						<cite id="dsq-cite-297">
+								<span id="dsq-author-user-297">John</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-297" class="dsq-comment-body">
+						<div id="dsq-comment-message-297" class="dsq-comment-message"><p>Why are my minimized windows on top of each others Instead of being side by side when minimized?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-298">
+					<div id="dsq-comment-header-298" class="dsq-comment-header">
+						<cite id="dsq-cite-298">
+								<span id="dsq-author-user-298">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-298" class="dsq-comment-body">
+						<div id="dsq-comment-message-298" class="dsq-comment-message"><p>Hey Hello,</p>
+<p>Me again&#8230;</p>
+<p>I was able to do this function, and it is working, although I guess it is creating (obviously) one canvas for each window, and shouldn&#8217;t be like that, right? I couldn´t do different. Can anyone help me?</p>
+<p>//The Function:</p>
+<p>public function createMDICanvas(w:Number,h:Number):void{<br />
+            	var mainMDICanvas:MDICanvas = new MDICanvas();<br />
+            	mainMDICanvas.horizontalScrollPolicy = &#8220;off&#8221;;<br />
+				mainMDICanvas.verticalScrollPolicy = &#8220;off&#8221;;<br />
+				mainMDICanvas.percentHeight = 90;<br />
+				mainMDICanvas.percentWidth = 90;<br />
+				mainMDICanvas.effectsLib = MDIVistaEffects;</p>
+<p>				var myPanel:Panel = new Panel();<br />
+				myPanel.id = &#8220;teste&#8221;;<br />
+				myPanel.height = 300;<br />
+				myPanel.width = 200;</p>
+<p>				var myWindow:MDIWindow = new MDIWindow();<br />
+				myWindow.height = w;<br />
+				myWindow.width = h;<br />
+				myWindow.title = &#8220;MyWindow&#8221; + i++;<br />
+				addChild(mainMDICanvas);<br />
+				mainMDICanvas.windowManager.add(myWindow);<br />
+				myWindow.addChild(myPanel);<br />
+			}</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-295">
+					<div id="dsq-comment-header-295" class="dsq-comment-header">
+						<cite id="dsq-cite-295">
+								<span id="dsq-author-user-295">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-295" class="dsq-comment-body">
+						<div id="dsq-comment-message-295" class="dsq-comment-message"><p>Hi John,</p>
+<p>I can&#8217;t really say without seeing your code. I&#8217;ve not seen that happen before.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-305">
+					<div id="dsq-comment-header-305" class="dsq-comment-header">
+						<cite id="dsq-cite-305">
+								<span id="dsq-author-user-305">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-305" class="dsq-comment-body">
+						<div id="dsq-comment-message-305" class="dsq-comment-message"><p>Hi Renan, you only need one MDICanvas, so take that out of any functin that gets called more than once. You also don&#8217;t need a Panel. When creating MDIWindow&#8217;s you only need to use the manager&#8217;s add() method. addChild() is then handled for you. Look at the addWindow() function from the explorer for reference.</p>
+<p><a href="http://www.returnundefined.com/flexmdi/explorer/srcview/index.html" rel="nofollow">http://www.returnundefined.com/flexmdi/explorer/srcview/index.html</a></p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-304">
+					<div id="dsq-comment-header-304" class="dsq-comment-header">
+						<cite id="dsq-cite-304">
+								<span id="dsq-author-user-304">Renan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-304" class="dsq-comment-body">
+						<div id="dsq-comment-message-304" class="dsq-comment-message"><p>Tnks a lot!</p>
+<p>One last thing&#8230;</p>
+<p>Lets say my windows have a certain ID each one.</p>
+<p>How do I check if a window is already open?</p>
+<p>Tnks again!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-307">
+					<div id="dsq-comment-header-307" class="dsq-comment-header">
+						<cite id="dsq-cite-307">
+								<span id="dsq-author-user-307">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-307" class="dsq-comment-body">
+						<div id="dsq-comment-message-307" class="dsq-comment-message"><p>MDIManager has a windowList property you could check.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-325">
+					<div id="dsq-comment-header-325" class="dsq-comment-header">
+						<cite id="dsq-cite-325">
+	http://www.mofomo.com							<span id="dsq-author-user-325">Kelvin</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-325" class="dsq-comment-body">
+						<div id="dsq-comment-message-325" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>Really great work on this framework that you guys have come up with.<br />
+I have a small question, does the children of a MDIWindow automatically resize themselves when the window resizes e.g when it maximizes.</p>
+<p>I have something like this</p>
+<p>myMDIWindow.addChild(myFlexModule);</p>
+<p>N/B i have percentages for the width &amp; height for myFlexModule.<br />
+When the window maximizes myFlexModule doesn&#8217;t seem to resizes to reflect the resizing that has occured.</p>
+<p>So i was wondering if I have to do anything special to have that implemented.</p>
+<p>Thanks again for the superb work.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-326">
+					<div id="dsq-comment-header-326" class="dsq-comment-header">
+						<cite id="dsq-cite-326">
+								<span id="dsq-author-user-326">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-326" class="dsq-comment-body">
+						<div id="dsq-comment-message-326" class="dsq-comment-message"><p>Hi Kelvin,</p>
+<p>I am a bit surprised they don&#8217;t stay properly sized when using percentages. I would think the Flex framework would invalidate the size of the children when the window changes size. I unfortunately don&#8217;t have time to investigate right now but will try to remember to test that next time I deal with the code.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-327">
+					<div id="dsq-comment-header-327" class="dsq-comment-header">
+						<cite id="dsq-cite-327">
+								<span id="dsq-author-user-327">Julian</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-327" class="dsq-comment-body">
+						<div id="dsq-comment-message-327" class="dsq-comment-message"><p>Hello Ben</p>
+<p>We&#8217;ve recently started using FlexMDI and we really like the functionality.</p>
+<p>However, we are experiencing performance problems with any windows containing datagrids.</p>
+<p>To display a datagrid 10 columns and 15 rows can take 10 seconds.</p>
+<p>To switch between windows can take the same length of time (this is the time from clicking on the window and anything happening at all. The window paints instantly when it&#8217;s ready).</p>
+<p>Resizing is also extremely slow. Nothing happens for several seconds then the window repaints far beyond where the cursor was previously seen.</p>
+<p>Dragging and dropping a window that&#8217;s got context works fine.</p>
+<p>Do you have any thoughts on what we might be doing wrong?</p>
+<p>Thanks in advance</p>
+<p>Julian</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-328">
+					<div id="dsq-comment-header-328" class="dsq-comment-header">
+						<cite id="dsq-cite-328">
+								<span id="dsq-author-user-328">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-328" class="dsq-comment-body">
+						<div id="dsq-comment-message-328" class="dsq-comment-message"><p>Hi Julian,</p>
+<p>We&#8217;ve been meaning to implement non-live resizing as we know resizing is a performance killer but you shouldn&#8217;t be seeing problems when the windows are sitting still. MDIWindow is really just a Panel with some added functionality and children. Can you possibly provide a test case?</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-329">
+					<div id="dsq-comment-header-329" class="dsq-comment-header">
+						<cite id="dsq-cite-329">
+								<span id="dsq-author-user-329">Julian</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-329" class="dsq-comment-body">
+						<div id="dsq-comment-message-329" class="dsq-comment-message"><p>Hi Ben</p>
+<p>Thanks for replying so quickly!! <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' />  I can easily send you an example so you can see what I mean&#8230;</p>
+<p>Where should i mail that?</p>
+<p>Julian</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-332">
+					<div id="dsq-comment-header-332" class="dsq-comment-header">
+						<cite id="dsq-cite-332">
+	http://www.mofomo.com							<span id="dsq-author-user-332">Kelvin</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-332" class="dsq-comment-body">
+						<div id="dsq-comment-message-332" class="dsq-comment-message"><p>Hi Ben,</p>
+<p>Thanks for the prompt reply.</p>
+<p>When testing the resizing issue, please use a flex module as the child of the the MDIWindow.<br />
+Thats what am using and it seems that when the MDIWindow resizes, the flex module doesn&#8217;t resize as expected.</p>
+<p>Thanks again.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-285">
+					<div id="dsq-comment-header-285" class="dsq-comment-header">
+						<cite id="dsq-cite-285">
+								<span id="dsq-author-user-285">paulo</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-285" class="dsq-comment-body">
+						<div id="dsq-comment-message-285" class="dsq-comment-message"><p>Hi, when I minimize a window, appears a button at botton of mdicanvas. But if a maximize another window, this one cover the first one.<br />
+There is a way to always show the windows in task bar like windows taskbar ?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-322">
+					<div id="dsq-comment-header-322" class="dsq-comment-header">
+						<cite id="dsq-cite-322">
+								<span id="dsq-author-user-322">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-322" class="dsq-comment-body">
+						<div id="dsq-comment-message-322" class="dsq-comment-message"><p>Hi Paulo,</p>
+<p>There is a showMinimizedTiles property, I think on MDIManager. Setting it to true will do what you want.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-323">
+					<div id="dsq-comment-header-323" class="dsq-comment-header">
+						<cite id="dsq-cite-323">
+								<span id="dsq-author-user-323">Leonardo</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-323" class="dsq-comment-body">
+						<div id="dsq-comment-message-323" class="dsq-comment-message"><p>Identified a problem in the management of memory. When you add one or multiple windows on the canvas and then remove them, the memory does not reduce. What should be done for this to be corrected, taking into account that this will be used many times in a day&#8217;s work.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-324">
+					<div id="dsq-comment-header-324" class="dsq-comment-header">
+						<cite id="dsq-cite-324">
+								<span id="dsq-author-user-324">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-324" class="dsq-comment-body">
+						<div id="dsq-comment-message-324" class="dsq-comment-message"><p>Hi Leonardo,</p>
+<p>Flash Player&#8217;s garbage collection runs unpredictably (its not arbitrary but is impossible to predict) and is triggered by memory allocation requests. Therefore, removing components will never trigger garbage collection. As far as I know FlexMDI takes all necessary steps to ensure garbage collection can clean up as appropriate and does not contain any memory leaks.</p>
+<p>Thanks,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-339">
+					<div id="dsq-comment-header-339" class="dsq-comment-header">
+						<cite id="dsq-cite-339">
+								<span id="dsq-author-user-339">chris</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-339" class="dsq-comment-body">
+						<div id="dsq-comment-message-339" class="dsq-comment-message"><p>This is great&#8230;thanks!</p>
+<p>Question: can someone point me to an example of how to populated one of the MDI windows with existing forms that I have in my application?  I have several modal pop-up forms that I used to collect or display data in and I&#8217;d like to display some of them in different MDI windows.</p>
+<p>Thanks!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-340">
+					<div id="dsq-comment-header-340" class="dsq-comment-header">
+						<cite id="dsq-cite-340">
+	http://www.returnundefined.com/							<span id="dsq-author-user-340">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-340" class="dsq-comment-body">
+						<div id="dsq-comment-message-340" class="dsq-comment-message"><p>Hi Chris,</p>
+<p>MDIWindow is just a subclass of Panel, so you can add children to it like any other component. If defining in MXML you just put the child tags inside it and if using AS you can use things like addChild(), removeChild(), etc.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-337">
+					<div id="dsq-comment-header-337" class="dsq-comment-header">
+						<cite id="dsq-cite-337">
+								<span id="dsq-author-user-337">chris</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-337" class="dsq-comment-body">
+						<div id="dsq-comment-message-337" class="dsq-comment-message"><p>Ben,<br />
+Thanks for the quick and informative response!</p>
+<p>I got it working with my forms just fine.  Now I&#8217;m running into the slow resize/redraw issue previously mentioned by another user.  If I open two windows (populated with my controls) it gets slow.  Even switching focus between the two windows lags for a couple seconds.</p>
+<p>Each window contains several flex components (multiple tabs with datagrids, accordion lists, etc.).</p>
+<p>I&#8217;m willing to pay/donate to get some additional support on this.</p>
+<p>Thanks,<br />
+Chris</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-341">
+					<div id="dsq-comment-header-341" class="dsq-comment-header">
+						<cite id="dsq-cite-341">
+								<span id="dsq-author-user-341">juan</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-341" class="dsq-comment-body">
+						<div id="dsq-comment-message-341" class="dsq-comment-message"><p>hi guys</p>
+<p>could anyone help me with this:</p>
+<p>I have an application working with MDICanvas but when I need to add a new MDIWindow in an absolute position I can set the x and y position for the MDIWindow  but in the MDICanvas the MDIWindow  appears in a different x and y position.</p>
+<p>thanks</p>
+<p>:::::::::::::::::::::::code::::::::::::::::::::::::::</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-338">
+					<div id="dsq-comment-header-338" class="dsq-comment-header">
+						<cite id="dsq-cite-338">
+								<span id="dsq-author-user-338">Raymond</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-338" class="dsq-comment-body">
+						<div id="dsq-comment-message-338" class="dsq-comment-message"><p>Create tool, I am using the MDI functionality in an application currently, I do have an issue though, At first launch of application everything is good, then I launch the window, and then minimize, it goes below the screen. But when i resize the browser window and then minimize again the window minimizes to the correct position. i was wondering if you can help me out here, thanks. (Something that I noticed that if I take away my tool-bars its the exact amount of space to the minimized window, don&#8217;t know if that will help). Thanks again</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-334">
+					<div id="dsq-comment-header-334" class="dsq-comment-header">
+						<cite id="dsq-cite-334">
+	http://devharbor.blogspot.com							<span id="dsq-author-user-334">Alex C</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-334" class="dsq-comment-body">
+						<div id="dsq-comment-message-334" class="dsq-comment-message"><p>This is a wonderful component. Thanks for creating it!!</p>
+<p>I have a button on the page that, when clicked, creates a new MDIWindow to display help information. I&#8217;ve noticed that I can click the button and create one window after another. The app only needs that one window.</p>
+<p>Is the best way to prevent this to call the mdiCanvas.windowManager.removeAll(); before creating the new window. Is there a way to do this that you recommend?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-335">
+					<div id="dsq-comment-header-335" class="dsq-comment-header">
+						<cite id="dsq-cite-335">
+	http://www.returnundefined.com/							<span id="dsq-author-user-335">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-335" class="dsq-comment-body">
+						<div id="dsq-comment-message-335" class="dsq-comment-message"><p>Hi Alex,</p>
+<p>It depends on your scenario. I assume you mean what to do when the window is still open and the button is clicked again. In that case I would probably set a var somewhere whenever the window is opened and in your button handler check isHelpWindowOpen before making the call to add the window.</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-330">
+					<div id="dsq-comment-header-330" class="dsq-comment-header">
+						<cite id="dsq-cite-330">
+	http://devharbor.blogspot.com							<span id="dsq-author-user-330">Alex C</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-330" class="dsq-comment-body">
+						<div id="dsq-comment-message-330" class="dsq-comment-message"><p>Thanks, Ben. Another question: I&#8217;d like to center the new window and allow it to be draggable elsewhere. However, using the following code, when I drag the window and try to drop it somewhere else, it snaps back to the center location,</p>
+<p>win.setStyle(&#8220;horizontalCenter&#8221;,&#8221;0&#8243;);<br />
+mdiCanvas.windowManager.add(win);<br />
+mdiCanvas.windowManager.center(win);</p>
+<p>Any thoughts on what I&#8217;m doing wrong? Without the setStyle() and center(0 calls, the window appears in the top, left and is draggable. Thanks.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-331">
+					<div id="dsq-comment-header-331" class="dsq-comment-header">
+						<cite id="dsq-cite-331">
+	http://www.returnundefined.com/							<span id="dsq-author-user-331">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-331" class="dsq-comment-body">
+						<div id="dsq-comment-message-331" class="dsq-comment-message"><p>Hi Alex,</p>
+<p>It snaps back because of the horizontalCenter style. We clear any top, right, bottom left styles when dragging starts but I think horizontalCenter and verticalCenter were overlooked. You should add a feature request to <a href="http://code.google.com/p/flexlib/issues/list" rel="nofollow">http://code.google.com/p/flexlib/issues/list</a>.</p>
+<p>I didn&#8217;t even know we had a center() method and the code for it seems to be incorrect. I would just create your own method to center a window manually and use that, and get rid of the existing call to center() and remove the style.</p>
+<p>HTH,<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-344">
+					<div id="dsq-comment-header-344" class="dsq-comment-header">
+						<cite id="dsq-cite-344">
+	http://devharbor.blogspot.com							<span id="dsq-author-user-344">Alex C</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-344" class="dsq-comment-body">
+						<div id="dsq-comment-message-344" class="dsq-comment-message"><p>Thanks. Just added a new issue to the bug db. I&#8217;m going to search for some code to center a control.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-342">
+					<div id="dsq-comment-header-342" class="dsq-comment-header">
+						<cite id="dsq-cite-342">
+								<span id="dsq-author-user-342">Clink</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-342" class="dsq-comment-body">
+						<div id="dsq-comment-message-342" class="dsq-comment-message"><p>Your example code is missing some critical pieces.</p>
+<p>It&#8217;s got no xml declaration and contains no xmlns for your flexmdi namespace you&#8217;ve used.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-343">
+					<div id="dsq-comment-header-343" class="dsq-comment-header">
+						<cite id="dsq-cite-343">
+	http://www.returnundefined.com/							<span id="dsq-author-user-343">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-343" class="dsq-comment-body">
+						<div id="dsq-comment-message-343" class="dsq-comment-message"><p>Yea, its just an example code snippet. It&#8217;s not meant to be a full runnable example.</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-336">
+					<div id="dsq-comment-header-336" class="dsq-comment-header">
+						<cite id="dsq-cite-336">
+								<span id="dsq-author-user-336">Sajjad Ahmed Paracha</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-336" class="dsq-comment-body">
+						<div id="dsq-comment-message-336" class="dsq-comment-message"><p>Hi ,<br />
+I am trying to run your source code in flex2 , and have made the following application file</p>
+<p>But my flex2 builder is showing me a compile time error as &#8220;Definition of base class LayoutContainer was not found&#8221;&#8230;..<br />
+I see this error in MDIWindowControlsContainer &#8230;.Seems like this code is not for flex2 as I can&#8217;t found this LayoutContainer class in mx.core package&#8230;..<br />
+Can you kindly guide me where can I find a version of flexmdi for flex2 .</p>
+<p>Thanks in Advance</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-333">
+					<div id="dsq-comment-header-333" class="dsq-comment-header">
+						<cite id="dsq-cite-333">
+	http://www.returnundefined.com/							<span id="dsq-author-user-333">Ben Clinkinbeard</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-333" class="dsq-comment-body">
+						<div id="dsq-comment-message-333" class="dsq-comment-message"><p>Hi Sajjad,</p>
+<p>WordPress stripped out your code, but LayoutContainer is definitely available in Flex 2. <a href="http://livedocs.adobe.com/flex/201/langref/mx/core/LayoutContainer.html" rel="nofollow">http://livedocs.adobe.com/flex/201/langref/mx/core/LayoutContainer.html</a></p>
+<p>Not sure why you&#8217;re having trouble.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-853">
+					<div id="dsq-comment-header-853" class="dsq-comment-header">
+						<cite id="dsq-cite-853">
+	http://chevitarese.wordpress.com							<span id="dsq-author-user-853">Fred Chevitarese</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-853" class="dsq-comment-body">
+						<div id="dsq-comment-message-853" class="dsq-comment-message"><p>I can&#8217;t see the code&#8230;. </p>
+<p>Thanks!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-854">
+					<div id="dsq-comment-header-854" class="dsq-comment-header">
+						<cite id="dsq-cite-854">
+								<span id="dsq-author-user-854">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-854" class="dsq-comment-body">
+						<div id="dsq-comment-message-854" class="dsq-comment-message"><p>Hi Fred,</p>
+<p>Thanks for the heads up. It looks like my old code highlighting plugin hadn&#8217;t made the trip over from my old host, but it should be fixed now.</p>
+<p>Thanks!<br />
+Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-1011">
+					<div id="dsq-comment-header-1011" class="dsq-comment-header">
+						<cite id="dsq-cite-1011">
+								<span id="dsq-author-user-1011">Mike Robinson</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-1011" class="dsq-comment-body">
+						<div id="dsq-comment-message-1011" class="dsq-comment-message"><p>What are the chances of enabling &#8220;source-view&#8221; on one or all of the examples you provide?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-1012">
+					<div id="dsq-comment-header-1012" class="dsq-comment-header">
+						<cite id="dsq-cite-1012">
+								<span id="dsq-author-user-1012">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-1012" class="dsq-comment-body">
+						<div id="dsq-comment-message-1012" class="dsq-comment-message"><p>Hi Mike,</p>
+<p>View source should already be enabled on all of them. On the MDI explorer you have to right click in the bar at the top since the context menu is overridden in the window area.</p>
+<p>Ben</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-1013">
+					<div id="dsq-comment-header-1013" class="dsq-comment-header">
+						<cite id="dsq-cite-1013">
+								<span id="dsq-author-user-1013">Mike Robinson</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-1013" class="dsq-comment-body">
+						<div id="dsq-comment-message-1013" class="dsq-comment-message"><p>Thanks for the reply, Ben. I guess I overlooked trying the top bar. BTW, thanks for making this library available.</p>
+</div>
+					</div>
+				</li>
+				</ul>
+		</div>
+	</div>
+
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var disqus_url = 'http://benclinkinbeard.com/2007/09/flexmdi-starting-out-simple-with-mdicanvas/ ';
+	var disqus_identifier = '26 http://www.returnundefined.com/2007/09/flexmdi-starting-out-simple-with-mdicanvas/';
+	var disqus_container_id = 'disqus_thread';
+	var disqus_domain = 'disqus.com';
+	var disqus_shortname = 'benclinkinbeard';
+	var disqus_title = "flexmdi: Starting out simple with MDICanvas";
+		var disqus_config = function () {
+	    var config = this; // Access to the config object
+
+	    /* 
+	       All currently supported events:
+	        * preData — fires just before we request for initial data
+	        * preInit - fires after we get initial data but before we load any dependencies
+	        * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+	        * afterRender - fires when template is rendered but before we show it
+	        * onReady - everything is done
+	     */
+
+		config.callbacks.preData.push(function() {
+			// clear out the container (its filled for SEO/legacy purposes)
+			document.getElementById(disqus_container_id).innerHTML = '';
+		});
+				config.callbacks.onReady.push(function() {
+			// sync comments in the background so we don't block the page
+			DISQUS.request.get('?cf_action=sync_comments&post_id=26');
+		});
+					};
+	var facebookXdReceiverPath = 'http://benclinkinbeard.com/wordpress/wp-content/plugins/disqus/xd_receiver.htm';
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var DsqLocal = {
+		'trackbacks': [
+			{
+				'author_name':	"return undefined; &raquo; Announcing flexmdi: Robust, extensible MDI framework for Adobe Flex",
+				'author_url':	"http:\/\/www.returnundefined.com\/2007\/09\/announcing-flexmdi-robust-extensible-mdi-framework-for-adobe-flex\/",
+				'date':			"09\/11\/2007 11:58 AM",
+				'excerpt':		"[...] flexmdi: Starting out simple with MDICanvas [...] ",
+				'type':			"pingback"			}
+,			{
+				'author_name':	"Continuous Build: Flex vs Sliverlight &laquo; Tales from a Trading Desk",
+				'author_url':	"http:\/\/mdavey.wordpress.com\/2008\/01\/03\/continuous-build-flex-builder-3-vs-visual-studio-2008\/",
+				'date':			"01\/04\/2008 07:19 PM",
+				'excerpt':		"[...] Update: If your using FlexMdi and don&#8217;t see the correct images for close, minimize etc, then read this, comment ...",
+				'type':			"pingback"			}
+,			{
+				'author_name':	"return undefined; &raquo; I guess donating code isn&#8217;t enough anymore",
+				'author_url':	"http:\/\/www.returnundefined.com\/2008\/02\/i-guess-donating-code-isnt-enough-anymore",
+				'date':			"02\/04\/2008 02:29 PM",
+				'excerpt':		"[...] The following is an unedited email thread I have had with a reader over the past week or so. ...",
+				'type':			"pingback"			}
+,			{
+				'author_name':	"?????? &raquo; Flash?Flex??",
+				'author_url':	"http:\/\/www.xiao1983.cn\/?p=1",
+				'date':			"02\/20\/2008 11:22 AM",
+				'excerpt':		"[...] FlexMDI ????????Flex?????????MDI???????????????????????????????????? ???? ???? flexmdi?????MDICanvas?? MDIManager ?? flexmdi ???? ???? [...] ",
+				'type':			"pingback"			}
+		],
+		'trackback_url': "http:\/\/www.benclinkinbeard.com\/2007\/09\/flexmdi-starting-out-simple-with-mdicanvas\/trackback\/"	};
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = 'http://' + disqus_shortname + '.' + disqus_domain + '/embed.js?pname=wordpress&pver=2.61';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+	
+</div><!-- end column large-->
+
+<div class="column columnSmall sidebar last">
+
+	<div class="column columnSmall">
+		<div id="text-3" class="widget widget_text">			<div class="textwidget"><a href="http://www.360flex.com"><img src="../../../wordpress/wp-content/uploads/2010/07/360dc.png" /></a></div>
+		</div><div id="search-3" class="widget widget_search"><h3 class="widgettitle">Search</h3><form name="searchform" id="searchform" class="clearfix" method="get" action="../../../index.html">
+	<input class="text" type="text" name="s" id="s" value=""/>
+	<input id="searchsubmit" type="image" src="../../../wordpress/wp-content/themes/min/images/icon_search.jpg" value="" />
+</form></div><div id="categories-3" class="widget widget_categories"><h3 class="widgettitle">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../../category/360flex/index.html" title="View all posts filed under 360|Flex">360|Flex</a> (7)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../../category/as2/index.html" title="View all posts filed under AS2">AS2</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../../category/as3/index.html" title="View all posts filed under AS3">AS3</a> (28)
+</li>
+	<li class="cat-item cat-item-6"><a href="../../../category/flare/index.html" title="View all posts filed under Flare">Flare</a> (2)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../../category/flash/index.html" title="View all posts filed under Flash">Flash</a> (16)
+</li>
+	<li class="cat-item cat-item-8"><a href="../../../category/flashdevelop/index.html" title="View all posts filed under FlashDevelop">FlashDevelop</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="../../../category/flex/index.html" title="View all posts filed under Flex">Flex</a> (56)
+</li>
+	<li class="cat-item cat-item-10"><a href="../../../category/flexmdi/index.html" title="View all posts filed under flexmdi">flexmdi</a> (10)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../category/jsfl/index.html" title="View all posts filed under JSFL">JSFL</a> (2)
+</li>
+	<li class="cat-item cat-item-12"><a href="../../../category/misc/index.html" title="View all posts filed under miscellany">miscellany</a> (17)
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../category/misc/pointless-blather/index.html" title="View all posts filed under pointless blather">pointless blather</a> (11)
+</li>
+	<li class="cat-item cat-item-14"><a href="../../../category/swiz/index.html" title="View all posts filed under Swiz">Swiz</a> (5)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../category/uncategorized/index.html" title="View all posts filed under Uncategorized">Uncategorized</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../category/universal-mind/index.html" title="View all posts filed under Universal Mind">Universal Mind</a> (1)
+</li>
+		</ul>
+</div><div id="archives-3" class="widget widget_archive"><h3 class="widgettitle">Archives</h3>		<ul>
+			<li><a href='../../../2010/10/index.html' title='October 2010'>October 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/09/index.html' title='September 2010'>September 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/08/index.html' title='August 2010'>August 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/03/index.html' title='March 2010'>March 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/02/index.html' title='February 2010'>February 2010</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/12/index.html' title='December 2009'>December 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/11/index.html' title='November 2009'>November 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/10/index.html' title='October 2009'>October 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/09/index.html' title='September 2009'>September 2009</a>&nbsp;(5)</li>
+	<li><a href='../../../2009/08/index.html' title='August 2009'>August 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../2009/05/index.html' title='May 2009'>May 2009</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/03/index.html' title='March 2009'>March 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/02/index.html' title='February 2009'>February 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/01/index.html' title='January 2009'>January 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../2008/09/index.html' title='September 2008'>September 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../2008/08/index.html' title='August 2008'>August 2008</a>&nbsp;(1)</li>
+	<li><a href='../../../2008/07/index.html' title='July 2008'>July 2008</a>&nbsp;(3)</li>
+	<li><a href='../../../2008/05/index.html' title='May 2008'>May 2008</a>&nbsp;(6)</li>
+	<li><a href='../../../2008/03/index.html' title='March 2008'>March 2008</a>&nbsp;(4)</li>
+	<li><a href='../../../2008/02/index.html' title='February 2008'>February 2008</a>&nbsp;(5)</li>
+	<li><a href='../../../2008/01/index.html' title='January 2008'>January 2008</a>&nbsp;(2)</li>
+	<li><a href='../../12/index.html' title='December 2007'>December 2007</a>&nbsp;(1)</li>
+	<li><a href='../../11/index.html' title='November 2007'>November 2007</a>&nbsp;(2)</li>
+	<li><a href='../../10/index.html' title='October 2007'>October 2007</a>&nbsp;(1)</li>
+	<li><a href='../index.html' title='September 2007'>September 2007</a>&nbsp;(4)</li>
+	<li><a href='../../07/index.html' title='July 2007'>July 2007</a>&nbsp;(1)</li>
+	<li><a href='../../06/index.html' title='June 2007'>June 2007</a>&nbsp;(3)</li>
+	<li><a href='../../01/index.html' title='January 2007'>January 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2006/11/index.html' title='November 2006'>November 2006</a>&nbsp;(1)</li>
+	<li><a href='../../../2006/10/index.html' title='October 2006'>October 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../2006/08/index.html' title='August 2006'>August 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../2006/07/index.html' title='July 2006'>July 2006</a>&nbsp;(5)</li>
+		</ul>
+</div>	</div>
+</div>
+
+
+        
+        </div>
+    </div><!-- end main -->
+    
+
+	<div id="footer-top" class="clearfix">
+    	<div class="contentwidth clearfix">
+        
+        <div class="column columnSmall">
+        			<div id="recent-posts-3" class="widget widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+				<li><a href="../../../2010/10/fixing-drawcircle-distortion-to-create-smooth-circles/index.html" title="Fixing drawCircle() distortion to create smooth circles">Fixing drawCircle() distortion to create smooth circles</a></li>
+				<li><a href="../../../2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/index.html" title="Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC</a></li>
+				<li><a href="../../../2010/08/you-need-to-be-at-360flex-dc/index.html" title="You need to be at 360|Flex DC.">You need to be at 360|Flex DC.</a></li>
+				<li><a href="../../../2010/03/injecting-into-custom-namespaces-yea-swiz-can-do-that-too/index.html" title="Injecting into custom namespaces? Yea, Swiz can do that too.">Injecting into custom namespaces? Yea, Swiz can do that too.</a></li>
+				<li><a href="../../../2010/02/what-windshield-wipers-taught-me-about-user-experience/index.html" title="What Windshield Wipers Taught Me About User Experience">What Windshield Wipers Taught Me About User Experience</a></li>
+				</ul>
+		</div>        </div>
+        
+        <div class="column columnSmall">
+        	<div id="recent-comments-3" class="widget widget_recent_comments"><h3>Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1275">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1274">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1273">Smooth Scrolling Flex List</a></li><li class="recentcomments">faha on <a href="../../11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1272">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li><li class="recentcomments">Prakashm88 on <a href="../../11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1271">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li></ul></div>        </div>
+        
+		<!-- Disable contact form in the admin area to use widgets instead. -->
+					<!-- contact form -->
+        	<div class="widget">
+            	<h3>Contact Ben</h3>
+                
+                
+                                
+                <form action="index.html" method="post" class="standardForm" onsubmit="javascript:return validate(this)">
+                    <div class="column columnSmall">
+                        <textarea class="textarea" rows="3" cols="3" name="cfmessage"></textarea>
+                    </div>
+                    <div class="column columnSmall last">
+                        <input type="text" name="cfname" class="textbox" value="Name" onclick="this.value=''" />
+                        <input type="text" name="cfemail" class="textbox" value="you@email.com" onclick="this.value=''" />
+                        <input type="text" value="" name="email" class="hidden" />
+						<input type="hidden" value="1" name="contact_form_attempt" class="hidden" />
+                        <input type="submit" class="submit" value="Send Message" /><span id="message" class="hidden"></span>
+                    </div>
+                </form>
+            </div>
+			<!-- contact form end -->
+				
+	    
+		
+		
+		
+        
+          
+        
+        
+        </div>
+    </div><!-- end footer-top -->
+    
+    
+    
+    <div id="footer-bottom" class="clearfix">
+		<div class="contentwidth"><p class="right"><small><a href="index.html#top">Back to the Top</a></small></p>
+			<p><small>All source code shared on this site is available under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a> unless otherwise noted.</small></p>    	</div>
+    </div><!-- end footer-bottom -->
+
+
+</div><!-- end outer -->
+
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/jquery.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/superfish.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/supersubs.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/general.js"></script>
+
+<!-- ***** GOOGLE TRANSLATE ***** -->
+<div id="google_translate_element"></div><script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en'
+  }, 'google_translate_element');
+}
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ***** GOOGLE ANALYTICS ***** -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-494911-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+<!-- Dynamic Page Served (once) in 0.935 seconds -->
+<!-- Cached page served by WP-Cache -->
