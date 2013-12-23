@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="/images/cabin.png" >
+    <link href="/styles/main.css" rel="stylesheet">
+    
+    <title>Mocking environment variables with Browserify</title>
+    
+    
+    <meta name="description" content="Mocking environment dependencies with Browserify">
+    
+	<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+  </head>
+  <body>
+    <nav>
+      <h1 class="name">
+        <a href="/">Ben Clinkinbeard</a>
+      </h1>
+      <div class="menu icon-menu"></div>
+      <ul class="nav-links">
+        <li class="text-link">
+          <a href="/about.html">about</a>
+        </li>
+        <li class="text-link">
+          <a href="/projects.html">projects</a>
+        </li>
+        <li class="text-link">
+          <a href="/archives.html">archives</a>
+        </li>
+      </ul>
+      <div class="social-media">
+        <a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+        <a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+      </div>
+    </nav>
+    <div class="content">
+
+<div class="post-head group">
+  <a href="/posts/mocking-environment-variables-with-browserify/">
+    <h1 class="post-title">Mocking environment variables with Browserify</h1>
+  </a>
+  <span class="post-date">2013 &#183; 11 &#183; 13</span>
+</div>
+
+<div class="post-body markdown"><p>Developer veteran and TDD aficianado <a href="http://custardbelly.com/">Todd Anderson</a> recently remarked on Twitter that one of the things that keeps him using RequireJS is the ability to simulate/mock environment variables. Being the CommonJS/Browserify <del>zealot</del> fan that I am, I decided to confirm that the same could be done using my toolset of choice.</p>
+<h2><a name="accessing-and-mocking-environment-variables" class="anchor" href="#accessing-and-mocking-environment-variables"><span class="header-link"></span></a>Accessing and mocking environment variables</h2>
+<p>The term &quot;environment variables&quot; could mean a multitude of things, but for our purposes here we mean it to refer to things like <code>window</code>, <code>navigator</code> and the like. In Browserify, since the intended environment is a browser, you can use the <code>global</code> keyword to refer to the window object. Since we want to be able to switch out the definitions for these objects, our code to reference these variables will be defined in a file called <code>env.js</code> and look like this:</p>
+<pre><code><div class="highlight"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">win</span> <span class="o">=</span> <span class="nx">global</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">nav</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nx">navigator</span><span class="p">;</span>
+</pre></div>
+</code></pre>
+<p>We can create another file (<code>test-env.js</code> or whatever) in which we define the mocks we&#39;d like to have available in our tests:</p>
+<pre><code><div class="highlight"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">win</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">some</span><span class="o">:</span> <span class="s1">&#39;fake window&#39;</span> <span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">nav</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;fake navigator&#39;</span> <span class="p">};</span>
+</pre></div>
+</code></pre>
+<h2><a name="switching-environments" class="anchor" href="#switching-environments"><span class="header-link"></span></a>Switching environments</h2>
+<p>Now that we have two options for these variables, let&#39;s see how to transparently switch between them. For this we will utilize <a href="https://github.com/jmreidy/grunt-browserify/">grunt-browserify</a>, though the same could obviously be done using Browserify&#39;s API directly.</p>
+<pre><code><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">browserify</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">dev</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;entry.js&#39;</span><span class="p">],</span>
+            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;dist/bundle.js&#39;</span><span class="p">,</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;./env.js:env&#39;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;entry.js&#39;</span><span class="p">],</span>
+            <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;dist/bundle.js&#39;</span><span class="p">,</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">alias</span><span class="o">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;./test-env.js:env&#39;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-browserify&#39;</span><span class="p">);</span>
+
+  <span class="c1">// Default task.</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;dev&#39;</span><span class="p">]);</span>
+
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;browserify:dev&#39;</span><span class="p">]);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;browserify:test&#39;</span><span class="p">]);</span>
+
+<span class="p">};</span>
+</pre></div>
+</code></pre>
+<p>Using the above <code>Gruntfile.js</code>, you can run <code>grunt dev</code> (or just <code>grunt</code>) to load the real environment variables, or you can run <code>grunt test</code> to generate a bundle that includes your mocks in their place.</p>
+<h2><a name="putting-it-to-use" class="anchor" href="#putting-it-to-use"><span class="header-link"></span></a>Putting it to use</h2>
+<p>You can now access whichever version is bundled via the <code>env</code> alias we specified in the configs.</p>
+<pre><code><div class="highlight"><pre><span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">);</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">win</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">env</span><span class="p">.</span><span class="nx">nav</span><span class="p">);</span>
+<span class="p">})();</span>
+</pre></div>
+</code></pre>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p>Browserify is not a panacea, though it comes damn close IMO. One downside to this approach is that the use of aliases means you always have to bundle to run your code. While this shouldn&#39;t take more than a second or two, running unit tests directly usually takes a small fraction of a second. I&#39;ve definitely been known to sweat details like a workflow taking a couple seconds longer than I think it should, but this time I feel it&#39;s a reasonable tradeoff. I will gladly trade an extra second or two when running tests for the immeasurable benefits of using CommonJS, npm, and Browserify on my client side JavaScript projects.</p>
+</div>
+
+<!--Social sharing icons-->
+<div class="social">
+  <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+  <div data-size="medium" data-annotation="bubble" data-width="300" class="g-plusone"></div>
+  <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
+</div>
+<!--Disqus comments, Make sure to replace `colinwren` with your account name in the Disqus helper script below-->
+<div id="comments">
+  <div id="disqus_thread"></div>
+</div>
+
+<!--Helper scripts for social share icons-->
+<!--Hacker News-->
+<script type="text/javascript">
+  (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.src = '//hnbutton.appspot.com/static/hn.min.js';
+    s.parentNode.insertBefore(g, s);
+  }(document, 'script'));
+</script>
+
+<!--Twitter-->
+<script type="text/javascript">
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+
+<!--Google Plus-->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!--Disqus-->
+<script type="text/javascript">
+  var disqus_shortname = 'colinwren'; // Change this to your Disqus account name
+
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+    </script>
+  </body>
+</html>
+
