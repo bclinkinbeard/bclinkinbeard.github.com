@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="<%= data.baseUrl %>images/cabin.png" >
+    <link href="<%= data.baseUrl %>styles/main.css" rel="stylesheet">
+    <% if (locals.title) { %>
+    <title><%= locals.title %></title>
+    <% } else { %>
+    <title>My Blog</title>
+    <% } %>
+    <% if (locals.description) { %>
+    <meta name="description" content="<%= locals.description %>">
+    <% locals.description = null;} %>
+	<script type="text/javascript" src="<%= data.baseUrl %>scripts/mixpanel.js"></script>
+  </head>
+  <body>
+    <nav>
+      <h1 class="name">
+        <a href="<%= data.baseUrl %>">Ben Clinkinbeard</a>
+      </h1>
+      <div class="menu icon-menu"></div>
+      <ul class="nav-links">
+        <li class="text-link">
+          <a href="<%= data.baseUrl %>about.html">about</a>
+        </li>
+        <li class="text-link">
+          <a href="<%= data.baseUrl %>projects.html">projects</a>
+        </li>
+        <li class="text-link">
+          <a href="<%= data.baseUrl %>archives.html">archives</a>
+        </li>
+      </ul>
+      <div class="social-media">
+        <a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+        <a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+      </div>
+    </nav>
+    <div class="content">
