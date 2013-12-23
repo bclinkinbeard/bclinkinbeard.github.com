@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>flexmdi 1.1 release &#8211; Enhancements and bug fixes &laquo;  benclinkinbeard.com</title>    
+    <link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../../../wordpress/wp-content/themes/min/superfish.css" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" href="http://benclinkinbeard.com/wordpress/wp-content/themes/min/ie6.css" type="text/css" media="screen" /><![endif]-->
+	<!-- Additional CSS add-ons from custom admin page --><style type='text/css' media='screen'>a, .post h2 a:hover { color:#639c01; }</style>	
+
+	<link rel="pingback" href="../../../wordpress/xmlrpc.php" />
+
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/return_undefined" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://feeds.feedburner.com/return_undefined" />
+	
+    <link rel="alternate" type="application/rss+xml" title="benclinkinbeard.com &raquo; flexmdi 1.1 release &#8211; Enhancements and bug fixes Comments Feed" href="feed/index.html" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../wordpress/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../../wordpress/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='benclinkinbeard.com' href='../../../index.html' />
+<link rel='start' title='Dealing with (default) namespaces in Flex 2/AS3' href='../../../2006/07/dealing-with-default-namespaces-in-flex-2as3/index.html' />
+<link rel='prev' title='Universal-er Mind' href='../universal-er-mind/index.html' />
+<link rel='next' title='Panel on open source community projects at 360&#124;Flex tomorrow' href='../panel-on-open-source-community-projects-at-360flex-tomorrow/index.html' />
+<meta name="generator" content="WordPress 3.1" />
+<link rel='canonical' href='index.html' />
+<link rel='shortlink' href='index.html' />
+<link rel="stylesheet" href="http://benclinkinbeard.com/wp-content/plugins/ig_syntax_hilite/css/syntax_hilite_css.css" type="text/css" media="all" />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+</head>
+<body class="single single-post postid-40 single-format-standard">
+
+
+<div id="top">
+
+	<div id="header" class="clearfix">
+        <div class="contentwidth">
+<!--
+            <div id="logo" class="left"><p><a href="http://benclinkinbeard.com"><img src="http://benclinkinbeard.com/wordpress/wp-content/themes/min/images/logo.jpg" alt="benclinkinbeard.com" /></a> </p></div>
+-->
+            <div id="menu" class="right">
+            
+            	<ul class="sf-menu">
+					<li  ><a href="../../../index.html" title="Home">Home</a></li>
+                	<li class="page_item page-item-43"><a href="../../../about/index.html" title="About">About</a></li>
+                </ul>
+                
+            
+            </div>
+        </div>
+    </div><!-- end header -->
+    
+    
+    <div id="promos" class="clearfix">
+    	<div class='promo'><div class='contentwidth'><p>Hi, I'm Ben and this is my blog archive. <br /><a href="/blog/">Click here to read my latest ramblings.</a></p></div></div>    </div><!-- end promos -->
+    
+    <div id="main" class="clearfix">
+    	<div class="contentwidth">
+
+	<div class="column columnLarge">		
+		
+
+		<div class="post" id="post-40">
+				<h2>flexmdi 1.1 release &#8211; Enhancements and bug fixes</h2>
+		<div class="postmeta">
+			<p class="clearfix"><span>02.12.08</span><span>Posted by <a href="../../../author/ben/index.html" title="Posts by Ben">Ben</a> in <a href="../../../category/flex/index.html" title="View all posts in Flex" rel="category tag">Flex</a>, <a href="../../../category/flexmdi/index.html" title="View all posts in flexmdi" rel="category tag">flexmdi</a></span><span><span>Comments Off</span></span></p>
+		</div>
+		<div class="postcontent">
+			<p>I just uploaded a new ZIP file to the <a href="http://code.google.com/p/flexmdi/">flexmdi</a> site. This release contains both bug fixes and enhancements, though the additions may be somewhat transparent to a lot of users. I did a pretty bad job of tracking which issues I fixed and closed during this update, but I think there were at least 20 of them. There were a few issues around focus and z-order that were fixed, support for basic truncation of window titles was added, did some general refactoring and MDIManager has a new enforceBoundaries property that when set to false will allow windows to be dragged partially outside of their container. The default value is true and MDICanvas has the same property which just acts as a pass through for convenience.</p>
+<h4>Window Controls</h4>
+<p>The biggest changes, however, are around styling and the layout of window controls in the title bar. The <a href="../../../flexmdi/docs/flexmdi/containers/MDIWindowControlsContainer.html">MDIWindowControlsContainer</a> class is now the default class responsible for laying out things like minimize, maximize and close buttons. You can create subclasses of this class and then assign them to windows via the <code>windowControls</code> property to give your windows a different appearance. To do basic modifications you simply override the updateDisplayList() method like in any other component and flexmdi handles the rest. You can also override createChildren() if you want a set of controls that differ from the defaults. MDIWindowControlsContainer extends LayoutContainer, so you can set the layout property to achieve either absolute, horizontal or vertical layouts. The default is a horizontal layout like HBox that positions itself on the right side of the titleBar. You can easily implement different layouts though and we've included a couple of them in the examples.</p>
+<p><a href="../../../flexmdi/explorer/index.html">Check out the updated explorer</a> and use the styles dropdown on the top right to see examples what kind of different layouts are now possible. The Windows XP style just uses a different horizontalGap than the default layout but the Mac OS 9 style is significantly different. To lend more power to the layout containers, I also exposed the titleTextField of the windows (via MDIWindow.getTitleTextField()) which is protected by default and the titleIconObject (via MDIWindow.getTitleIconObject()) which is mx_internal by default.</p>
+<h4>Styling</h4>
+<p>The other significant work was related to default styling of the windows and implementing a system to allow easy overriding of styles. <a href="../../../flexmdi/docs/flexmdi/containers/MDIWindow.html">MDIWindow</a> now has a windowStyleName property that allows you to point it to a master style that will be applied to that window. That style then points to substyles to allow fine grained control over individual aspects of window styling. You can of course also override styles by setting values inline via MXML attributes. A master style might look something like this:</p>
+<div class="syntax_hilite">
+<div id="actionscript-1">
+<div class="actionscript">.<span style="color: #006600;">customWindowStyle</span><br />
+<span style="color: #66cc66;">&#123;</span><br />
+&nbsp; &nbsp; styleNameFocus: <span style="color: #ff0000;">"myWindowFocus"</span>;<br />
+&nbsp; &nbsp; styleNameNoFocus: <span style="color: #ff0000;">"myWindowNoFocus"</span>;</p>
+<p>&nbsp; &nbsp; titleStyleName: <span style="color: #ff0000;">"myTitleStyle"</span>;</p>
+<p>&nbsp; &nbsp; minimizeBtnStyleName: <span style="color: #ff0000;">"myMinimizeBtn"</span>;<br />
+&nbsp; &nbsp; maximizeBtnStyleName: <span style="color: #ff0000;">"myMaximizeBtn"</span>;<br />
+&nbsp; &nbsp; restoreBtnStyleName: <span style="color: #ff0000;">"myRestoreBtn"</span>;<br />
+&nbsp; &nbsp; closeBtnStyleName: <span style="color: #ff0000;">"myCloseBtn"</span>;</p>
+<p>&nbsp; &nbsp; windowControlsClass: ClassReference<span style="color: #66cc66;">&#40;</span><span style="color: #ff0000;">"somePackage.MyCustomControlsContainer"</span><span style="color: #66cc66;">&#41;</span>;<br />
+<span style="color: #66cc66;">&#125;</span></div>
+</div>
+</div>
+<p></p>
+<p>I am planning on doing a post specifically about the new styling options but there are a couple of things to note here. styleNameFocus and styleNameNoFocus are just what they sound like. The styles they point to will be applied to the window depending on whether or not it has focus. (Which reminds me, there is now a hasFocus property on MDIWindow.) The other significant piece of the style declaration is the windowControlsClass style which, as you can see points to a ClassReference. This class will be detected and applied when the windowStyleName property is set, if necessary, allowing full control over window styling at runtime.</p>
+<h4>Default behaviors</h4>
+<p>The process for preventing/delaying default behaviors has also changed slightly. We have implemented the behavior described by Darron Schall <a href="http://www.darronschall.com/weblog/archives/000276.cfm">here</a> as it really is more proper than our initial implementation. The gist is that you now use event.preventDefault() instead of event.stopImmediatePropagation() and instead of storing the event for later execution you store a copy of it by using event.clone(). Darron's post is worth reading though so if you have time I would recommend getting the full scoop.</p>
+<p>I think those are all of the major changes in 1.1 but I plan on taking a closer look at some of the topics in dedicated posts in the future. I've got a crazy couple of weeks ahead of me but I will do my best to get them up soon. If you have requests or suggestions for particular topics you'd like to see covered let me know in the comments. You can also find the full documentation <a href="../../../flexmdi/docs/index.html">here</a> and as always, let us know what you think!</p>
+		</div>
+		
+		
+				
+		
+		<p>
+			<small>
+				Both comments and pings are currently closed.
+							</small>
+		</p>
+		</div>
+			
+		<div class="navigation clearfix">
+			<div class="alignleft"><a href="../universal-er-mind/index.html" rel="prev">Universal-er Mind</a></div>
+			<div class="alignright"><a href="../panel-on-open-source-community-projects-at-360flex-tomorrow/index.html" rel="next">Panel on open source community projects at 360&#124;Flex tomorrow</a></div>
+		</div>
+
+	
+<div id="disqus_thread">
+					<div id="dsq-content">
+			<ul id="dsq-comments">
+					<li id="dsq-comment-435">
+					<div id="dsq-comment-header-435" class="dsq-comment-header">
+						<cite id="dsq-cite-435">
+								<span id="dsq-author-user-435">Raul Diaz</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-435" class="dsq-comment-body">
+						<div id="dsq-comment-message-435" class="dsq-comment-message"><p>Take a look at this windows class:</p>
+<p><a href="http://window.diaztorres.com/bin-release/test_window.html" rel="nofollow">http://window.diaztorres.com/bin-release/test_window.html</a></p>
+<p><a href="http://ventanas.googlecode.com/" rel="nofollow">http://ventanas.googlecode.com/</a></p>
+<p><a href="http://www.madeinflex.com/2008/01/03/sistema-de-ventanas/" rel="nofollow">http://www.madeinflex.com/2008/01/03/sistema-de-ventanas/</a></p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-434">
+					<div id="dsq-comment-header-434" class="dsq-comment-header">
+						<cite id="dsq-cite-434">
+	http://Intranet							<span id="dsq-author-user-434">Steve</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-434" class="dsq-comment-body">
+						<div id="dsq-comment-message-434" class="dsq-comment-message"><p>The MDIWindowControlsContainer class is a very welcome addition. One thing I would like to see is the addition to this of a window footer bar (For want of a better word). If you have a look at the windows in Windows XP you see at the bottom of every window a &#8220;Footer Bar&#8221;. This is outside of the content area of the window and should probably be considered as a control.</p>
+<p>What I would like to be able to do is put informative text in that area or maybe even a link to update content in the window.</p>
+<p>What do you think?</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-437">
+					<div id="dsq-comment-header-437" class="dsq-comment-header">
+						<cite id="dsq-cite-437">
+								<span id="dsq-author-user-437">Ben</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-437" class="dsq-comment-body">
+						<div id="dsq-comment-message-437" class="dsq-comment-message"><p>Thanks for the link Raul, looks cool. I don&#8217;t speak Spanish but tinkering was fun. <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' /> </p>
+<p>Steve, not a bad idea. I could have sworn Panel showed its status text at the bottom like that but it doesn&#8217;t appear that it does. Adding that functionality wouldn&#8217;t be super easy but it could certainly be done. Feel free to add an enhancement request at <a href="http://code.google.com/p/flexmdi/" rel="nofollow">http://code.google.com/p/flexmdi/</a> or better yet code it up and send it to us! <img src='../../../wordpress/wp-includes/images/smilies/icon_smile.gif' alt=':)' class='wp-smiley' />  To be completely honest I probably won&#8217;t have much time to devote to flexmdi for the next few months but maybe Brian or Brendan will feel inspired and give it a shot. Thanks for your comment!</p>
+</div>
+					</div>
+				</li>
+					<li id="dsq-comment-436">
+					<div id="dsq-comment-header-436" class="dsq-comment-header">
+						<cite id="dsq-cite-436">
+	http://Intranet							<span id="dsq-author-user-436">Steve</span>
+							</cite>
+					</div>
+					<div id="dsq-comment-body-436" class="dsq-comment-body">
+						<div id="dsq-comment-message-436" class="dsq-comment-message"><p>I had a closer look into this and found that all I needed to do was add a ControlBar to the MDIWindow (Has to be the last item I add). Perhaps I will update your code when I become more fluent with Flex but, for the time being, everything works the way I want it to.</p>
+<p>Thanks for a great library.</p>
+</div>
+					</div>
+				</li>
+				</ul>
+		</div>
+	</div>
+
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var disqus_url = 'http://benclinkinbeard.com/2008/02/flexmdi-11-release-enhancements-and-bug-fixes/ ';
+	var disqus_identifier = '40 http://www.returnundefined.com/2008/02/flexmdi-11-release-enhancements-and-bug-fixes';
+	var disqus_container_id = 'disqus_thread';
+	var disqus_domain = 'disqus.com';
+	var disqus_shortname = 'benclinkinbeard';
+	var disqus_title = "flexmdi 1.1 release &#8211; Enhancements and bug fixes";
+		var disqus_config = function () {
+	    var config = this; // Access to the config object
+
+	    /* 
+	       All currently supported events:
+	        * preData — fires just before we request for initial data
+	        * preInit - fires after we get initial data but before we load any dependencies
+	        * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+	        * afterRender - fires when template is rendered but before we show it
+	        * onReady - everything is done
+	     */
+
+		config.callbacks.preData.push(function() {
+			// clear out the container (its filled for SEO/legacy purposes)
+			document.getElementById(disqus_container_id).innerHTML = '';
+		});
+				config.callbacks.onReady.push(function() {
+			// sync comments in the background so we don't block the page
+			DISQUS.request.get('?cf_action=sync_comments&post_id=40');
+		});
+					};
+	var facebookXdReceiverPath = 'http://benclinkinbeard.com/wordpress/wp-content/plugins/disqus/xd_receiver.htm';
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	var DsqLocal = {
+		'trackbacks': [
+		],
+		'trackback_url': "http:\/\/www.benclinkinbeard.com\/2008\/02\/flexmdi-11-release-enhancements-and-bug-fixes\/trackback\/"	};
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+	dsq.async = true;
+	dsq.src = 'http://' + disqus_shortname + '.' + disqus_domain + '/embed.js?pname=wordpress&pver=2.61';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+	
+</div><!-- end column large-->
+
+<div class="column columnSmall sidebar last">
+
+	<div class="column columnSmall">
+		<div id="text-3" class="widget widget_text">			<div class="textwidget"><a href="http://www.360flex.com"><img src="../../../wordpress/wp-content/uploads/2010/07/360dc.png" /></a></div>
+		</div><div id="search-3" class="widget widget_search"><h3 class="widgettitle">Search</h3><form name="searchform" id="searchform" class="clearfix" method="get" action="../../../index.html">
+	<input class="text" type="text" name="s" id="s" value=""/>
+	<input id="searchsubmit" type="image" src="../../../wordpress/wp-content/themes/min/images/icon_search.jpg" value="" />
+</form></div><div id="categories-3" class="widget widget_categories"><h3 class="widgettitle">Categories</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="../../../category/360flex/index.html" title="View all posts filed under 360|Flex">360|Flex</a> (7)
+</li>
+	<li class="cat-item cat-item-4"><a href="../../../category/as2/index.html" title="View all posts filed under AS2">AS2</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="../../../category/as3/index.html" title="View all posts filed under AS3">AS3</a> (28)
+</li>
+	<li class="cat-item cat-item-6"><a href="../../../category/flare/index.html" title="View all posts filed under Flare">Flare</a> (2)
+</li>
+	<li class="cat-item cat-item-7"><a href="../../../category/flash/index.html" title="View all posts filed under Flash">Flash</a> (16)
+</li>
+	<li class="cat-item cat-item-8"><a href="../../../category/flashdevelop/index.html" title="View all posts filed under FlashDevelop">FlashDevelop</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="../../../category/flex/index.html" title="View all posts filed under Flex">Flex</a> (56)
+</li>
+	<li class="cat-item cat-item-10"><a href="../../../category/flexmdi/index.html" title="View all posts filed under flexmdi">flexmdi</a> (10)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../category/jsfl/index.html" title="View all posts filed under JSFL">JSFL</a> (2)
+</li>
+	<li class="cat-item cat-item-12"><a href="../../../category/misc/index.html" title="View all posts filed under miscellany">miscellany</a> (17)
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../category/misc/pointless-blather/index.html" title="View all posts filed under pointless blather">pointless blather</a> (11)
+</li>
+	<li class="cat-item cat-item-14"><a href="../../../category/swiz/index.html" title="View all posts filed under Swiz">Swiz</a> (5)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../category/uncategorized/index.html" title="View all posts filed under Uncategorized">Uncategorized</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../category/universal-mind/index.html" title="View all posts filed under Universal Mind">Universal Mind</a> (1)
+</li>
+		</ul>
+</div><div id="archives-3" class="widget widget_archive"><h3 class="widgettitle">Archives</h3>		<ul>
+			<li><a href='../../../2010/10/index.html' title='October 2010'>October 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/09/index.html' title='September 2010'>September 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/08/index.html' title='August 2010'>August 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/03/index.html' title='March 2010'>March 2010</a>&nbsp;(1)</li>
+	<li><a href='../../../2010/02/index.html' title='February 2010'>February 2010</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/12/index.html' title='December 2009'>December 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/11/index.html' title='November 2009'>November 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/10/index.html' title='October 2009'>October 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/09/index.html' title='September 2009'>September 2009</a>&nbsp;(5)</li>
+	<li><a href='../../../2009/08/index.html' title='August 2009'>August 2009</a>&nbsp;(3)</li>
+	<li><a href='../../../2009/05/index.html' title='May 2009'>May 2009</a>&nbsp;(2)</li>
+	<li><a href='../../../2009/03/index.html' title='March 2009'>March 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/02/index.html' title='February 2009'>February 2009</a>&nbsp;(1)</li>
+	<li><a href='../../../2009/01/index.html' title='January 2009'>January 2009</a>&nbsp;(3)</li>
+	<li><a href='../../09/index.html' title='September 2008'>September 2008</a>&nbsp;(1)</li>
+	<li><a href='../../08/index.html' title='August 2008'>August 2008</a>&nbsp;(1)</li>
+	<li><a href='../../07/index.html' title='July 2008'>July 2008</a>&nbsp;(3)</li>
+	<li><a href='../../05/index.html' title='May 2008'>May 2008</a>&nbsp;(6)</li>
+	<li><a href='../../03/index.html' title='March 2008'>March 2008</a>&nbsp;(4)</li>
+	<li><a href='../index.html' title='February 2008'>February 2008</a>&nbsp;(5)</li>
+	<li><a href='../../01/index.html' title='January 2008'>January 2008</a>&nbsp;(2)</li>
+	<li><a href='../../../2007/12/index.html' title='December 2007'>December 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/11/index.html' title='November 2007'>November 2007</a>&nbsp;(2)</li>
+	<li><a href='../../../2007/10/index.html' title='October 2007'>October 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/09/index.html' title='September 2007'>September 2007</a>&nbsp;(4)</li>
+	<li><a href='../../../2007/07/index.html' title='July 2007'>July 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2007/06/index.html' title='June 2007'>June 2007</a>&nbsp;(3)</li>
+	<li><a href='../../../2007/01/index.html' title='January 2007'>January 2007</a>&nbsp;(1)</li>
+	<li><a href='../../../2006/11/index.html' title='November 2006'>November 2006</a>&nbsp;(1)</li>
+	<li><a href='../../../2006/10/index.html' title='October 2006'>October 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../2006/08/index.html' title='August 2006'>August 2006</a>&nbsp;(2)</li>
+	<li><a href='../../../2006/07/index.html' title='July 2006'>July 2006</a>&nbsp;(5)</li>
+		</ul>
+</div>	</div>
+</div>
+
+
+        
+        </div>
+    </div><!-- end main -->
+    
+
+	<div id="footer-top" class="clearfix">
+    	<div class="contentwidth clearfix">
+        
+        <div class="column columnSmall">
+        			<div id="recent-posts-3" class="widget widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+				<li><a href="../../../2010/10/fixing-drawcircle-distortion-to-create-smooth-circles/index.html" title="Fixing drawCircle() distortion to create smooth circles">Fixing drawCircle() distortion to create smooth circles</a></li>
+				<li><a href="../../../2010/09/enterprise-actionscript-writing-clean-code-fast-with-swiz-1-0-my-slides-from-360flex-dc-2/index.html" title="Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC">Enterprise ActionScript: Writing Clean Code Fast with Swiz 1.0 &#8211; My slides from 360|Flex DC</a></li>
+				<li><a href="../../../2010/08/you-need-to-be-at-360flex-dc/index.html" title="You need to be at 360|Flex DC.">You need to be at 360|Flex DC.</a></li>
+				<li><a href="../../../2010/03/injecting-into-custom-namespaces-yea-swiz-can-do-that-too/index.html" title="Injecting into custom namespaces? Yea, Swiz can do that too.">Injecting into custom namespaces? Yea, Swiz can do that too.</a></li>
+				<li><a href="../../../2010/02/what-windshield-wipers-taught-me-about-user-experience/index.html" title="What Windshield Wipers Taught Me About User Experience">What Windshield Wipers Taught Me About User Experience</a></li>
+				</ul>
+		</div>        </div>
+        
+        <div class="column columnSmall">
+        	<div id="recent-comments-3" class="widget widget_recent_comments"><h3>Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1275">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1274">Smooth Scrolling Flex List</a></li><li class="recentcomments"><a href='http://www.facebook.com/ephraimt' rel='external nofollow' class='url'>Ephraim Tabackman</a> on <a href="../../../2009/03/smooth-scrolling-flex-list/comment-page-1/index.html#comment-1273">Smooth Scrolling Flex List</a></li><li class="recentcomments">faha on <a href="../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1272">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li><li class="recentcomments">Prakashm88 on <a href="../../../2007/11/efficient-reusable-and-centered-checkbox-renderers-for-datagrids/comment-page-1/index.html#comment-1271">Efficient, reusable (and centered) CheckBox renderers for DataGrids</a></li></ul></div>        </div>
+        
+		<!-- Disable contact form in the admin area to use widgets instead. -->
+					<!-- contact form -->
+        	<div class="widget">
+            	<h3>Contact Ben</h3>
+                
+                
+                                
+                <form action="index.html" method="post" class="standardForm" onsubmit="javascript:return validate(this)">
+                    <div class="column columnSmall">
+                        <textarea class="textarea" rows="3" cols="3" name="cfmessage"></textarea>
+                    </div>
+                    <div class="column columnSmall last">
+                        <input type="text" name="cfname" class="textbox" value="Name" onclick="this.value=''" />
+                        <input type="text" name="cfemail" class="textbox" value="you@email.com" onclick="this.value=''" />
+                        <input type="text" value="" name="email" class="hidden" />
+						<input type="hidden" value="1" name="contact_form_attempt" class="hidden" />
+                        <input type="submit" class="submit" value="Send Message" /><span id="message" class="hidden"></span>
+                    </div>
+                </form>
+            </div>
+			<!-- contact form end -->
+				
+	    
+		
+		
+		
+        
+          
+        
+        
+        </div>
+    </div><!-- end footer-top -->
+    
+    
+    
+    <div id="footer-bottom" class="clearfix">
+		<div class="contentwidth"><p class="right"><small><a href="index.html#top">Back to the Top</a></small></p>
+			<p><small>All source code shared on this site is available under the <a href="http://en.wikipedia.org/wiki/MIT_License">MIT license</a> unless otherwise noted.</small></p>    	</div>
+    </div><!-- end footer-bottom -->
+
+
+</div><!-- end outer -->
+
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/jquery.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/superfish.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/supersubs.js"></script>
+<script type="text/javascript" src="../../../wordpress/wp-content/themes/min/js/general.js"></script>
+
+<!-- ***** GOOGLE TRANSLATE ***** -->
+<div id="google_translate_element"></div><script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en'
+  }, 'google_translate_element');
+}
+</script><script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- ***** GOOGLE ANALYTICS ***** -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-494911-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+<!-- Dynamic Page Served (once) in 0.419 seconds -->
+<!-- Cached page served by WP-Cache -->
