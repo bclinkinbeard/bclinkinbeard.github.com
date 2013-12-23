@@ -1,0 +1,9 @@
+<% locals.title = post.title;
+  if (post.description) {
+    locals.description = post.description;
+  }
+%>
+<% include _header %>
+<% include _post %>
+<% include _social%>
+<% include _footer %>
