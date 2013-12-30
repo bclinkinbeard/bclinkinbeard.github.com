@@ -864,47 +864,49 @@ body {
 /* line 25, ../../src/styles/_markdown.scss */
 .markdown h1, .markdown h2, .markdown h3,
 .markdown h4, .markdown h5, .markdown h6 {
-  line-height: 1.3;
+  padding-top: 1.1em;
+  line-height: 0.5em;
+  font-size: 1.1em;
 }
-/* line 29, ../../src/styles/_markdown.scss */
+/* line 31, ../../src/styles/_markdown.scss */
 .markdown h1:hover .header-link, .markdown h2:hover .header-link, .markdown h3:hover .header-link,
 .markdown h4:hover .header-link, .markdown h5:hover .header-link, .markdown h6:hover .header-link {
   visibility: visible;
 }
 @media (max-width: 1250px) {
-  /* line 29, ../../src/styles/_markdown.scss */
+  /* line 31, ../../src/styles/_markdown.scss */
   .markdown h1:hover .header-link, .markdown h2:hover .header-link, .markdown h3:hover .header-link,
   .markdown h4:hover .header-link, .markdown h5:hover .header-link, .markdown h6:hover .header-link {
     visibility: hidden;
   }
 }
-/* line 38, ../../src/styles/_markdown.scss */
+/* line 40, ../../src/styles/_markdown.scss */
 .markdown blockquote {
   border-left: 6px solid gainsboro;
   margin-left: 0;
   padding-left: 1em;
 }
 
-/* line 45, ../../src/styles/_markdown.scss */
+/* line 47, ../../src/styles/_markdown.scss */
 .header-link {
   margin-left: -1.7em;
   visibility: hidden;
   font-size: 16px;
 }
 @media (max-width: 1250px) {
-  /* line 45, ../../src/styles/_markdown.scss */
+  /* line 47, ../../src/styles/_markdown.scss */
   .header-link {
     font-size: 14px;
   }
 }
 @media (max-width: 630px) {
-  /* line 45, ../../src/styles/_markdown.scss */
+  /* line 47, ../../src/styles/_markdown.scss */
   .header-link {
     font-size: 12px;
   }
 }
 
-/* line 59, ../../src/styles/_markdown.scss */
+/* line 61, ../../src/styles/_markdown.scss */
 code {
   background: #ebebff;
   border: 1px solid #e6e6e6;
@@ -920,26 +922,26 @@ code {
   font-family: Monaco, Consolas, monospace;
 }
 
-/* line 70, ../../src/styles/_markdown.scss */
+/* line 72, ../../src/styles/_markdown.scss */
 .markdown > pre {
   font-family: Monaco, Consolas, monospace;
   margin: 1em 0;
   white-space: normal;
 }
-/* line 75, ../../src/styles/_markdown.scss */
+/* line 77, ../../src/styles/_markdown.scss */
 .markdown > pre pre {
   white-space: pre;
   -webkit-overflow-scrolling: touch;
   margin: 0;
   overflow: auto;
 }
-/* line 82, ../../src/styles/_markdown.scss */
+/* line 84, ../../src/styles/_markdown.scss */
 .markdown > pre code {
   border: 0;
   padding: 0;
 }
 
-/* line 88, ../../src/styles/_markdown.scss */
+/* line 90, ../../src/styles/_markdown.scss */
 .highlight {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -947,7 +949,7 @@ code {
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 91, ../../src/styles/_markdown.scss */
+/* line 93, ../../src/styles/_markdown.scss */
 .highlight pre {
   padding: 15px;
   margin-bottom: 0;
@@ -1222,7 +1224,7 @@ nav a:hover {
 
 /* line 29, ../../src/styles/_post.scss */
 .post-body {
-  margin-bottom: 1.2em;
+  margin-bottom: 3em;
   font-family: "Merriweather", serif;
   line-height: 1.65em;
 }
