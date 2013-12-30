@@ -1,6 +1,7 @@
 {
 	title: "Mocking environment variables with Browserify",
 	date: "2013-11-13",
+	dateLabel: "November 2013",
 	description: "Mocking environment dependencies with Browserify"
 }
 

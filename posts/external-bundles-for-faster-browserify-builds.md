@@ -1,6 +1,7 @@
 {
 	title: "External bundles for faster Browserify builds",
 	date: "2013-08-05",
+	dateLabel: "August 2013",
 	description: "Browserify FTW"
 }
 

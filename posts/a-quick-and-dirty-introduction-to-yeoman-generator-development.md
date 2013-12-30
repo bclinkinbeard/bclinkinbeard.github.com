@@ -1,6 +1,7 @@
 {
 	title: "A quick and dirty introduction to Yeoman generator development",
 	date: "2013-04-13",
+	dateLabel: "April 2013",
 	description: "Yeoman intro"
 }
 
