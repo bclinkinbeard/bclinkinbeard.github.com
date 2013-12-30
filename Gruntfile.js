@@ -13,7 +13,7 @@ module.exports = function (grunt) {
             baseUrl: '/'
           },
           pagination: {
-            postsPerPage: 2,
+            postsPerPage: 20,
             listPage: 'src/pages/index.ejs'
           }
         }
@@ -112,10 +112,10 @@ module.exports = function (grunt) {
     'clean',
     'pages',
     'compass',
-    'copy'
+    'copy:dist'
   ]);
 
-  grunt.registerTask('deploy', ['build', 'gh-pages']);
+  grunt.registerTask('deploy', ['build', 'copy:misc', 'gh-pages']);
 
   grunt.registerTask('server', [
     'build',
