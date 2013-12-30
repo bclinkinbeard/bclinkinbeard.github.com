@@ -10,21 +10,18 @@
 }
 
 .post-title {
-  float: left;
-  padding-right: 4.9em;
-  margin: 0 0 5px;
-  font-size: 2em;
+  margin: 0 0 2px;
+  font-size: 1.3em;
 
   @include breakpoint(big-phone) {
-    font-size: 1.7em;
+    font-size: 1.3em;
   }
 }
 
 .post-date {
   position: absolute;
-  bottom: 10px;
-  right: 0;
-  font-size: 1.3em;
+  bottom: 1px;
+  font-size: 1em;
   line-height: 1.7em;
   color: $lightTextColor;
 }
