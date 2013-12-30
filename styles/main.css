@@ -1093,7 +1093,7 @@ nav a:hover {
 .name {
   z-index: 100;
   font-weight: normal;
-  font-size: 2em;
+  font-size: 1.6em;
   margin: 30px 0;
   padding-left: 40px;
 }
@@ -1201,52 +1201,49 @@ nav a:hover {
 
 /* line 12, ../../src/styles/_post.scss */
 .post-title {
-  float: left;
-  padding-right: 4.9em;
-  margin: 0 0 5px;
-  font-size: 2em;
+  margin: 0 0 2px;
+  font-size: 1.3em;
 }
 @media (max-width: 1250px) {
   /* line 12, ../../src/styles/_post.scss */
   .post-title {
-    font-size: 1.7em;
+    font-size: 1.3em;
   }
 }
 
-/* line 23, ../../src/styles/_post.scss */
+/* line 21, ../../src/styles/_post.scss */
 .post-date {
   position: absolute;
-  bottom: 10px;
-  right: 0;
-  font-size: 1.3em;
+  bottom: 1px;
+  font-size: 1em;
   line-height: 1.7em;
   color: #b8b7b7;
 }
 
-/* line 32, ../../src/styles/_post.scss */
+/* line 29, ../../src/styles/_post.scss */
 .post-body {
   margin-bottom: 1.2em;
   font-family: "Merriweather", serif;
   line-height: 1.65em;
 }
 
-/* line 38, ../../src/styles/_post.scss */
+/* line 35, ../../src/styles/_post.scss */
 .social {
   padding: .55em 0 1.4em;
 }
 
-/* line 42, ../../src/styles/_post.scss */
+/* line 39, ../../src/styles/_post.scss */
 .comments {
   margin-top: 1em;
   font-weight: bold;
   font-size: 1.2em;
 }
-/* line 47, ../../src/styles/_post.scss */
+/* line 44, ../../src/styles/_post.scss */
 .comments a {
   color: #b8b7b7;
   text-decoration: none;
 }
-/* line 52, ../../src/styles/_post.scss */
+/* line 49, ../../src/styles/_post.scss */
 .comments .icon-bubbles {
   padding: 3px 15px 5px 0;
   float: left;
