@@ -21,7 +21,13 @@
 }
 
 .topbar .text {
-	display: inline-block
+	display: inline-block;
+}
+
+.topbar .small {
+	display: inline-block;
+  font-size: 0.9em;
+  color: gray;
 }
 
 .topbar .inner {
