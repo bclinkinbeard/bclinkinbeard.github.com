@@ -16,7 +16,7 @@
 
 @media screen and (max-width: 630px) {
 	.topbar {
-		display: none
+		display: none;
 	}
 }
 
@@ -24,7 +24,7 @@
 	display: inline-block;
 }
 
-#promise {
+.noSpam {
 	display: inline-block;
   font-size: 0.9em;
   color: gray;
