@@ -48,7 +48,7 @@ body {
 
 .content {
   position: relative;
-  margin: 30px auto 0;
+  margin: 57px auto 0;
   max-width: 680px;
   width: 55%;
 
@@ -62,12 +62,12 @@ body {
   }
 
   @include breakpoint(big-phone) {
-    margin: 65px auto 25px;
+    margin: 120px auto 25px;
     width: 86%;
   }
 
   @include breakpoint(small-phone) {
-    margin: 50px auto 15px;
+    margin: 75px 0 15px;
   }
 }
 

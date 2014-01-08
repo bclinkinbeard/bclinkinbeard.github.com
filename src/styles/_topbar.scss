@@ -1,0 +1,84 @@
+.topbar {
+	display: block;
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(220, 220, 220, 0.9);
+	z-index: 10000 !important;
+	font-size: 15px !important;
+	font-family: arial, sans-serif !important;
+	line-height: 18px !important;
+	outline-width: 0 !important;
+	text-align: center !important;
+	text-shadow: none !important;
+}
+
+@media screen and (max-width: 630px) {
+	.topbar {
+		display: none
+	}
+}
+
+.topbar .text {
+	display: inline-block
+}
+
+.topbar .inner {
+	position: relative !important;
+	padding: 5px 0px 0px 0px !important;
+	height: 36px !important;
+	overflow: hidden !important;
+	width: 100% !important;
+	font-size: 15px !important;
+	font-family: arial, sans-serif !important;
+	text-align: center !important;
+	text-shadow: none !important
+}
+
+.topbar .inner .signup {
+	padding: 10px;
+	background: rgba(247, 242, 228, 0.55);
+	border: 1px solid #E6E6E6
+}
+
+.topbar .inner .input {
+	padding: 2px;
+	font-size: 14px;
+	margin: 2px
+}
+
+@media screen and (max-width: 770px) {
+	.topbar .inner .small {
+		font-size: 10px
+	}
+}
+
+.topbar .inner .button-container {
+	display: inline-block
+}
+
+.topbar .inner .button {
+	position: relative;
+	top: -1px;
+	text-decoration: none;
+	background: rgba(23, 127, 51, 0.89);
+	color: white;
+	padding: 3px;
+	border: 1px solid #333;
+	text-align: center;
+	cursor: pointer;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0px 1px 2px #999;
+	-moz-box-shadow: 0px 1px 2px #999;
+	box-shadow: 0px 1px 2px #999;
+	font-size: 12px
+}
+
+.topbar .inner .form {
+	padding-top: 2px
+}

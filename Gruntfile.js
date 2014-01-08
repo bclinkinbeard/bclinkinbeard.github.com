@@ -37,7 +37,7 @@ module.exports = function (grunt) {
             'images/**',
             'scripts/**',
             'styles/**.css',
-            'styles/fonts/**',
+            'styles/fonts/**'
           ]
         }]
       },
