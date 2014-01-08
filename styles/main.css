@@ -1226,7 +1226,7 @@ nav a:hover {
 }
 
 /* line 27, ../../src/styles/_topbar.scss */
-#promise {
+.noSpam {
   display: inline-block;
   font-size: 0.9em;
   color: gray;
