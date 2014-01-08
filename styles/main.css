@@ -1226,7 +1226,7 @@ nav a:hover {
 }
 
 /* line 27, ../../src/styles/_topbar.scss */
-.topbar .small {
+.topbar .promise {
   display: inline-block;
   font-size: 0.9em;
   color: gray;
