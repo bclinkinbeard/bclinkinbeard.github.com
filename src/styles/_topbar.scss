@@ -24,6 +24,18 @@
 	display: inline-block;
 }
 
+#promise {
+	display: inline-block;
+  font-size: 0.9em;
+  color: gray;
+}
+
+@media screen and (max-width: 725px) {
+    #promise {
+        display: none
+    }
+}
+
 .topbar .inner {
 	position: relative !important;
 	padding: 5px 0px 0px 0px !important;
