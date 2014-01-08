@@ -1226,13 +1226,6 @@ nav a:hover {
 }
 
 /* line 27, ../../src/styles/_topbar.scss */
-.topbar .promise {
-  display: inline-block;
-  font-size: 0.9em;
-  color: gray;
-}
-
-/* line 33, ../../src/styles/_topbar.scss */
 .topbar .inner {
   position: relative !important;
   padding: 5px 0px 0px 0px !important;
@@ -1245,14 +1238,14 @@ nav a:hover {
   text-shadow: none !important;
 }
 
-/* line 45, ../../src/styles/_topbar.scss */
+/* line 39, ../../src/styles/_topbar.scss */
 .topbar .inner .signup {
   padding: 10px;
   background: rgba(247, 242, 228, 0.55);
   border: 1px solid #e6e6e6;
 }
 
-/* line 51, ../../src/styles/_topbar.scss */
+/* line 45, ../../src/styles/_topbar.scss */
 .topbar .inner .input {
   padding: 2px;
   font-size: 14px;
@@ -1260,17 +1253,17 @@ nav a:hover {
 }
 
 @media screen and (max-width: 770px) {
-  /* line 58, ../../src/styles/_topbar.scss */
+  /* line 52, ../../src/styles/_topbar.scss */
   .topbar .inner .small {
     font-size: 10px;
   }
 }
-/* line 63, ../../src/styles/_topbar.scss */
+/* line 57, ../../src/styles/_topbar.scss */
 .topbar .inner .button-container {
   display: inline-block;
 }
 
-/* line 67, ../../src/styles/_topbar.scss */
+/* line 61, ../../src/styles/_topbar.scss */
 .topbar .inner .button {
   position: relative;
   top: -1px;
@@ -1292,7 +1285,7 @@ nav a:hover {
   font-size: 12px;
 }
 
-/* line 88, ../../src/styles/_topbar.scss */
+/* line 82, ../../src/styles/_topbar.scss */
 .topbar .inner .form {
   padding-top: 2px;
 }
