@@ -788,7 +788,7 @@ body {
 /* line 49, ../../src/styles/_base.scss */
 .content {
   position: relative;
-  margin: 30px auto 0;
+  margin: 57px auto 0;
   max-width: 680px;
   width: 55%;
 }
@@ -807,14 +807,14 @@ body {
 @media (max-width: 1250px) {
   /* line 49, ../../src/styles/_base.scss */
   .content {
-    margin: 65px auto 25px;
+    margin: 120px auto 25px;
     width: 86%;
   }
 }
 @media (max-width: 630px) {
   /* line 49, ../../src/styles/_base.scss */
   .content {
-    margin: 50px auto 15px;
+    margin: 75px 0 15px;
   }
 }
 
@@ -1098,19 +1098,27 @@ nav a:hover {
   font-size: 1.6em;
   margin: 30px 0;
   padding-left: 40px;
+  padding-top: 20px;
 }
 @media (max-width: 1250px) {
   /* line 33, ../../src/styles/_nav.scss */
   .name {
     padding-left: 1em;
+    padding-top: 40px;
     margin: 0;
     float: left;
     font-size: 1.6em;
     line-height: 2.2em;
   }
 }
+@media (max-width: 630px) {
+  /* line 33, ../../src/styles/_nav.scss */
+  .name {
+    padding-top: 10px;
+  }
+}
 
-/* line 49, ../../src/styles/_nav.scss */
+/* line 55, ../../src/styles/_nav.scss */
 .menu {
   text-align: right;
   color: white;
@@ -1121,31 +1129,31 @@ nav a:hover {
   font-size: 1.6em;
   line-height: 2.2em;
 }
-/* line 59, ../../src/styles/_nav.scss */
+/* line 65, ../../src/styles/_nav.scss */
 .menu:hover {
   text-decoration: none;
 }
 @media (max-width: 1250px) {
-  /* line 49, ../../src/styles/_nav.scss */
+  /* line 55, ../../src/styles/_nav.scss */
   .menu {
     display: block;
   }
 }
 
-/* line 68, ../../src/styles/_nav.scss */
+/* line 74, ../../src/styles/_nav.scss */
 .nav-links {
   list-style: none;
   background: #578cdb;
   padding-left: 40px;
   font-size: 1.4em;
 }
-/* line 74, ../../src/styles/_nav.scss */
+/* line 80, ../../src/styles/_nav.scss */
 .nav-links a {
   display: block;
   padding: 0 0 .55em;
 }
 @media (max-width: 1250px) {
-  /* line 74, ../../src/styles/_nav.scss */
+  /* line 80, ../../src/styles/_nav.scss */
   .nav-links a {
     display: block;
     padding: 0;
@@ -1153,7 +1161,7 @@ nav a:hover {
   }
 }
 @media (max-width: 1250px) {
-  /* line 68, ../../src/styles/_nav.scss */
+  /* line 74, ../../src/styles/_nav.scss */
   .nav-links {
     padding: 0;
     margin: 0;
@@ -1163,7 +1171,7 @@ nav a:hover {
   }
 }
 
-/* line 94, ../../src/styles/_nav.scss */
+/* line 100, ../../src/styles/_nav.scss */
 .social-media {
   text-align: center;
   position: absolute;
@@ -1172,27 +1180,120 @@ nav a:hover {
   font-size: 1.8em;
   line-height: 2em;
 }
-/* line 102, ../../src/styles/_nav.scss */
+/* line 108, ../../src/styles/_nav.scss */
 .social-media a {
   margin: 0 10px;
   padding: 2px;
 }
-/* line 108, ../../src/styles/_nav.scss */
+/* line 114, ../../src/styles/_nav.scss */
 .social-media a:hover {
   text-decoration: none;
   color: #393838;
 }
 @media (max-width: 1250px) {
-  /* line 94, ../../src/styles/_nav.scss */
+  /* line 100, ../../src/styles/_nav.scss */
   .social-media {
     display: none;
   }
 }
 
+/* line 1, ../../src/styles/_topbar.scss */
+.topbar {
+  display: block;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(220, 220, 220, 0.9);
+  z-index: 10000 !important;
+  font-size: 15px !important;
+  font-family: arial, sans-serif !important;
+  line-height: 18px !important;
+  outline-width: 0 !important;
+  text-align: center !important;
+  text-shadow: none !important;
+}
+
+@media screen and (max-width: 630px) {
+  /* line 18, ../../src/styles/_topbar.scss */
+  .topbar {
+    display: none;
+  }
+}
+/* line 23, ../../src/styles/_topbar.scss */
+.topbar .text {
+  display: inline-block;
+}
+
+/* line 27, ../../src/styles/_topbar.scss */
+.topbar .inner {
+  position: relative !important;
+  padding: 5px 0px 0px 0px !important;
+  height: 36px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  font-size: 15px !important;
+  font-family: arial, sans-serif !important;
+  text-align: center !important;
+  text-shadow: none !important;
+}
+
+/* line 39, ../../src/styles/_topbar.scss */
+.topbar .inner .signup {
+  padding: 10px;
+  background: rgba(247, 242, 228, 0.55);
+  border: 1px solid #e6e6e6;
+}
+
+/* line 45, ../../src/styles/_topbar.scss */
+.topbar .inner .input {
+  padding: 2px;
+  font-size: 14px;
+  margin: 2px;
+}
+
+@media screen and (max-width: 770px) {
+  /* line 52, ../../src/styles/_topbar.scss */
+  .topbar .inner .small {
+    font-size: 10px;
+  }
+}
+/* line 57, ../../src/styles/_topbar.scss */
+.topbar .inner .button-container {
+  display: inline-block;
+}
+
+/* line 61, ../../src/styles/_topbar.scss */
+.topbar .inner .button {
+  position: relative;
+  top: -1px;
+  text-decoration: none;
+  background: rgba(23, 127, 51, 0.89);
+  color: white;
+  padding: 3px;
+  border: 1px solid #333;
+  text-align: center;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 1px 2px #999;
+  -moz-box-shadow: 0px 1px 2px #999;
+  box-shadow: 0px 1px 2px #999;
+  font-size: 12px;
+}
+
+/* line 82, ../../src/styles/_topbar.scss */
+.topbar .inner .form {
+  padding-top: 2px;
+}
+
 /* line 1, ../../src/styles/_post.scss */
 .post-head {
   border-bottom: 1px solid #b8b7b7;
-  margin: 1em 0;
+  margin: 2em 0 0 2em;
   padding-bottom: 5px;
   position: relative;
 }
@@ -1225,27 +1326,28 @@ nav a:hover {
 /* line 29, ../../src/styles/_post.scss */
 .post-body {
   margin-bottom: 3em;
+  margin-left: 2em;
   font-family: "Merriweather", serif;
   line-height: 1.65em;
 }
 
-/* line 35, ../../src/styles/_post.scss */
+/* line 36, ../../src/styles/_post.scss */
 .social {
   padding: .55em 0 1.4em;
 }
 
-/* line 39, ../../src/styles/_post.scss */
+/* line 40, ../../src/styles/_post.scss */
 .comments {
   margin-top: 1em;
   font-weight: bold;
   font-size: 1.2em;
 }
-/* line 44, ../../src/styles/_post.scss */
+/* line 45, ../../src/styles/_post.scss */
 .comments a {
   color: #b8b7b7;
   text-decoration: none;
 }
-/* line 49, ../../src/styles/_post.scss */
+/* line 50, ../../src/styles/_post.scss */
 .comments .icon-bubbles {
   padding: 3px 15px 5px 0;
   float: left;
