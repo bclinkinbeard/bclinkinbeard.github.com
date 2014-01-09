@@ -4,6 +4,7 @@
     <script src="<%= data.baseUrl %>scripts/main.js" type="text/javascript"></script>
     <script>
       mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
     </script>
   </body>
 </html>
