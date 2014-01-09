@@ -65,7 +65,7 @@ The second argument provided to the IIFE is the cache of modules defined in any 
 
 ## Entry modules
 
-The third and final argument passed to the bundle IIFE is an array of module ids that will serve as the starting point for building our dependency graph. In our case, remember, `entry.js` has been given an id of `2`. Therefore the third argument is `[2]`. It is an array because you can specify multiple entry files, but that isn't very common.
+The third and final argument passed to the bundle IIFE is an array of module ids that will serve as the starting point for building our dependency graph. In our case, remember, `entry.js` has been given an id of `2`. Therefore the third argument is `[2]`. It is an array because you can specify multiple entry files, which is apparently common for running tests, but not something I have seen a lot of.
 
 ## Making it all work
 
