@@ -41,6 +41,7 @@
 								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
 								<div class="button-container">
 										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
+                    <input type="hidden" value="Header" name="DOC">
 
 										<a class="button"
 										   onclick="document.header_signup.submit();"
@@ -129,8 +130,9 @@
 <!-- Begin MailChimp Signup Form -->
 <div id="mc_embed_signup">
 		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-				<label for="mce-EMAIL">Want new content delivered to your inbox?</label>
-				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name" required>
+				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC">
+				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
 				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
 				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
 				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
@@ -150,6 +152,7 @@
     <script src="/scripts/main.js" type="text/javascript"></script>
     <script>
       mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
     </script>
   </body>
 </html>
