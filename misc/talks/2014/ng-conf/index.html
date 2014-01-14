@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AngularJS with Browserify</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="reveal.js/css/main.css">
+		<link rel="stylesheet" href="css/um.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<script>
+			// If the query includes 'print-pdf' we'll use the PDF print sheet
+			document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section style="text-align: left">
+					<h2>AngularJS with Browserify</h2>
+          <h4 style="color: #666666">Ben Clinkinbeard</h4>
+          <h4 style="color: #666666">Technical Lead - SpatialKey</h4>
+				</section>
+
+        <section style="text-align: left">
+					<h2>WHAT</h2>
+          <h4 style="color: #666666">Browserify is and does</h4>
+					<h2>WHY</h2>
+          <h4 style="color: #666666">Using it is a good thing</h4>
+					<h2>HOW</h2>
+          <h4 style="color: #666666">Your AngularJS code will benefit</h4>
+				</section>
+
+				<section>
+					<h1>WHAT</h1>
+          <h6 style="color: #EEE">the heck is it?</h6>
+				</section>
+
+				<section>
+					<h2>CommonJS</h2>
+					<ul>
+						<li>Module format used by Node</li>
+						<li>require('some-dependency');</li>
+						<li>module.exports = 'My value';</li>
+						<li>Synchronous</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>CommonJS example</h2>
+					<pre style="display: block; font-size: 0.9em;">
+// event.js
+module.exports = 'ng-conf';
+</pre>
+					<pre style="display: block; font-size: 0.9em; margin-top: 40px;">
+// welcome.js
+var event = require('./event'),
+    _ = require('underscore');
+
+module.exports = 'Welcome to ' + event;
+</pre>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<ul>
+						<li>require('modules') for the browser</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<ul>
+						<li>Walks the require() calls</li>
+						<li>Builds a dependency graph</li>
+						<li>Bundles it into a single file</li>
+					</ul>
+				</section>
+
+        <section>
+          <h2>Browserify</h2>
+          <ul>
+            <li>Write client side code using CommonJS style modules</li>
+            <li>Specify one or more 'entry' files</li>
+            <li>Browserify walks <pre>require()</pre> statements and concatenates files</li>
+            <li>Each file's contents wrapped in a closure to prevent scope leak</li>
+            <li>Generates a single bundled .js file</li>
+            <li>Supports source maps and all kinds of other goodies</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>Browserify terminology</h2>
+					<ul>
+						<li>Entry file(s)</li>
+						<li>Bundle(s)</li>
+						<li>Transforms</li>
+						<li>Aliases</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Browserify configuration</h2>
+					<ul>
+						<li>package.json</li>
+						<li>grunt-browserify</li>
+						<li>Direct API (in code)</li>
+						<li>CLI</li>
+					</ul>
+				</section>
+
+        <section>
+          <h1>WHY</h1>
+          <h6 style="color: #EEE">would you use it?</h6>
+        </section>
+
+				<section>
+					<h2>Syntax</h2>
+					<ul>
+						<li>Drop.</li>
+						<li>Dead.</li>
+						<li>Simple.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Node</h2>
+					<ul>
+						<li>LOTS of modules can run on client or server</li>
+            <li>Browserify exposes several core Node modules</li>
+            <li>__dirname, __filename, etc</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>npm</h2>
+					<ul>
+						<li>55,000 modules and counting</li>
+						<li>Hockey stick growth</li>
+						<li><pre>npm install</pre> FTW</li>
+						<li><pre>npm install</pre> your own repos</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Consistency</h2>
+					<ul>
+						<li>Always building</li>
+						<li>Minimize environment differences</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Transforms</h2>
+					<ul>
+						<li>deAMDify</li>
+						<li>debowerify</li>
+						<li>hbsfy</li>
+						<li>brfs</li>
+						<li>coffeeify</li>
+						<li>...</li>
+					</ul>
+				</section>
+
+        <section>
+          <h1>HOW</h1>
+          <h6 style="color: #EEE">do I use this modern miracle?</h6>
+        </section>
+
+				<section>
+					<h2>app.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var angular = require('angular');
+
+angular.module('app', [
+      require('./modules/login').name,
+      require('./modules/charts').name
+    ])
+    .config(require('./common/routes'))
+    .service('session', require('common/Session'))
+    .constant('version', require('../package.json').version);
+
+</pre>
+				</section>
+
+				<section>
+					<h2>modules/charts/index.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+module.exports = angular.module('app.charts', [
+		require('./pie').name,
+		require('./timeline').name,
+		require('./treemap').name,
+		require('./scatterplot').name
+	])
+	.controller('ChartMgrCtrl', require('./ChartMgrCtrl'));
+</pre>
+				</section>
+
+				<section>
+					<h2>modules/charts/pie/index.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var pieChartDirective = require('./PieChartDirective'),
+    pieChartController = require('./PieChartController');
+
+module.exports = angular.module('app.charts.pieChart', [])
+    .directive('pieChart', pieChartDirective)
+    .controller('PieChartCtrl', pieChartController);
+</pre>
+				</section>
+
+				<section>
+					<h2>PieChartDirective.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+module.exports = function () {
+    return {
+        scope: {
+            chartData: '=',
+            isMaximized: '='
+        },
+        restrict: 'A',
+        controller: 'PieChartController',
+        link: function (scope, element, attrs) {
+            scope.el = element[0];
+        }
+    };
+};
+</pre>
+				</section>
+
+			</div> <!-- END OF SLIDES -->
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+
+				theme: 'um', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'reveal.js/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
