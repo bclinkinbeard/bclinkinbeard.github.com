@@ -92,23 +92,14 @@ module.exports = 'Welcome to ' + event;
 				<section>
 					<h2>Browserify</h2>
 					<ul>
+            <li>Specify one or more 'entry' files</li>
 						<li>Walks the require() calls</li>
 						<li>Builds a dependency graph</li>
 						<li>Bundles it into a single file</li>
+            <li>Each file's contents wrapped in a closure</li>
+            <li>Supports source maps and all kinds of other goodies</li>
 					</ul>
 				</section>
-
-        <section>
-          <h2>Browserify</h2>
-          <ul>
-            <li>Write client side code using CommonJS style modules</li>
-            <li>Specify one or more 'entry' files</li>
-            <li>Browserify walks <pre>require()</pre> statements and concatenates files</li>
-            <li>Each file's contents wrapped in a closure to prevent scope leak</li>
-            <li>Generates a single bundled .js file</li>
-            <li>Supports source maps and all kinds of other goodies</li>
-          </ul>
-        </section>
 
 				<section>
 					<h2>Browserify terminology</h2>
@@ -154,6 +145,37 @@ module.exports = 'Welcome to ' + event;
 				</section>
 
 				<section>
+					<h2>Node modules</h2>
+					<ul style="display: inline-block">
+						<li>assert</li>
+						<li>buffer</li>
+						<li>console</li>
+						<li>constants</li>
+						<li>crypto</li>
+						<li>domain</li>
+						<li>events</li>
+					</ul>
+					<ul style="display: inline-block; margin-left: 75px;">
+						<li>http</li>
+						<li>https</li>
+						<li>os</li>
+						<li>path</li>
+						<li>punycode</li>
+						<li>querystring</li>
+						<li>stream</li>
+					</ul>
+					<ul style="display: inline-block; margin-left: 75px;">
+						<li>string_decoder</li>
+						<li>timers</li>
+						<li>tty</li>
+						<li>url</li>
+						<li>util</li>
+						<li>vm</li>
+						<li>zlib</li>
+					</ul>
+				</section>
+
+				<section>
 					<h2>npm</h2>
 					<ul>
 						<li>55,000 modules and counting</li>
@@ -177,8 +199,8 @@ module.exports = 'Welcome to ' + event;
 						<li>deAMDify</li>
 						<li>debowerify</li>
 						<li>hbsfy</li>
-						<li>brfs</li>
 						<li>coffeeify</li>
+						<li>brfs</li>
 						<li>...</li>
 					</ul>
 				</section>
@@ -250,6 +272,10 @@ module.exports = function () {
     };
 };
 </pre>
+				</section>
+
+				<section>
+					<h1 style="margin-top: 200px">Fin.</h1>
 				</section>
 
 			</div> <!-- END OF SLIDES -->
