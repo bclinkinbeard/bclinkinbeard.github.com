@@ -26,7 +26,7 @@ body:after {
 	display: block;
 	position: fixed;
 	content: '';
-  background-image: url(../images/SKLogo@2x.png);
+  /*background-image: url(../images/SKLogo@2x.png);*/
 	top: 50px;
 	left: 0px;
 	width: 46px;
@@ -35,7 +35,7 @@ body:after {
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
 	body:after {
-    background-image: url(../images/SKLogo@2x.png);
+    /*background-image: url(../images/SKLogo@2x.png);*/
 		background-size: 23px 113px;
 	}
 }
@@ -58,7 +58,7 @@ body:after {
 .reveal h5,
 .reveal h6 {
 	margin: 30px 0 20px 0;
-	color: #e15b1f;
+	color: #149B0E;
 	font-family: "Avenir-Black", Helvetica, Arial, sans-serif;
 	line-height: 1.2em;
 }
@@ -170,14 +170,14 @@ body:after {
 
 .reveal.overview .slides section:hover {
 	background: transparent;
-	border-color: #e15b1f;
+	border-color: #149B0E;
 	border-top-style: solid;
 	border-top-width: 20px;
 }
 
 .reveal.overview .slides section.present {
 	background: transparent;
-	border-color: #e15b1f;
+	border-color: #149B0E;
 	border-top-style: solid;
 	border-top-width: 20px;
 }
@@ -191,7 +191,7 @@ body:after {
 	color: #fff;
 }
 	.reveal .controls a.enabled {
-		color: #e15b1f;
+		color: #149B0E;
 		text-shadow: 0px 0px 2px hsla(185, 45%, 70%, 0.3);
 	}
 
@@ -205,7 +205,7 @@ body:after {
 }
 
 .reveal .progress span {
-	background: #e15b1f;
+	background: #149B0E;
 
 	-webkit-transition: width 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
 	   -moz-transition: width 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985);

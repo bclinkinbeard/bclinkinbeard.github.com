@@ -40,7 +40,7 @@
 				<section style="text-align: left">
 					<h2>AngularJS with Browserify</h2>
           <h4 style="color: #666666">Ben Clinkinbeard</h4>
-          <h4 style="color: #666666">Technical Lead - SpatialKey</h4>
+          <h4 style="color: #666666; margin-top: -10px">Technical Lead - SpatialKey</h4>
 				</section>
 
         <section style="text-align: left">
@@ -54,7 +54,7 @@
 
 				<section>
 					<h1>WHAT</h1>
-          <h6 style="color: #EEE">the heck is it?</h6>
+          <h6 style="color: #DDD">the heck is it?</h6>
 				</section>
 
 				<section>
@@ -79,6 +79,21 @@ var event = require('./event'),
     _ = require('underscore');
 
 module.exports = 'Welcome to ' + event;
+</pre>
+				</section>
+
+				<section>
+					<h2>CommonJS example</h2>
+					<pre style="display: block; font-size: 0.9em;">
+// event.js
+exports.name = 'ng-conf';
+exports.location = 'Salt Lake City';
+</pre>
+					<pre style="display: block; font-size: 0.9em; margin-top: 40px;">
+// welcome.js
+var event = require('./event');
+
+module.exports = event.name + ' in ' + event.location;
 </pre>
 				</section>
 
@@ -123,7 +138,7 @@ module.exports = 'Welcome to ' + event;
 
         <section>
           <h1>WHY</h1>
-          <h6 style="color: #EEE">would you use it?</h6>
+          <h6 style="color: #DDD">would you use it?</h6>
         </section>
 
 				<section>
@@ -139,7 +154,6 @@ module.exports = 'Welcome to ' + event;
 					<h2>Node</h2>
 					<ul>
 						<li>LOTS of modules can run on client or server</li>
-            <li>Browserify exposes several core Node modules</li>
             <li>__dirname, __filename, etc</li>
 					</ul>
 				</section>
@@ -206,9 +220,87 @@ module.exports = 'Welcome to ' + event;
 				</section>
 
         <section>
-          <h1>HOW</h1>
-          <h6 style="color: #EEE">do I use this modern miracle?</h6>
+          <h2>hbsfy</h2>
+          <pre style="display: block; font-size: 0.6em">var through = require('through');
+var Handlebars = require("handlebars");
+
+module.exports = function(file) {
+  if (!/\.hbs|\.handlebars/.test(file)) return through();
+  var buffer = "";
+  return through(function(chunk) {
+    buffer += chunk.toString();
+  },
+  function() {
+    var js = Handlebars.precompile(buffer);
+    // Compile only with the runtime dependency.
+    var compiled = "var Handlebars = require('handlebars-runtime');\n";
+    compiled += "module.exports = Handlebars.template(" + js.toString() + ");\n";
+    this.queue(compiled);
+    this.queue(null);
+  });
+};</pre>
         </section>
+
+        <section>
+          <h2>brfs</h2>
+					<pre style="display: block; font-size: 0.7em;">
+var screed = fs.readFileSync(__dirname + '/manifesto.txt');
+
+// magically becomes
+
+var screed = "These pretzels are making me thirsty!";
+</pre>
+        </section>
+
+        <section>
+          <h1>HOW</h1>
+          <h6 style="color: #DDD">does this affect my Angular code?</h6>
+        </section>
+
+				<section>
+					<h2>app.js</h2>
+					<pre style="display: block; font-size: 0.6em">{
+  "name": "Angularify",
+  "version": "1.0.20",
+  "description": "My sweet app",
+  "scripts": {
+    "postinstall": "grunt githooks"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.1",
+    "chai": "~1.7.2",
+    "grunt": "~0.4.1",
+    "grunt-browserify": "~1.2.11",
+    "d3": "~3.3.3",
+    "sk-angular-scope-manager": "git+ssh://user@server/sk-angular-scope-manager",
+    "sk-column-name-beautifier": "git+ssh://user@server/sk-column-name-beautifier#v1.0.1"
+  },
+  "browser": {
+    "mix": "./src/common/utils/mix.js"
+  }
+}
+</pre>
+				</section>
+
+				<section>
+					<h2>app.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var angular = require('angular'),
+    login = require('./login'),
+    charts = require('./charts'),
+    routes = require('./routes');
+
+angular.module('app', [
+      login.name,
+      charts.name
+      ...
+    ])
+    .config(routes)
+    .constant('version', require('../package.json').version);
+
+</pre>
+				</section>
 
 				<section>
 					<h2>app.js</h2>
@@ -218,7 +310,9 @@ var angular = require('angular');
 
 angular.module('app', [
       require('./modules/login').name,
-      require('./modules/charts').name
+      require('./modules/charts').name,
+      require('sk-auth-form').name,
+      ...
     ])
     .config(require('./common/routes'))
     .service('session', require('common/Session'))
