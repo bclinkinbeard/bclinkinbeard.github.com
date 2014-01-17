@@ -69,8 +69,6 @@
 					<h2>CommonJS</h2>
 					<ul>
 						<li>Module format used by Node</li>
-						<li>require('some-dependency');</li>
-						<li>require('./some/file');</li>
 						<li>Synchronous</li>
 					</ul>
 				</section>
@@ -210,7 +208,6 @@ function (require, module, exports) {
 						<li>hbsfy</li>
 						<li>coffeeify</li>
 						<li>es6ify</li>
-						<li>brfs</li>
 						<li>...</li>
 					</ul>
 				</section>
@@ -235,17 +232,6 @@ module.exports = function(file) {
     this.queue(null);
   });
 };</pre>
-        </section>
-
-        <section>
-          <h2>brfs</h2>
-					<pre style="display: block; font-size: 0.7em;">
-var screed = fs.readFileSync(__dirname + '/manifesto.txt');
-
-// magically becomes
-
-var screed = "These pretzels are making me thirsty!";
-</pre>
         </section>
 
         <section>
@@ -306,11 +292,9 @@ var angular = require('angular');
 angular.module('app', [
       require('./modules/login').name,
       require('./modules/charts').name,
-      require('sk-auth-form').name,
       ...
     ])
     .config(require('./common/routes'))
-    .service('session', require('common/Session'))
     .constant('version', require('../package.json').version);
 
 </pre>
