@@ -40,7 +40,8 @@
 				<section style="text-align: left">
 					<h2>AngularJS with Browserify</h2>
           <h4 style="color: #666666">Ben Clinkinbeard</h4>
-          <h4 style="color: #666666; margin-top: -10px">Technical Lead - SpatialKey</h4>
+          <h4 style="color: #666666; margin-top: -10px">@bclinkinbeard</h4>
+          <h4 style="color: #666666; margin-top: -10px">bit.ly/ng-browserify</h4>
 				</section>
 
         <section style="text-align: left">
@@ -57,12 +58,19 @@
           <h6 style="color: #DDD">the heck is it?</h6>
 				</section>
 
+        <section>
+          <h2>Browserify</h2>
+          <ul>
+            <li>require('modules') for the browser</li>
+          </ul>
+        </section>
+
 				<section>
 					<h2>CommonJS</h2>
 					<ul>
 						<li>Module format used by Node</li>
 						<li>require('some-dependency');</li>
-						<li>module.exports = 'My value';</li>
+						<li>require('./some/file');</li>
 						<li>Synchronous</li>
 					</ul>
 				</section>
@@ -87,21 +95,14 @@ module.exports = 'Welcome to ' + event;
 					<pre style="display: block; font-size: 0.9em;">
 // event.js
 exports.name = 'ng-conf';
-exports.location = 'Salt Lake City';
+exports.city = 'Salt Lake City';
 </pre>
 					<pre style="display: block; font-size: 0.9em; margin-top: 40px;">
 // welcome.js
-var event = require('./event');
+var evt = require('./event');
 
-module.exports = event.name + ' in ' + event.location;
+module.exports = evt.name + ' in ' + evt.city;
 </pre>
-				</section>
-
-				<section>
-					<h2>Browserify</h2>
-					<ul>
-						<li>require('modules') for the browser</li>
-					</ul>
 				</section>
 
 				<section>
@@ -117,22 +118,24 @@ module.exports = event.name + ' in ' + event.location;
 				</section>
 
 				<section>
+					<h2>Browserify</h2>
+					<pre style="display: block;">
+function (require, module, exports) {
+    // your code here
+}</pre>
+					<pre style="display: block; margin-top: 40px;">
+function (require, module, exports) {
+    module.exports = 'ng-conf';
+}</pre>
+				</section>
+
+				<section>
 					<h2>Browserify terminology</h2>
 					<ul>
 						<li>Entry file(s)</li>
 						<li>Bundle(s)</li>
 						<li>Transforms</li>
 						<li>Aliases</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Browserify configuration</h2>
-					<ul>
-						<li>package.json</li>
-						<li>grunt-browserify</li>
-						<li>Direct API (in code)</li>
-						<li>CLI</li>
 					</ul>
 				</section>
 
@@ -151,10 +154,12 @@ module.exports = event.name + ' in ' + event.location;
 				</section>
 
 				<section>
-					<h2>Node</h2>
+					<h2>Node and npm</h2>
 					<ul>
 						<li>LOTS of modules can run on client or server</li>
-            <li>__dirname, __filename, etc</li>
+            <li>55,000 modules and counting on npm</li>
+            <li>Hockey stick growth</li>
+            <li><pre>npm install</pre> FTW</li>
 					</ul>
 				</section>
 
@@ -190,16 +195,6 @@ module.exports = event.name + ' in ' + event.location;
 				</section>
 
 				<section>
-					<h2>npm</h2>
-					<ul>
-						<li>55,000 modules and counting</li>
-						<li>Hockey stick growth</li>
-						<li><pre>npm install</pre> FTW</li>
-						<li><pre>npm install</pre> your own repos</li>
-					</ul>
-				</section>
-
-				<section>
 					<h2>Consistency</h2>
 					<ul>
 						<li>Always building</li>
@@ -214,6 +209,7 @@ module.exports = event.name + ' in ' + event.location;
 						<li>debowerify</li>
 						<li>hbsfy</li>
 						<li>coffeeify</li>
+						<li>es6ify</li>
 						<li>brfs</li>
 						<li>...</li>
 					</ul>
@@ -258,7 +254,7 @@ var screed = "These pretzels are making me thirsty!";
         </section>
 
 				<section>
-					<h2>app.js</h2>
+					<h2>package.json</h2>
 					<pre style="display: block; font-size: 0.6em">{
   "name": "Angularify",
   "version": "1.0.20",
@@ -268,12 +264,11 @@ var screed = "These pretzels are making me thirsty!";
   },
   "devDependencies": {
     "mocha": "~1.12.1",
-    "chai": "~1.7.2",
     "grunt": "~0.4.1",
     "grunt-browserify": "~1.2.11",
     "d3": "~3.3.3",
-    "sk-angular-scope-manager": "git+ssh://user@server/sk-angular-scope-manager",
-    "sk-column-name-beautifier": "git+ssh://user@server/sk-column-name-beautifier#v1.0.1"
+    "sk-ng-scope-mgr": "git+ssh://user@server/sk-ng-scope-mgr",
+    "sk-label-util": "git+ssh://user@server/sk-label-util#v1.0.4"
   },
   "browser": {
     "mix": "./src/common/utils/mix.js"
