@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" type="image/png" href="/images/cabin.png">
+		<link href="/styles/main.css" rel="stylesheet">
+		
+		<title>How Browserify Works</title>
+		
+		
+		<meta name="description" content="Examining the structure of a Browserify bundle">
+		
+		<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+				#mc_embed_signup {
+						margin-left: 2em;
+						border: 1px solid black;
+				}
+		</style>
+</head>
+<body>
+<nav>
+		<h1 class="name">
+				<a href="/">Ben Clinkinbeard</a>
+		</h1>
+
+		<div class="social-media">
+				<a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+				<a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+		</div>
+</nav>
+<div class="topbar">
+		<div class="inner">
+				<div class="form">
+						<form name="header_signup"
+						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
+						      method="post">
+								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
+								<div class="button-container">
+										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
+                    <input type="hidden" value="Header" name="DOC">
+
+										<a class="button"
+										   onclick="document.header_signup.submit();"
+										   href="#">Feed Me!</a>
+								</div>
+                <div class="noSpam">(No spam. Ever.)</div>
+						</form>
+				</div>
+
+		</div>
+
+</div>
+<div class="content">
+
+<div class="post-head group">
+  <a href="/posts/how-browserify-works/">
+    <h1 class="post-title">How Browserify Works</h1>
+  </a>
+  <br>
+  <span class="post-date">January 2014</span>
+</div>
+
+<div class="post-body markdown"><p><a href="https://github.com/substack/node-browserify/">Browserify</a> is incredibly popular these days, and rightfully so. In this article we&#39;ll look at the basics of how it works.</p>
+<p>Browserify uses the term entry file(s) to describe where it will start reading a dependency graph, and its output is referred to as a bundle. At its highest level, a Browserify bundle is simply an <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>, or Immediately Invoked Function Expression. This is of course a simple mechanism to make code run as soon as it is loaded.</p>
+<h2><a name="the-module-map" class="anchor" href="#the-module-map"><span class="header-link"></span></a>The module map</h2>
+<p>The first argument passed to the IIFE is a map, where the keys are unique numbers and the values are 2 element arrays. A very simple version of this map might look like this:</p>
+<pre><code><div class="highlight"><pre><span class="p">{</span>
+  <span class="mi">1</span><span class="o">:</span> <span class="p">[</span><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s1">&#39;DEP&#39;</span><span class="p">;</span>
+
+  <span class="p">},</span> <span class="p">{}],</span>
+  <span class="mi">2</span><span class="o">:</span> <span class="p">[</span><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./dep&#39;</span><span class="p">);</span>
+
+    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s1">&#39;ENTRY&#39;</span><span class="p">;</span>
+
+  <span class="p">},</span> <span class="p">{</span><span class="s2">&quot;./dep&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>As you can see, each module has been assigned a unique number id. The contents of our <code>entry.js</code> file have been wrapped and given a key of <code>2</code>, and the contents of <code>dep.js</code> have been wrapped and keyed as <code>1</code>.</p>
+<p>Let&#39;s look at the <code>entry.js</code> module. The first element of the array is the source code wrapped in a closure that Browserify generates for you. The purpose of this wrapper is to prevent scope pollution and to ensure your code has access to the variables that would otherwise be provided by the Node environment. We&#39;ll take a closer look at this wrapper in the next section.</p>
+<p>The array&#39;s second element is another map, but this time the map is of your module&#39;s dependencies. Since <code>entry.js</code> depends on <code>dep.js</code>, expressed as <code>require(&#39;./dep&#39;);</code> in the source code, the dependency map has an entry whose key is <code>./dep</code> and whose value is <code>1</code>. Of course, <code>1</code> is the key for <code>dep.js</code> in the module map. Since <code>dep.js</code> doesn&#39;t depend on any other modules, its dependency map is an empty object <code>{}</code>.</p>
+<p>This is a greatly simplified example, but you can see how our dependency tree has been recreated in code. This output is generated by <a href="https://github.com/substack/browser-pack">browser-pack</a>, one of the libraries Browserify is built upon.</p>
+<h3><a name="generated-closure" class="anchor" href="#generated-closure"><span class="header-link"></span></a>Generated closure</h3>
+<p>Now that we&#39;ve seen how the different files are combined and related to one another, let&#39;s look at an individual file and how its contents are augmented. The full source of <code>entry.js</code> is simply</p>
+<pre><code><div class="highlight"><pre><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./dep&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s1">&#39;ENTRY&#39;</span><span class="p">;</span>
+</pre></div>
+</code></pre>
+<p>but our bundle represents it as</p>
+<pre><code><div class="highlight"><pre><span class="kd">function</span> <span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./dep&#39;</span><span class="p">);</span>
+
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s1">&#39;ENTRY&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>So Browserify has wrapped our code in a closure that specifies a few important arguments. Node, of course, provides a <code>require</code> <a href="http://nodejs.org/api/globals.html#globals_require">method</a> in its environment that serves to synchronously load dependencies. The client side, however, is an entirely different beast. There is no <code>require</code> available natively in browsers, so Browserify implements it for us and gives us access to it by passing it into these closures.</p>
+<p>The <code>module</code> and <code>exports</code> arguments serve a purpose that should be obvious if you are familiar with CommonJS syntax (also used in Node). CommonJS modules specify which values they expose to the outside world using the <code>module</code> and/or <code>exports</code> variables. In our <code>entry.js</code> module above, its output is specified as the string “ENTRY” by assigning it to <code>module.exports</code>. If we wanted to expose multiple values we could use <code>exports</code> directly, like <code>exports.foo = “FOO”; exports.bar = “BAR”</code>. Once again though, these things don&#39;t exist in the browser by default. Browserify to the rescue.</p>
+<h2><a name="the-cache" class="anchor" href="#the-cache"><span class="header-link"></span></a>The cache</h2>
+<p>The second argument provided to the IIFE is the cache of modules defined in any bundles that were loaded before ours. This is almost always going to be an empty <code>{}</code>, so we&#39;re actually going to skip it here. Just know that it&#39;s basically another module map, defined elsewhere, that might get passed into your bundle when it starts up.</p>
+<h2><a name="entry-modules" class="anchor" href="#entry-modules"><span class="header-link"></span></a>Entry modules</h2>
+<p>The third and final argument passed to the bundle IIFE is an array of module ids that will serve as the starting point for building our dependency graph. In our case, remember, <code>entry.js</code> has been given an id of <code>2</code>. Therefore the third argument is <code>[2]</code>. It is an array because you can specify multiple entry files, which is apparently common for running tests, but not something I have seen a lot of.</p>
+<h2><a name="making-it-all-work" class="anchor" href="#making-it-all-work"><span class="header-link"></span></a>Making it all work</h2>
+<p>Now that we know what is being passed, let&#39;s talk about what the F in the IIFE actually does. This function also comes from the browser-pack project. Specifically, the <a href="https://github.com/substack/browser-pack/blob/d29fddc8a9207d5f967664935073b50971aff708/prelude.js">prelude.js file</a>. I&#39;d encourage you to click through and read the file itself (it&#39;s pretty well commented), but it&#39;s actually even simpler than it looks.</p>
+<p>Basically, each entry module id is passed into a function where it is looked for in the cache. If it is found, the module&#39;s <code>exports</code> property is returned, fulfilling the dependency. If the id is not found in the cache then our own module map is checked.</p>
+<p>When an id is found in our map, the generated closure is called, passing in the <code>require</code>, <code>module</code>, and <code>exports</code> arguments, and the module is added to the cache. The module is also given access to its dependency map so that its own <code>require</code> calls can be fulfilled.</p>
+<p>If an id is <em>not</em> found in our module map, Browserify will look in any previously loaded bundles for the id. If it cannot be found there, an error is thrown.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p>Whew! While the basic mechanism used is quite simple, there is a lot of brilliance and intricacy in making it work as well as it does. Not only that, but we&#39;ve only covered the most basic of scenarios here. Browserify supports all kinds of advanced features like module aliases, external modules, transforms, and all kinds of other goodies. Those topics, however, will have to be covered another day. Until then, I highly recommend giving Browserify a try on your next project. It is productive, performant, and opens the door to tens of thousands of modules available on <a href="http://npmjs.org">npm</a>. What&#39;s not to love?</p>
+</div>
+
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC">
+				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
+				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
+				<div class="clear">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"
+                   style="display: inline-block; background: rgba(23, 127, 51, 0.89);">
+            <span class="noSpam" style="margin: 0.3em 0.4em">(Only content, NEVER spam.)</span>
+        </div>
+		</form>
+</div>
+<br/><br/><br/>
+<!--End mc_embed_signup-->
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
+    </script>
+  </body>
+</html>
+
