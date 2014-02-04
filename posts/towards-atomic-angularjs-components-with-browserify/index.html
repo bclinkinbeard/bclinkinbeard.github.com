@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" type="image/png" href="/images/cabin.png">
+		<link href="/styles/main.css" rel="stylesheet">
+		
+		<title>Towards atomic AngularJS components with Browserify</title>
+		
+		
+		<meta name="description" content="Architecting for modularity in AngularJS applications">
+		
+		<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+				#mc_embed_signup {
+						margin-left: 2em;
+						border: 1px solid black;
+				}
+		</style>
+</head>
+<body>
+<nav>
+		<h1 class="name">
+				<a href="/">Ben Clinkinbeard</a>
+		</h1>
+
+		<div class="social-media">
+				<a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+				<a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+		</div>
+</nav>
+<div class="topbar">
+		<div class="inner">
+				<div class="form">
+						<form name="header_signup"
+						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
+						      method="post">
+								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
+								<div class="button-container">
+										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
+                    <input type="hidden" value="Header" name="DOC">
+
+										<a class="button"
+										   onclick="document.header_signup.submit();"
+										   href="#">Feed Me!</a>
+								</div>
+                <div class="noSpam">(No spam. Ever.)</div>
+						</form>
+				</div>
+
+		</div>
+
+</div>
+<div class="content">
+
+<div class="post-head group">
+  <a href="/posts/towards-atomic-angularjs-components-with-browserify/">
+    <h1 class="post-title">Towards atomic AngularJS components with Browserify</h1>
+  </a>
+  <br>
+  <span class="post-date">February 2014</span>
+</div>
+
+<div class="post-body markdown"><p>When I read <a href="http://techwraith.com/atomic-product-development">Atomic Product Development</a> a few weeks ago, it was a lightbulb moment for me. It managed to finally put words (and code!) to the handful of loose ideas that had been rattling around my head for the better part of a year. I&#39;ve started contributing to the project, and you&#39;ll undoubtedly hear more about it from me in the future, but I thought it might be helpful to first show a basic application of the concepts to AngularJS.</p>
+<h2><a name="idiomatic-angular" class="anchor" href="#idiomatic-angular"><span class="header-link"></span></a>Idiomatic Angular</h2>
+<p>The atomify projects (specifically <a href="https://github.com/Techwraith/atomify-js">atomify-js</a> and <a href="https://github.com/Techwraith/atomify-css">atomify-css</a>) were not created with frameworks like AngularJS in mind. If you take a look at the <a href="https://github.com/Techwraith/atomify-example">atomify-example</a>, you can see it&#39;s more like Backbone or vanilla JS, but the principles and underlying tools are universally appealing.</p>
+<p>Therefore, the challenge I&#39;ve spent the last couple of weeks solving is how to utilize that foundation in the context of AngularJS. As it turns out, <a href="https://github.com/bclinkinbeard/angular-component-demo">it&#39;s actually pretty simple</a>.</p>
+<h2><a name="units-and-terminology" class="anchor" href="#units-and-terminology"><span class="header-link"></span></a>Units and terminology</h2>
+<p>Since the traditionally generic term <code>module</code> has a very specific and concrete meaning in the Angular world, I&#39;ve taken to using the term component when discussing this approach. Slightly confusing matters is the fact that components are packaged as Angular modules, but bear with me, it will all make sense in a minute.</p>
+<h2><a name="the-same-but-different" class="anchor" href="#the-same-but-different"><span class="header-link"></span></a>The same, but different</h2>
+<p>At the heart of the atomify philosophy is the concept of fully self-contained, yet configurable pieces. Bundling JS, HTML, and CSS into an atomic unit. It just so happens that Angular has its own mechanism for doing most of that, which is its <a href="http://docs.angularjs.org/api/angular.Module">module API</a>. The challenge, then, is how do you structure your Angular modules in a way that will enable you to develop them independently of a larger host application? How do you write a login form, or a column chart, in a way that it can live in its own repository, have its own versioning and releases, but also be seamlessly dropped into any number of contexts large or small? Well, let&#39;s take a look.</p>
+<h2><a name="the-whole-package" class="anchor" href="#the-whole-package"><span class="header-link"></span></a>The whole package</h2>
+<p>As I mentioned before, our component is defined using the <code>angular.module</code> API. In our simple example, this is what that looks like.</p>
+<pre><code><div class="highlight"><pre><span class="kd">var</span> <span class="nx">angular</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;angular&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;demo-component&#39;</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="p">.</span><span class="nx">constant</span><span class="p">(</span><span class="s1">&#39;template&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./template.html&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;demoComponent&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./DemoDirective&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;DemoController&#39;</span><span class="p">,</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./DemoController&#39;</span><span class="p">));</span>
+</pre></div>
+</code></pre>
+<p>We are <code>require()</code>-ing Angular (thanks to <a href="https://github.com/thlorenz/browserify-shim">browserify-shim</a>), and then composing our module by defining our HTML template as a <code>constant</code>, and specifying a <code>directive</code> and a <code>controller</code>.</p>
+<h3><a name="about-that-template" class="anchor" href="#about-that-template"><span class="header-link"></span></a>About that template</h3>
+<p>You&#39;ll notice that we are requiring an HTML file, which is not something you normally see. We are only able to do so thanks to <a href="https://npmjs.org/package/partialify">partialify</a>, which simply reads in the contents of the HTML (or XML, or JSON, or other plain text) file and assigns it like if we had written the markup inline as a string. This happens as part of the build, thanks to Browserify&#39;s transform mechanism.</p>
+<h3><a name="self-directive" class="anchor" href="#self-directive"><span class="header-link"></span></a>Self directive</h3>
+<p>Our directive is super simple, but a bit different than what you&#39;re probably used to seeing. Essentially all the directive does is turn the template we&#39;ve made available into a DOM element, compiles it with the scope it receives, and inserts the new node into the DOM wherever it was defined. You can see the full code below.</p>
+<pre><code><div class="highlight"><pre><span class="kd">var</span> <span class="nx">angular</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;angular&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">DemoDirective</span> <span class="p">(</span><span class="nx">$compile</span><span class="p">,</span> <span class="nx">template</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">list</span><span class="o">:</span> <span class="s1">&#39;=&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">restrict</span><span class="o">:</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+    <span class="nx">controller</span><span class="o">:</span> <span class="s1">&#39;DemoController&#39;</span><span class="p">,</span>
+    <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">template</span><span class="p">);</span>
+      <span class="nx">el</span> <span class="o">=</span> <span class="nx">$compile</span><span class="p">(</span><span class="nx">el</span><span class="p">)(</span><span class="nx">scope</span><span class="p">);</span>
+      <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">element</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">append</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</code></pre>
+<p>Not all of your directives will end up being this simple but I suspect many will. I also think it&#39;s easy to see how these standard directives could be generated by a utility function, removing the need to even create a separate file for them.</p>
+<h3><a name="and-then" class="anchor" href="#and-then"><span class="header-link"></span></a>And then...</h3>
+<p>That&#39;s kind of it, at least for now. You define a controller like you would any other time and have it manage the <code>$scope</code> and user interactions for its little piece of the DOM. Maybe it requests data from the backend, communicates with other controllers, etc. but it&#39;s basically just a normal everyday controller. Now, to create truly reusable components you will need to be dilligent in avoiding tight coupling, defining and maintaining small, well defined API surface areas and the like, but those are all good things to worry about anyhow.</p>
+<p>For now, simply specify your component module as a dependency of your app and toss <code>&lt;demo-component list=&quot;people&quot;&gt;&lt;/demo-component&gt;</code> into your markup.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p>This is obviously just scratching the surface of this approach, but hopefully it gives you an idea of the possibilities. In future posts we&#39;ll look at bundling CSS with your component, defining required, default, and optional configuration properties for your components, and weaving it all together into a larger ecosystem. In my own work I plan to spend the vast majority of my time writing components. To create applications we&#39;ll snap together some existing pieces, write a couple of new ones and a little bit of glue code, and have a flexible, modular architecture by default.</p>
+<p>What about you? Does this sort of architecture appeal to you? Have questions about how to get started or how to build more complex components? Take a look at the <a href="https://github.com/bclinkinbeard/angular-component-demo">example application</a> and then reach out on <a href="https://twitter.com/bclinkinbeard">Twitter</a> or via email (<code>ben.clinkinbeard</code> at gmail) with any questions, comments or otherwise about this post.</p>
+<p>I&#39;m also curious to know what sorts of posts people would like to see going forward. I have so many different topics I am interested in right now that it&#39;s really hard to choose what to write about. More Angular? More Browserify? More atomify? If there is a subject you&#39;d like to see me explore in a future post let me know!</p>
+</div>
+
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC">
+				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
+				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
+				<div class="clear">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"
+                   style="display: inline-block; background: rgba(23, 127, 51, 0.89);">
+            <span class="noSpam" style="margin: 0.3em 0.4em">(Only content, NEVER spam.)</span>
+        </div>
+		</form>
+</div>
+<br/><br/><br/>
+<!--End mc_embed_signup-->
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
+    </script>
+  </body>
+</html>
+
