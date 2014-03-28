@@ -9,15 +9,22 @@ Everyone wants to write modular code, but sometimes it's tough. In the world of 
 
 ## npm, Browserify, and the Unix philosophy
 
-Spend a bit of time in the npm and Browserify communities and you will undoubtedly hear of the [Unix philosophy](http://en.wikipedia.org/wiki/Unix_philosophy) before long. This philosophy essentially boils down to a recommendation to build big things out of lots of small things, where each small thing serves one specific purpose and exposes a well defined API for integrating it into larger systems.
+Spend a bit of time in the npm and Browserify communities and it won't be long before you hear mention of the [Unix philosophy](http://en.wikipedia.org/wiki/Unix_philosophy). At its core, this philosophy boils down to a recommendation to build big things out of lots of small things, where each small thing does one thing well and exposes an API to allow for integrating it into larger systems.
 
-In a way, you can almost view the CommonJS module format itself, and therefore npm, Node, and Browserify, as an embodiment of the Unix philosophy themselves. Most CommonJS modules expose a single function, or at most a handful of properties or functions. In my experience it is pretty rare to encounter a module containing more than a few hundred lines of code, and the majority of them are under a hundred.
+In a way, you can almost view the CommonJS module format itself, and therefore npm, Node, and Browserify, as an embodiment of the Unix philosophy themselves. Most CommonJS modules expose a single function, or at most a handful of properties or functions. In my experience it is pretty rare to encounter a module containing more than a few hundred lines of code, and most of them are under a hundred.
 
-What this means is that the ecosystem for modular JavaScript is well established and mature. As mentioned previously, however, the same cannot be said for the other elements of client side web development. Atomify changes that.
+What this means is that the ecosystem for modular JavaScript is well established and mature. As mentioned previously, however, the same cannot be said for the other elements of client side web development. **Atomify changes that.**
 
-## Atomify at a high level
+## What is Atomify?
 
-The [atomify](https://www.npmjs.org/package/atomify) package itself is primarily a wrapper around the [atomify-js](https://www.npmjs.org/package/atomify-js) and [atomify-css](https://www.npmjs.org/package/atomify-css) packages. It provides a CLI and some other conveniences, but it primarily exists as a common point of access for the child projects.
+We'll look at each piece in detail below, but at a high level you could say that Atomify is made up of 4 main components.
+
+* atomify-js provides a JS workflow based on Browserify, with some additional features for bundling your templates and the assets they reference
+* [atomify-css](#css) provides a CSS workflow based on Rework (or a LESS or SASS workflow if you choose), again with added conveniences for bundling assets used by your stylesheets
+* A dev server that offers live bundling similar to beefy, but with all the Atomify goodness to enable fast iteration
+* CLI to enable easy integration into existing build processes and declarative configuration from within package.json
+
+These divisions are clearly reflected in the architecture of the [atomify](https://www.npmjs.org/package/atomify) package itself. It is primarily a wrapper around the [atomify-js](https://www.npmjs.org/package/atomify-js) and [atomify-css](https://www.npmjs.org/package/atomify-css) packages. The dev server and CLI are provided directly, but only contain about 100 LOC between them. (atomify-js and atomify-css are each in the neighborhood of 100 LOC as well, so you could easily read through them to understand everything they do.)
 
 ### atomify-js
 
@@ -29,7 +36,7 @@ In addition to the defaults, you can specify your own transforms, globalTransfor
 var js = require('atomify-js')
 js('entry.js', 'bundle.js')
 ```
-
+<a name="css"></a>
 ### atomify-css
 
 atomify-css supports LESS and SASS, but the more compelling use case, in my opinion, is the CSS workflow which is based around Rework. If you're not familiar with Rework check out this [great introductory post](http://nicolasgallagher.com/custom-css-preprocessing/), but in a nutshell it is a tool for creating custom CSS preprocessors in the same vein as things like LESS and SASS. I've come to prefer Rework though, because it is entirely plugin driven. Want to add some feature the framework authors didn't provide? Write a plugin and `use()` it. Dead simple.
