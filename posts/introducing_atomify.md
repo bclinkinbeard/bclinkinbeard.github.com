@@ -1,7 +1,7 @@
 {
 	title: "Introducing Atomify - A New Standard of Modularity",
-	date: "2014-3-21",
-	dateLabel: "March 2014",
+	date: "2014-4-2",
+	dateLabel: "April 2014",
 	description: "Introducing Atomify"
 }
 
