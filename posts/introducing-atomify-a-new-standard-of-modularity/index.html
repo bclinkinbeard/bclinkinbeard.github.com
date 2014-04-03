@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" type="image/png" href="/images/cabin.png">
+		<link href="/styles/main.css" rel="stylesheet">
+		
+		<title>Introducing Atomify - A New Standard of Modularity</title>
+		
+		
+		<meta name="description" content="Introducing Atomify">
+		
+		<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+				#mc_embed_signup {
+						margin-left: 2em;
+						border: 1px solid black;
+				}
+		</style>
+</head>
+<body>
+<nav>
+		<h1 class="name">
+				<a href="/">Ben Clinkinbeard</a>
+		</h1>
+
+		<div class="social-media">
+				<a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+				<a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+		</div>
+</nav>
+<div class="topbar">
+		<div class="inner">
+				<div class="form">
+						<form name="header_signup"
+						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
+						      method="post">
+								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
+								<div class="button-container">
+										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
+                    <input type="hidden" value="Header" name="DOC">
+
+										<a class="button"
+										   onclick="document.header_signup.submit();"
+										   href="#">Feed Me!</a>
+								</div>
+                <div class="noSpam">(No spam. Ever.)</div>
+						</form>
+				</div>
+
+		</div>
+
+</div>
+<div class="content">
+
+<div class="post-head group">
+  <a href="/posts/introducing-atomify-a-new-standard-of-modularity/">
+    <h1 class="post-title">Introducing Atomify - A New Standard of Modularity</h1>
+  </a>
+  <br>
+  <span class="post-date">March 2014</span>
+</div>
+
+<div class="post-body markdown"><p>Everyone wants to write modular code, but it&#39;s not always easy. In the world of front end web development things like stylesheets, markup, and assets are some of the most easily identifiable obstacles to writing truly modular code. Add to that monolithic libraries like jQuery, Angular, etc. and it can be tempting to throw your hands up and simply dump all the code for an application into a single place.</p>
+<p>Atomify makes overcoming these obstacles easy, and this post will begin to show you how.</p>
+<h2><a name="npm-browserify-and-the-unix-philosophy" class="anchor" href="#npm-browserify-and-the-unix-philosophy"><span class="header-link"></span></a>npm, Browserify, and the Unix philosophy</h2>
+<p>Spend a bit of time in the npm and Browserify communities and it won&#39;t be long before you hear mention of the <a href="http://en.wikipedia.org/wiki/Unix_philosophy">Unix philosophy</a>. At its core, this philosophy boils down to a recommendation to build big things out of small things, where each small thing does one thing well and exposes an API to allow for integrating it into larger systems.</p>
+<p>The CommonJS module format itself, and therefore npm, Node, and Browserify, are embodiments of the Unix philosophy themselves. Most CommonJS modules expose a single function, or at most a handful of properties or functions. In my experience it is pretty rare to encounter a module containing more than a few hundred lines of code, and most of them are under a hundred.</p>
+<p>What this means is that the ecosystem for modular JavaScript is well established and mature. As mentioned previously, however, the same cannot be said for the other elements of client side web development.</p>
+<p><strong>Atomify changes that.</strong></p>
+<h2><a name="what-is-atomify" class="anchor" href="#what-is-atomify"><span class="header-link"></span></a>What is Atomify?</h2>
+<p>Generally speaking, Atomify is made up of 4 main components. <a href="https://www.npmjs.org/package/atomify-js">atomify-js</a> and <a href="https://www.npmjs.org/package/atomify-css">atomify-css</a> do the heavy lifting in terms of bundling your code, and the <a href="https://www.npmjs.org/package/atomify">atomify</a> package itself is primarily a wrapper around and common point of access to them. It does, however, provide a dev server and CLI directly. Despite its significant capabilities it is small and elegant. You could easily read through the entire codebase and understand everything it does in a matter of hours.</p>
+<p>So what, exactly, <em>does</em> it do?</p>
+<ul>
+<li>Enables you to build properly <a href="http://techwraith.com/atomic-product-development.html">atomic front end components</a></li>
+<li>Brings a <a href="http://techwraith.com/your-css-needs-a-dependency-graph-too.html">dependency graph to your CSS</a>, removing the need for impossibly long and disorganized stylesheets</li>
+<li>Unifies the bundling of your code, templates and styles into one easily configurable tool</li>
+<li>Makes full modularity the default, instead of a complicated pipe dream</li>
+</ul>
+<p>What follows is a general introduction to Atomify and the benefits it offers. If you just want docs and code, check out the README files linked above and the <a href="https://github.com/atomify/atomify-examples">example projects</a>.</p>
+<h3><a name="atomify-js" class="anchor" href="#atomify-js"><span class="header-link"></span></a>atomify-js</h3>
+<p>atomify-js provides a JavaScript workflow based on Browserify, with additional features for bundling your templates and the assets they reference.</p>
+<p>It provides a somewhat simpler API than working with Browserify directly, allowing you to specify an entry file (or multiple entry files), and an output file or a callback. In fact, for the simplest scenarios <em>that is the only thing you have to do</em>.</p>
+<p><code>require(&#39;atomify-js&#39;)(&#39;entry.js&#39;, &#39;bundle.js&#39;)</code>. Done.</p>
+<p>atomify-js also provides some <a href="https://github.com/atomify/atomify-js#default-transforms-and-template-support">default transforms</a>. The transforms are primarily focused on supporting various templating languages, like Handlebars, EJS, Jade, and plain HTML files for use in frameworks like Angular. Thanks to these transforms you simply <code>require()</code> your templates like you would a JS or JSON file, and they are precompiled (where applicable) and bundled with your output.</p>
+<p>You can also specify your own transforms and Browserify configuration if you want, but the last thing I want to mention here is the asset bundling. If desired and configured, atomify-js will inspect your source files for <code>img</code>, <code>video</code>, and <code>audio</code> tags with a <code>src</code> attribute. Whenever it finds one, it will copy the file to a destination of your choosing, likely in your output directory, and update the <code>src</code> attribute to point to the new location. Not only that, but it will rename the asset based on a hash of its contents, meaning name collisions are not an issue. This may sound minor, or even a little odd at first, but it&#39;s actually a critically important piece of the puzzle. It means your modules can be developed completely independently using normal directory structures and paths, and everything will be properly updated at build time!</p>
+<h3><a name="atomify-css" class="anchor" href="#atomify-css"><span class="header-link"></span></a>atomify-css</h3>
+<p>atomify-css provides a CSS workflow based on Rework (or a LESS or SASS workflow if you choose), again with added conveniences for bundling assets used by your stylesheets.</p>
+<p>While atomify supports LESS and SASS, the more compelling use case is the CSS workflow which is based around Rework, so that is what we&#39;ll cover here. If you&#39;re not familiar with Rework check out this <a href="http://nicolasgallagher.com/custom-css-preprocessing/">great introductory post</a>, but in a nutshell it is a tool for creating custom CSS preprocessors in the same vein as things like LESS and SASS. I&#39;ve come to prefer Rework, because it is entirely plugin driven, which means it is completely customizable. Want to add some feature the framework authors didn&#39;t provide? Write a plugin and <code>use()</code> it. Dead simple.</p>
+<p>The simplest usage of atomify-css looks like this.</p>
+<p><code>require(&#39;atomify-css&#39;)(&#39;entry.css&#39;, &#39;bundle.css&#39;)</code> Look familiar?</p>
+<h4><a name="modular-styles-ftw" class="anchor" href="#modular-styles-ftw"><span class="header-link"></span></a>Modular styles FTW</h4>
+<p>Modern preprocessor libraries like LESS and SASS have improved the modularity story in the styling world. Unfortunately, while they allow you to use <code>@import</code> to combine style information from multiple files, by default you must use relative file paths in these statements.</p>
+<p>With atomify-css you can <strong>use <code>@import</code> exactly the same way you use <code>require()</code></strong> in JavaScript.</p>
+<p>What this means is that you can create completely separate projects that house style information for just their piece of the puzzle, and then <code>@import</code> them into one or more projects elsewhere.</p>
+<p>When you <code>@import</code> a module by name, the return value is determined by the <code>style</code> field of the module&#39;s package.json file. If no <code>style</code> field exists, atomify-css will look for <code>index.css</code> in the root of the package by default.</p>
+<p>Seem weird? <a href="https://github.com/twbs/bootstrap/blob/master/package.json#L19">Bootstrap</a> and <a href="https://github.com/necolas/normalize.css/blob/master/package.json#L5">normalize.css</a> don&#39;t think so.</p>
+<pre><code class="lang-css"><div class="highlight"><pre><span class="c">/* node_modules/my-thing/index.css */</span>
+<span class="nc">.some-thing</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>and</p>
+<pre><code class="lang-css"><div class="highlight"><pre><span class="c">/* my-app/index.css */</span>
+<span class="k">@import</span> <span class="s2">&quot;my-thing&quot;</span><span class="p">;</span>
+
+<span class="nc">.other-styles</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>becomes</p>
+<pre><code class="lang-css"><div class="highlight"><pre><span class="nc">.some-thing</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.other-styles</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>Similar to how it works in atomify-js, atomify-css will detect asset paths in <code>url()</code> statements in your stylesheets. Each asset is copied to a destination of your choosing and renamed using a hash based on its contents. The original paths are then updated to point to the hashed versions. Done and done. Sound familiar?</p>
+<h3><a name="atomify-cli" class="anchor" href="#atomify-cli"><span class="header-link"></span></a>atomify CLI</h3>
+<p>atomify comes with a CLI to enable easy integration into existing build processes and declarative configuration from within your package.json file. The CLI supports nearly everything the direct API does since the (optional) callback is the only aspect of configuration that is not defined as an object hash. Using <a href="https://www.npmjs.org/package/subarg">subarg</a> syntax, you can make extensive use of the CLI either directly or as part of a larger build process. Some examples can be found in the <a href="https://github.com/atomify/atomify#cli">readme</a>.</p>
+<h3><a name="development-server" class="anchor" href="#development-server"><span class="header-link"></span></a>Development server</h3>
+<p>atomify also provides a basic http server that offers live bundling similar to <a href="https://www.npmjs.org/package/beefy">beefy</a>, but with all the template, stylesheet, and asset goodness to enable fast iteration.</p>
+<p>You can see all the options <a href="https://github.com/atomify/atomify#development-server">here</a>, but all the basics you&#39;d expect like <code>port</code>, <code>path</code>, and <code>url</code> are supported. The server is built on top of <a href="https://www.npmjs.org/package/st">st</a>.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p>As the web rapidly evolves towards standards like Web Components, there may well be a more formalized way to achieve true modularity in the future. However, I personally have no intention of waiting for standards bodies and browser makers to get us there. Why would I? Atomify is ready now.</p>
+</div>
+
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC">
+				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
+				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
+				<div class="clear">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"
+                   style="display: inline-block; background: rgba(23, 127, 51, 0.89);">
+            <span class="noSpam" style="margin: 0.3em 0.4em">(Only content, NEVER spam.)</span>
+        </div>
+		</form>
+</div>
+<br/><br/><br/>
+<!--End mc_embed_signup-->
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
+    </script>
+  </body>
+</html>
+
