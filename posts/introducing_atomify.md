@@ -5,97 +5,66 @@
 	description: "Introducing Atomify"
 }
 
-Everyone wants to write modular code, but it's not always easy. In the world of front end web development things like stylesheets, markup, and assets are some of the most easily identifiable obstacles to writing truly modular code. Add to that monolithic libraries like jQuery, Angular, etc. and it can be tempting to throw your hands up and simply dump all the code for an application into a single place. Atomify makes overcoming these obstacles easy, and this post will begin to show you how.
+Everyone wants to write modular code, but it's not always easy. In the world of front end web development things like stylesheets, markup, and assets are some of the most easily identifiable obstacles to writing truly modular code. Add to that monolithic libraries like jQuery, Angular, etc. and it can be tempting to throw your hands up and simply dump all the code for an application into a single place.
+
+Atomify makes overcoming these obstacles easy, and this post will begin to show you how.
 
 ## npm, Browserify, and the Unix philosophy
 
-Spend a bit of time in the npm and Browserify communities and it won't be long before you hear mention of the [Unix philosophy](http://en.wikipedia.org/wiki/Unix_philosophy). At its core, this philosophy boils down to a recommendation to build big things out of lots of small things, where each small thing does one thing well and exposes an API to allow for integrating it into larger systems.
+Spend a bit of time in the npm and Browserify communities and it won't be long before you hear mention of the [Unix philosophy](http://en.wikipedia.org/wiki/Unix_philosophy). At its core, this philosophy boils down to a recommendation to build big things out of small things, where each small thing does one thing well and exposes an API to allow for integrating it into larger systems.
 
-In a way, you can almost view the CommonJS module format itself, and therefore npm, Node, and Browserify, as an embodiment of the Unix philosophy themselves. Most CommonJS modules expose a single function, or at most a handful of properties or functions. In my experience it is pretty rare to encounter a module containing more than a few hundred lines of code, and most of them are under a hundred.
+The CommonJS module format itself, and therefore npm, Node, and Browserify, are embodiments of the Unix philosophy themselves. Most CommonJS modules expose a single function, or at most a handful of properties or functions. In my experience it is pretty rare to encounter a module containing more than a few hundred lines of code, and most of them are under a hundred.
 
-What this means is that the ecosystem for modular JavaScript is well established and mature. As mentioned previously, however, the same cannot be said for the other elements of client side web development. **Atomify changes that.**
+What this means is that the ecosystem for modular JavaScript is well established and mature. As mentioned previously, however, the same cannot be said for the other elements of client side web development.
+
+**Atomify changes that.**
 
 ## What is Atomify?
 
-We'll look at each piece in detail below, but at a high level you could say that Atomify is made up of 4 main components.
+Generally speaking, Atomify is made up of 4 main components. [atomify-js](https://www.npmjs.org/package/atomify-js) and [atomify-css](https://www.npmjs.org/package/atomify-css) do the heavy lifting in terms of bundling your code, and the [atomify](https://www.npmjs.org/package/atomify) package itself is primarily a wrapper around and common point of access to them. It does, however, provide a dev server and CLI directly. Despite its significant capabilities it is small and elegant. You could easily read through the entire codebase and understand everything it does in a matter of hours.
 
-* [atomify-js](#js) provides a JS workflow based on Browserify, with some additional features for bundling your templates and the assets they reference
-* [atomify-css](#css) provides a CSS workflow based on Rework (or a LESS or SASS workflow if you choose), again with added conveniences for bundling assets used by your stylesheets
-* CLI to enable easy integration into existing build processes and declarative configuration from within package.json
-* A dev server that offers live bundling similar to beefy, but with all the Atomify goodness to enable fast iteration
+So what, exactly, _does_ it do?
 
-These divisions are clearly reflected in the architecture of the [atomify](https://www.npmjs.org/package/atomify) package itself. It is primarily a wrapper around and a common point of access to the [atomify-js](https://www.npmjs.org/package/atomify-js) and [atomify-css](https://www.npmjs.org/package/atomify-css) packages. The dev server and CLI are provided directly, but only contain about 100 LOC between them. (atomify-js and atomify-css are each in the neighborhood of 100 LOC as well, so you could easily read through them to understand everything they do.)<a name="js"></a>
+ * Enables you to build properly [atomic front end components](http://techwraith.com/atomic-product-development.html)
+ * Brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html), removing the need for impossibly long and disorganized stylesheets
+ * Unifies the bundling of your code, templates and styles into one easily configurable tool
+ * Makes full modularity the default, instead of a complicated pipe dream
+
+What follows is a general introduction to Atomify and the benefits it offers. If you just want docs and code, check out the README files linked above and the [example projects](https://github.com/atomify/atomify-examples).
 
 ### atomify-js
 
-atomify-js is more or less just a wrapper around Browserify. It allows you to specify an entry file (or multiple entry files), an output file or a callback, and provides some [default transforms](https://github.com/Techwraith/atomify-js#default-transforms-and-template-support) out of the box. The transforms are primarily focused on supporting various templating languages, like Handlebars, EJS, Jade, etc.
+atomify-js provides a JavaScript workflow based on Browserify, with additional features for bundling your templates and the assets they reference.
 
-In addition to the defaults, you can specify your own transforms, globalTransforms, and/or some assets configuration, which we'll cover in more detail below. Here we see the simplest usage of atomify-js, and then a more involved example.
+It provides a somewhat simpler API than working with Browserify directly, allowing you to specify an entry file (or multiple entry files), and an output file or a callback. In fact, for the simplest scenarios _that is the only thing you have to do_.
 
-```js
-var js = require('atomify').js // or require('atomify-js') directly
-js('entry.js', 'bundle.js')
-```
+`require('atomify-js')('entry.js', 'bundle.js')`. Done.
 
-```js
-var js = require('atomify').js // or require('atomify-js') directly
-var config = {
-  js: {
-    entry: 'entry.js',
-    debug: true,
-    watch: true,
-    transforms: ['deamdify'],
-    assets: {
-      dest: 'dist/images',
-      prefix: 'images/'
-    }
-  }
-}
-js(config.js, function (err, src) {
-  // write src to a file or do something else with it
-})
-```
+atomify-js also provides some [default transforms](https://github.com/atomify/atomify-js#default-transforms-and-template-support). The transforms are primarily focused on supporting various templating languages, like Handlebars, EJS, Jade, and plain HTML files for use in frameworks like Angular. Thanks to these transforms you simply `require()` your templates like you would a JS or JSON file, and they are precompiled (where applicable) and bundled with your output.
 
-You'll notice the JS config is defined in a root `js` object. This is because when using `require('atomify')` directly, you can pass a config object with both a `js` and `css` property, and they will be passed to `atomify-js` and `atomify-css` respectively.
-
-#### Bundling templates
-
-Thanks to the transforms mentioned above, as well as [partialify](https://www.npmjs.org/package/partialify), bundling templates into your module is as simple as `require()`ing your .html, .hbs, .jade and/or .ejs files. The transforms will bundle and precompile them, both simplifying deployment and improving performance.<a name="css"></a>
+You can also specify your own transforms and Browserify configuration if you want, but the last thing I want to mention here is the asset bundling. If desired and configured, atomify-js will inspect your source files for `img`, `video`, and `audio` tags with a `src` attribute. Whenever it finds one, it will copy the file to a destination of your choosing, likely in your output directory, and update the `src` attribute to point to the new location. Not only that, but it will rename the asset based on a hash of its contents, meaning name collisions are not an issue. This may sound minor, or even a little odd at first, but it's actually a critically important piece of the puzzle. It means your modules can be developed completely independently using normal directory structures and paths, and everything will be properly updated at build time!
 
 ### atomify-css
 
-atomify-css supports LESS and SASS, but the more compelling use case, in my opinion, is the CSS workflow which is based around Rework. If you're not familiar with Rework check out this [great introductory post](http://nicolasgallagher.com/custom-css-preprocessing/), but in a nutshell it is a tool for creating custom CSS preprocessors in the same vein as things like LESS and SASS. I've come to prefer Rework, because it is entirely plugin driven, which means it is completely customizable. Want to add some feature the framework authors didn't provide? Write a plugin and `use()` it. Dead simple.
+atomify-css provides a CSS workflow based on Rework (or a LESS or SASS workflow if you choose), again with added conveniences for bundling assets used by your stylesheets.
 
-Here we see the simplest usage of atomify-css, and then a more involved example. Look familiar?
+While atomify supports LESS and SASS, the more compelling use case is the CSS workflow which is based around Rework, so that is what we'll cover here. If you're not familiar with Rework check out this [great introductory post](http://nicolasgallagher.com/custom-css-preprocessing/), but in a nutshell it is a tool for creating custom CSS preprocessors in the same vein as things like LESS and SASS. I've come to prefer Rework, because it is entirely plugin driven, which means it is completely customizable. Want to add some feature the framework authors didn't provide? Write a plugin and `use()` it. Dead simple.
 
-```js
-var css = require('atomify').css // or require('atomify-css') directly
-css('entry.css', 'bundle.css')
-```
+The simplest usage of atomify-css looks like this.
 
-```js
-var css = require('atomify').css // or require('atomify-css') directly
-var config = {
-  entry: 'entry.css',
-  output: 'dist/bundle.css',
-  plugins: ['rework-clone', 'rework-math'],
-  assets: {
-    dest: 'dist/images',
-    prefix: 'images/'
-  }
-}
-js(config.js, function (err, src) {
-  // write src to a file or do something else with it
-})
-```
+`require('atomify-css')('entry.css', 'bundle.css')` Look familiar?
 
 #### Modular styles FTW
 
-The first aspect of development I mentioned as being less than ideal for modularity was CSS. Modern preprocessor libraries like LESS and SASS have improved this to an extent, but they still don't provide much in the way of tools to divide style information across projects. Where they fall short is that, while you can use `@import` to combine style information from multiple files, by default you must use relative file paths in these statements.
+Modern preprocessor libraries like LESS and SASS have improved the modularity story in the styling world. Unfortunately, while they allow you to use `@import` to combine style information from multiple files, by default you must use relative file paths in these statements.
 
-With atomify, you can **use `@import` exactly the same way you use `require()`** in JavaScript. What this means is that you can create completely separate projects that house style information for just their piece of the puzzle, and then `@import` them into one or more projects elsewhere.
+With atomify-css you can **use `@import` exactly the same way you use `require()`** in JavaScript.
 
-When you `require()` a module by name in JavaScript, the value that is returned is determined by the `main` field of the package.json file for that module. With atomify-css, when you `@import` a module by name, the return value is determined by the `style` field of the module's package.json file. If no `style` field exists, atomify-css will look for `index.css` in the root of the package by default.
+What this means is that you can create completely separate projects that house style information for just their piece of the puzzle, and then `@import` them into one or more projects elsewhere.
+
+When you `@import` a module by name, the return value is determined by the `style` field of the module's package.json file. If no `style` field exists, atomify-css will look for `index.css` in the root of the package by default.
+
+Seem weird? [Bootstrap](https://github.com/twbs/bootstrap/blob/master/package.json#L19) and [normalize.css](https://github.com/necolas/normalize.css/blob/master/package.json#L5) don't think so.
 
 ```css
 /* node_modules/my-thing/index.css */
@@ -127,18 +96,18 @@ becomes
 }
 ```
 
-### What about assets?
+Similar to how it works in atomify-js, atomify-css will detect asset paths in `url()` statements in your stylesheets. Each asset is copied to a destination of your choosing and renamed using a hash based on its contents. The original paths are then updated to point to the hashed versions. Done and done. Sound familiar?
 
-Ah yes, the final piece of the puzzle. Pretty much every app is going to have images, fonts, etc. that are referenced from both their markup and their styles. Bundling those with your module can be cumbersome (if not impossible) due to things like name collisions, path translation and the like. **With Atomify it's dead simple.** Thanks to [rework-assets](https://www.npmjs.org/package/rework-assets) and [resrcify](https://www.npmjs.org/package/resrcify) (which was blatantly adapted from rework-assets code), asset paths are automatically detected in `url()` statements in CSS and in `img`, `audio`, and `video` tags in markup. Once detected, the asset is copied to a destination of your choosing and renamed using a hash based on its contents. The original paths are then updated to point to the hashed versions. Done and done.
+### atomify CLI
 
-## atomify CLI
+atomify comes with a CLI to enable easy integration into existing build processes and declarative configuration from within your package.json file. The CLI supports nearly everything the direct API does since the (optional) callback is the only aspect of configuration that is not defined as an object hash. Using [subarg](https://www.npmjs.org/package/subarg) syntax, you can make extensive use of the CLI either directly or as part of a larger build process. Some examples can be found in the [readme](https://github.com/atomify/atomify#cli).
 
-atomify comes with a CLI that supports nearly everything the direct API does since the (optional) callback is the only aspect of configuration that is not simply defined as an object hash. Using [subarg](https://www.npmjs.org/package/subarg) syntax, you can make extensive use of the CLI either directly or as part of a larger build process. Some examples can be found in the [readme](https://github.com/techwraith/atomify#cli).
+### Development server
 
-### package.json config
+atomify also provides a basic http server that offers live bundling similar to [beefy](https://www.npmjs.org/package/beefy), but with all the template, stylesheet, and asset goodness to enable fast iteration.
 
-The CLI will also look for an atomify field in your package.json. If found, it will use those `js` and `css` options if they are not passed in from the command line.
+You can see all the options [here](https://github.com/atomify/atomify#development-server), but all the basics you'd expect like `port`, `path`, and `url` are supported. The server is built on top of [st](https://www.npmjs.org/package/st).
 
-## Development server
+## Conclusion
 
-To enable quick and easy iteration, atomify also provides a basic http server for use during development. You can access it from code with the syntax `require('atomify').server` or configure it from the CLI with the `--server` flag. When the server sees a request for one of your entry files (or a configured alias) it will bundle your code on the fly and return the result. You can see all the options [here](https://github.com/Techwraith/atomify#development-server), but all the basics you'd expect like `port`, `path`, and `url` are supported. The server is built on top of [st](https://www.npmjs.org/package/st), so you can also pass an `st` option that will be passed directly to it if you need to configure st itself.
+As the web rapidly evolves towards standards like Web Components, there may well be a more formalized way to achieve true modularity in the future. However, I personally have no intention of waiting for standards bodies and browser makers to get us there. Why would I? Atomify is ready now.
