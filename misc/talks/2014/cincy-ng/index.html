@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AngularJS with Browserify</title>
+
+		<meta name="description" content="AngularJS with Browserify from cincy-ng May 2014">
+		<meta name="author" content="Ben Clinkinbeard">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="reveal.js/css/main.css">
+		<link rel="stylesheet" href="css/um.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<script>
+			// If the query includes 'print-pdf' we'll use the PDF print sheet
+			document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section style="text-align: left">
+					<h2>AngularJS with Browserify</h2>
+          <h4 style="color: #666666">Ben Clinkinbeard</h4>
+          <h4 style="color: #666666; margin-top: -10px">@bclinkinbeard</h4>
+          <h4 style="color: #666666; margin-top: -10px">bit.ly/cincy-ng-may-2014</h4>
+				</section>
+
+        <section style="text-align: left">
+					<h2>WHAT</h2>
+          <h4 style="color: #666666">Browserify is and does</h4>
+					<h2>WHY</h2>
+          <h4 style="color: #666666">Using it is a good thing</h4>
+					<h2>HOW</h2>
+          <h4 style="color: #666666">Your AngularJS code will benefit</h4>
+				</section>
+
+				<section>
+					<h1>WHAT</h1>
+          <h6 style="color: #DDD">the heck is it?</h6>
+				</section>
+
+        <section>
+          <h2>Browserify</h2>
+          <ul>
+            <li>require('modules') for the browser</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>CommonJS</h2>
+					<ul>
+						<li>Module format used by Node</li>
+						<li>Synchronous dependency loading</li>
+						<li>require</li>
+						<li>module</li>
+						<li>exports</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>CommonJS example</h2>
+					<pre style="display: block; font-size: 0.9em;">
+// event.js
+module.exports = 'cincy-ng';
+</pre>
+					<pre style="display: block; font-size: 0.9em; margin-top: 40px;">
+// welcome.js
+var event = require('./event'),
+    _ = require('underscore');
+
+module.exports = 'Welcome to ' + event;
+</pre>
+				</section>
+
+				<section>
+					<h2>CommonJS example</h2>
+					<pre style="display: block; font-size: 0.9em;">
+// event.js
+exports.name = 'cincy-ng';
+exports.date = 'May 13, 2014';
+</pre>
+					<pre style="display: block; font-size: 0.9em; margin-top: 40px;">
+// welcome.js
+var evt = require('./event');
+
+module.exports = evt.name + ' on ' + evt.date;
+</pre>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<ul>
+            <li>Specify one or more 'entry' files</li>
+						<li>Walks the require() calls</li>
+						<li>Builds a dependency graph (AST)</li>
+						<li>Bundles it into a single file</li>
+            <li>Each file's contents wrapped in a closure</li>
+            <li>Supports source maps and all kinds of other goodies</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Browserify</h2>
+					<pre style="display: block;">
+function (require, module, exports) {
+    // welcome.js
+    var evt = require('./event');
+
+    module.exports = evt.name + ' on ' + evt.date;
+}</pre>
+				</section>
+
+				<section>
+					<h2>Browserify terminology</h2>
+					<ul>
+						<li>Entry file(s)</li>
+						<li>Bundle(s)</li>
+						<li>Transforms</li>
+						<li>Aliases</li>
+					</ul>
+				</section>
+
+        <section>
+          <h1>WHY</h1>
+          <h6 style="color: #DDD">would you use it?</h6>
+        </section>
+
+				<section>
+					<h2>Syntax</h2>
+					<ul>
+						<li>Drop.</li>
+						<li>Dead.</li>
+						<li>Simple.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Node and npm</h2>
+					<ul>
+						<li>LOTS of modules can run on client or server</li>
+            <li><strikethrough>55,000</strikethrough> 72,000+ modules and counting on npm</li>
+            <li>Hockey stick growth</li>
+            <li><pre>npm install</pre> FTW</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Node modules</h2>
+					<ul style="display: inline-block">
+						<li>assert</li>
+						<li>buffer</li>
+						<li>console</li>
+						<li>constants</li>
+						<li>crypto</li>
+						<li>domain</li>
+						<li>events</li>
+					</ul>
+					<ul style="display: inline-block; margin-left: 75px;">
+						<li>http</li>
+						<li>https</li>
+						<li>os</li>
+						<li>path</li>
+						<li>punycode</li>
+						<li>querystring</li>
+						<li>stream</li>
+					</ul>
+					<ul style="display: inline-block; margin-left: 75px;">
+						<li>string_decoder</li>
+						<li>timers</li>
+						<li>tty</li>
+						<li>url</li>
+						<li>util</li>
+						<li>vm</li>
+						<li>zlib</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>package.json and npm i</h2>
+					<ul>
+						<li>Example</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Consistency</h2>
+					<ul>
+						<li>Always building</li>
+						<li>Minimize environment differences</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Transforms</h2>
+					<ul>
+						<li>deAMDify</li>
+						<li>debowerify</li>
+						<li>hbsfy</li>
+						<li>coffeeify</li>
+						<li>es6ify</li>
+						<li>partialify</li>
+						<li>...</li>
+					</ul>
+				</section>
+
+        <section>
+          <h2>hbsfy</h2>
+          <pre style="display: block; font-size: 0.6em">var through = require('through');
+var Handlebars = require("handlebars");
+
+module.exports = function(file) {
+  if (!/\.hbs|\.handlebars/.test(file)) return through();
+  var buffer = "";
+  return through(function(chunk) {
+    buffer += chunk.toString();
+  },
+  function() {
+    var js = Handlebars.precompile(buffer);
+    // Compile only with the runtime dependency.
+    var compiled = "var Handlebars = require('handlebars-runtime');\n";
+    compiled += "module.exports = Handlebars.template(" + js.toString() + ");\n";
+    this.queue(compiled);
+    this.queue(null);
+  });
+};</pre>
+        </section>
+
+        <section>
+          <h1>HOW</h1>
+          <h6 style="color: #DDD">does this affect my Angular code?</h6>
+        </section>
+
+				<section>
+					<h2>package.json</h2>
+					<pre style="display: block; font-size: 0.6em">{
+  "name": "Angularify",
+  "version": "1.0.20",
+  "description": "My sweet app"
+  "devDependencies": {
+    "mocha": "~1.12.1",
+    "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "d3": "~3.3.3",
+    "sk-label-util": "git+ssh://user@server/sk-label-util#v1.0.4"
+  },
+  "browser": {
+    "mix": "./src/common/utils/mix.js"
+  }
+}
+</pre>
+				</section>
+
+				<section>
+					<h2>app.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var angular = require('angular'),
+    login = require('./login'),
+    charts = require('./charts'),
+    routes = require('./routes');
+
+angular.module('app', [
+      login.name,
+      charts.name
+      ...
+    ])
+    .config(routes)
+    .constant('version', require('../package.json').version);
+
+</pre>
+				</section>
+
+				<section>
+					<h2>app.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var angular = require('angular');
+
+angular.module('app', [
+      require('./modules/login').name,
+      require('./modules/charts').name,
+      ...
+    ])
+    .config(require('./common/routes'))
+    .constant('version', require('../package.json').version);
+
+</pre>
+				</section>
+
+				<section>
+					<h2>modules/charts/index.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+module.exports = angular.module('app.charts', [
+		require('./pie').name,
+		require('./timeline').name,
+		require('./treemap').name,
+		require('./scatterplot').name
+	])
+	.controller('ChartMgrCtrl', require('./ChartMgrCtrl'));
+</pre>
+				</section>
+
+				<section>
+					<h2>modules/charts/pie/index.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+var pieChartDirective = require('./PieChartDirective'),
+    pieChartController = require('./PieChartController');
+
+module.exports = angular.module('app.charts.pieChart', [])
+    .directive('pieChart', pieChartDirective)
+    .controller('PieChartCtrl', pieChartController);
+</pre>
+				</section>
+
+				<section>
+					<h2>PieChartDirective.js</h2>
+					<pre style="display: block; font-size: 0.7em">'use strict';
+
+module.exports = function () {
+    return {
+        scope: {
+            chartData: '=',
+            isMaximized: '='
+        },
+        restrict: 'A',
+        controller: 'PieChartController',
+        link: function (scope, element, attrs) {
+            scope.el = element[0];
+        }
+    };
+};
+</pre>
+				</section>
+
+				<section>
+					<h1 style="margin-top: 200px">Fin.</h1>
+				</section>
+
+			</div> <!-- END OF SLIDES -->
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+
+				theme: 'um', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'reveal.js/lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

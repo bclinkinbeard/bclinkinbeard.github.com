@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html ng-app="hello-protractor">
+  <head>
+    <title>hello protractor</title>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/app.css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="row  text-center">
+            <img src="images/265egghead.png" alt="egghead.io logo"/>
+            <h1>Hello Protractor</h1>
+        </div>
+        <div ui-view></div>
+    </div>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

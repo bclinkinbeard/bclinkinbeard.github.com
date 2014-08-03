@@ -1,0 +1,8 @@
+{
+  "name": "angular-mocks",
+  "version": "1.2.8-build.2068+sha.d9ed9c5",
+  "main": "./angular-mocks.js",
+  "dependencies": {
+    "angular": "1.2.8-build.2068+sha.d9ed9c5"
+  }
+}
