@@ -1,52 +1,20 @@
-<!DOCTYPE html>
-<html ng-app="app">
-<head lang="en">
-	<meta charset="UTF-8">
-	<title>Protractor Test</title>
-</head>
-<body ng-controller="MainCtrl">
-
-<button id="theBtn" ng-click="onButtonClick()">The Button Mofo</button>
-<a id="theLink" href="" ng-click="onLinkClick()">The Link Mofo</a>
-
-<div id="btnTxt" ng-show="showBtnTxt">Some button text</div>
-<div id="linkTxt" ng-show="showLinkTxt">Some link text</div>
-
-<script type="text/javascript" src="angular.js"></script>
-<script type="text/javascript">
-
-//	var addMark = function (top, left) {
-//		var d = document.body.appendChild(document.createElement('div'))
-//		d.style.width = d.style.height = '5px';
-//		d.style.backgroundColor = 'red';
-//		d.style.position = 'absolute';
-//		d.style.top = top + 'px'
-//		d.style.left = left + 'px'
-//	}
-//
-//	var onClick = function (evt) {
-//		addMark(evt.pageY, evt.pageX);
-//	}
-
-//	document.addEventListener('click', onClick);
-
-	var app = angular.module('app', []);
-
-	app.controller('MainCtrl', function ($scope) {
-		$scope.showBtnTxt = $scope.showLinkTxt = false;
-
-		$scope.onButtonClick = function () {
-			$scope.showBtnTxt = true;
-			$scope.showLinkTxt = false;
-		}
-
-		$scope.onLinkClick = function () {
-			$scope.showBtnTxt = false;
-			$scope.showLinkTxt = true;
-		}
-	})
-
-</script>
-
-</body>
+<!DOCTYPE html> 
+<html ng-app="hello-protractor">
+  <head>
+    <title>hello protractor</title>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/app.css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="row  text-center">
+            <img src="images/265egghead.png" alt="egghead.io logo"/>
+            <h1>Hello Protractor</h1>
+        </div>
+        <div ui-view></div>
+    </div>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
 </html>
