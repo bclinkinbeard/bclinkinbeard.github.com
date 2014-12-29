@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" type="image/png" href="/images/cabin.png">
+		<link href="/styles/main.css" rel="stylesheet">
+		
+		<title>Configurable Angular Directives with Providers</title>
+		
+		
+		<meta name="description" content="Creating components that can be configured by client applications is easy with the right tools">
+		
+		<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+				#mc_embed_signup {
+						margin-left: 2em;
+						border: 1px solid black;
+				}
+		</style>
+</head>
+<body>
+<nav>
+		<h1 class="name">
+				<a href="/">Ben Clinkinbeard</a>
+		</h1>
+
+		<div class="social-media">
+				<a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+				<a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+		</div>
+</nav>
+<div class="topbar">
+		<div class="inner">
+				<div class="form">
+						<form name="header_signup"
+						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
+						      method="post">
+								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
+								<div class="button-container">
+										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
+                    <input type="hidden" value="Header" name="DOC">
+
+										<a class="button"
+										   onclick="document.header_signup.submit();"
+										   href="#">Feed Me!</a>
+								</div>
+                <div class="noSpam">(No spam. Ever.)</div>
+						</form>
+				</div>
+
+		</div>
+
+</div>
+<div class="content">
+
+<div class="post-head group">
+  <a href="/posts/configurable-angular-directives-with-providers/">
+    <h1 class="post-title">Configurable Angular Directives with Providers</h1>
+  </a>
+  <br>
+  <span class="post-date">December 2014</span>
+</div>
+
+<div class="post-body markdown"><p>As a developer, single-use code is your enemy.</p>
+<p>Whenever possible, you avoid creating static, purpose-built code with no use beyond your immediate needs. This is doubly true when talking about components, or as we call them in Angular, directives. Thankfully, Angular provides a built-in mechanism for configuring pieces of an application before it starts running. In this post we’ll look at that mechanism itself, as well as how to create components that take advantage of it.</p>
+<h2><a name="the-hook" class="anchor" href="#the-hook"><span class="header-link"></span></a>The hook</h2>
+<p>When defining your application, you are really just configuring your app’s root module. In addition to listing its dependencies, you can also use the <a href="https://docs.angularjs.org/api/ng/type/angular.Module">module API</a> to configure various aspects of it.</p>
+<p>The part we’re interested in here is the <code>config()</code> method. Functions registered using the config method will run when the associated module is loaded. This means that, if defined on your root module, they will be run before any of the other modules in your app have been loaded. This allows us to configure those modules before it’s too late.</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="err">’</span><span class="p">,</span> <span class="p">[</span><span class="err">‘</span><span class="nx">bilingualButtonModule</span><span class="err">’</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// almost nothing is created/ready yet</span>
+  <span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>While it’s helpful to have this early hook, it also comes with some limitations. Since the function will run before the <code>bilingualButtonModule</code> module is fully initialized, we can’t inject dependencies it defines into our config function.</p>
+<p>Actually, I take that back. Sort of.</p>
+<h2><a name="providers-are-special" class="anchor" href="#providers-are-special"><span class="header-link"></span></a>Providers are special</h2>
+<p>The one part of our non-root modules that <em>are</em> available to our config functions are <a href="https://docs.angularjs.org/guide/providers#provider-recipe">providers</a>.</p>
+<p>Using the <code>provider()</code> method of the module API lets you define and expose a custom API that can be used to configure aspects of your own module. That’s a bit of a mouthful, so lets look at an example. The following is the <code>bilingualButtonModule</code> that our app depends on in its entirety.</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;bilingualButtonModule&#39;</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="p">.</span><span class="nx">provider</span><span class="p">(</span><span class="s1">&#39;bilingualButtonConfig&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">setLocale</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">locale</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">locale</span> <span class="o">=</span> <span class="nx">locale</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">$get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;bilingualButton&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;button&gt;{{greeting}}&lt;/button&gt;&#39;</span><span class="p">,</span>
+      <span class="nx">controller</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">bilingualButtonConfig</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">bilingualButtonConfig</span><span class="p">.</span><span class="nx">locale</span> <span class="o">===</span> <span class="s1">&#39;es&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">$scope</span><span class="p">.</span><span class="nx">greeting</span> <span class="o">=</span> <span class="s1">&#39;Hola Mundo&#39;</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">$scope</span><span class="p">.</span><span class="nx">greeting</span> <span class="o">=</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+
+  <span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>The <code>bilingualButtonConfig</code> provider is what makes the <code>bilingualButton</code> directive configurable. Let’s look at each function individually to better understand what is going on.</p>
+<h3><a name="the-configuration-api" class="anchor" href="#the-configuration-api"><span class="header-link"></span></a>The configuration API</h3>
+<p>In this simple example, our configuration API is limited to a single function, defined as <code>this.setLocale()</code>. This function takes an argument and saves its value to a local property named <code>locale</code>. We could just as easily expose multiple methods, or perform more complex logic, or perform any number of tasks.</p>
+<h3><a name="the-get-method" class="anchor" href="#the-get-method"><span class="header-link"></span></a>The $get method</h3>
+<p>When <code>bilingualButtonConfig</code> is injected in another part of the app, the <code>$get</code> method’s return value will be what actually gets passed to the entity that expressed the dependency. In this case we are simply returning <code>this</code>, which will have a <code>locale</code> property, as long as <code>setLocale()</code> has been called.</p>
+<h3><a name="the-directive" class="anchor" href="#the-directive"><span class="header-link"></span></a>The directive</h3>
+<p>The only thing our module defines besides the <code>bilingualButtonConfig</code> provider is the <code>bilingualButton</code> directive. The directive is super simple, defining a template that is just a button tag whose label is bound to a scope property named <code>greeting</code>, and a controller. The controller gets its scope and our <code>bilingualButtonConfig</code> injected, and sets the <code>greeting</code> property based on the value of <code>bilingualButtonConfig.locale</code>.</p>
+<p>We now have a <code>bilingualButtonModule</code> that creates a directive whose appearance is configurable. That’s great but… how do we configure it?</p>
+<h2><a name="using-providers" class="anchor" href="#using-providers"><span class="header-link"></span></a>Using providers</h2>
+<p>Now that we’ve defined a provider, let’s look at how to use it. Returning to our root module definition, we can finally implement a proper config function.</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bilingualButtonModule&#39;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">bilingualButtonConfigProvider</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bilingualButtonConfigProvider</span><span class="p">.</span><span class="nx">setLocale</span><span class="p">(</span><span class="s1">&#39;es&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>Notice that we’ve used <code>bilingualButtonConfigProvider</code> as the dependency name to request what was defined with <code>.provider(&#39;bilingualButtonConfig&#39;, function () {…})</code>. Including the Provider string on the end tells Angular we want the provider rather than the service, factory, value, etc.</p>
+<p>In simpler terms that means if you defined a module like this:</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;fooModule&#39;</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="p">.</span><span class="nx">provider</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setBar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>You could use it like this:</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;fooModule&#39;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">fooProvider</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fooProvider</span><span class="p">.</span><span class="nx">setBar</span><span class="p">();</span>
+  <span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>We could have done <code>.provider(&#39;bilingualButton’, function () {…})</code> and <code>.config(function (bilingualButtonProvider) {…})</code>, but that ends up getting confusing because you’re then injecting a <code>bilingualButton</code> dependency into the controller for a directive also named <code>bilingualButton</code>.</p>
+<h3><a name="youve-used-providers-before" class="anchor" href="#youve-used-providers-before"><span class="header-link"></span></a>You’ve used providers before</h3>
+<p>You just didn’t know it.</p>
+<p>Behind the scenes, <code>module.service()</code> and <code>module.factory()</code> are both implemented as providers. Angular just implements <code>$get</code> for you to create a simpler API that is easier to reason about and has a more concise syntax. For a more thorough explanation, check out <a href="http://joelhooks.com/blog/2013/08/18/configuring-dependency-injection-in-angularjs/">this great post</a> by my friend Joel Hooks.</p>
+<h2><a name="conclusion" class="anchor" href="#conclusion"><span class="header-link"></span></a>Conclusion</h2>
+<p>Providers can be confusing at first, but understanding them is key to building flexible directives. While not the only way to build configurable components, they provide a well documented “blessed path” for doing so.</p>
+<p>The examples from this article can be found in <a href="https://github.com/bclinkinbeard/demo-directives-with-providers">this GitHub repo</a>.</p>
+<p>Enjoy!</p>
+</div>
+
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC">
+				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
+				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
+				<div class="clear">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"
+                   style="display: inline-block; background: rgba(23, 127, 51, 0.89);">
+            <span class="noSpam" style="margin: 0.3em 0.4em">(Only content, NEVER spam.)</span>
+        </div>
+		</form>
+</div>
+<br/><br/><br/>
+<!--End mc_embed_signup-->
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+      $('#mce-DOC').val(document.title);
+    </script>
+  </body>
+</html>
+
