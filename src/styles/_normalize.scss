@@ -162,8 +162,11 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monospace, serif;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
     font-size: 1em;
+    background: #f5f2f0;
+  	color: black;
+  	text-shadow: 0 1px white;
 }
 
 /**
