@@ -81,3 +81,6 @@ If an id is *not* found in our module map, Browserify will look in any previousl
 
 Whew! While the basic mechanism used is quite simple, there is a lot of brilliance and intricacy in making it work as well as it does. Not only that, but we've only covered the most basic of scenarios here. Browserify supports all kinds of advanced features like module aliases, external modules, transforms, and all kinds of other goodies. Those topics, however, will have to be covered another day. Until then, I highly recommend giving Browserify a try on your next project. It is productive, performant, and opens the door to tens of thousands of modules available on [npm](http://npmjs.org). What's not to love?
 
+## Browserify screencasts
+
+If you enjoyed this article, I have a couple of Introduction to Browserify videos over at [egghead.io](http://egghead.io). [The first one](https://egghead.io/lessons/nodejs-introduction-to-browserify-part-1) is freely available, but [the second](https://egghead.io/lessons/nodejs-introduction-to-browserify-part-2) requires a subscription.

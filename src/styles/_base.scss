@@ -51,13 +51,18 @@ body {
   margin: 57px auto 0;
   max-width: 680px;
   width: 55%;
+  
+  .post-head {
+    a {
+      color: $baseTextColor;
+    }
+  }
 
   a {
-    color: $baseTextColor;
-    @include transition(color 0.2s);
+    color: hsl(216, 65%, 50%);
 
     &:hover {
-      color: $mainTheme;
+      color: hsl(216, 85%, 40%);
     }
   }
 
