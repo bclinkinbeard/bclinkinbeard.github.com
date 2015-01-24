@@ -760,13 +760,13 @@ table {
   width: 100%;
 }
 
-/* line 28, ../../src/styles/_base.scss */
+/* line 31, ../../src/styles/_base.scss */
 .group {
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 32, ../../src/styles/_base.scss */
+/* line 35, ../../src/styles/_base.scss */
 body {
   margin: 0;
   color: #393838;
@@ -776,56 +776,63 @@ body {
   font-size: 17px;
 }
 @media (max-width: 1250px) {
-  /* line 32, ../../src/styles/_base.scss */
+  /* line 35, ../../src/styles/_base.scss */
   body {
     font-size: 16px;
   }
 }
 @media (max-width: 630px) {
-  /* line 32, ../../src/styles/_base.scss */
+  /* line 35, ../../src/styles/_base.scss */
   body {
     font-size: 12px;
   }
 }
 
-/* line 49, ../../src/styles/_base.scss */
+/* line 52, ../../src/styles/_base.scss */
 .content {
   position: relative;
   margin: 57px auto 0;
   max-width: 680px;
   width: 55%;
 }
-/* line 56, ../../src/styles/_base.scss */
+/* line 59, ../../src/styles/_base.scss */
 .content .post-head a {
   color: #393838;
 }
-/* line 61, ../../src/styles/_base.scss */
+/* line 64, ../../src/styles/_base.scss */
 .content a {
   color: #2d6fd2;
 }
-/* line 64, ../../src/styles/_base.scss */
+/* line 67, ../../src/styles/_base.scss */
 .content a:hover {
   color: #0f55bd;
 }
 @media (max-width: 1250px) {
-  /* line 49, ../../src/styles/_base.scss */
+  /* line 52, ../../src/styles/_base.scss */
   .content {
     margin: 120px auto 25px;
     width: 86%;
   }
 }
+@media (max-width: 880px) {
+  /* line 52, ../../src/styles/_base.scss */
+  .content {
+    margin: 75px auto 25px;
+    width: 86%;
+  }
+}
 @media (max-width: 630px) {
-  /* line 49, ../../src/styles/_base.scss */
+  /* line 52, ../../src/styles/_base.scss */
   .content {
     margin: 75px 0 15px;
   }
 }
 
-/* line 79, ../../src/styles/_base.scss */
+/* line 87, ../../src/styles/_base.scss */
 .pagination {
   width: 100%;
 }
-/* line 82, ../../src/styles/_base.scss */
+/* line 90, ../../src/styles/_base.scss */
 .pagination a {
   font-size: 1.5em;
   font-weight: bold;
@@ -833,12 +840,12 @@ body {
   text-decoration: none;
 }
 
-/* line 90, ../../src/styles/_base.scss */
+/* line 98, ../../src/styles/_base.scss */
 .older {
   float: left;
 }
 
-/* line 94, ../../src/styles/_base.scss */
+/* line 102, ../../src/styles/_base.scss */
 .newer {
   float: right;
 }
@@ -1201,7 +1208,7 @@ nav a:hover {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(220, 220, 220, 0.9);
+  background: rgba(220, 220, 220, 0.95);
   z-index: 10000 !important;
   font-size: 15px !important;
   font-family: arial, sans-serif !important;
@@ -1211,7 +1218,7 @@ nav a:hover {
   text-shadow: none !important;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 500px) {
   /* line 18, ../../src/styles/_topbar.scss */
   .topbar {
     display: none;
@@ -1229,17 +1236,11 @@ nav a:hover {
   color: gray;
 }
 
-@media screen and (max-width: 725px) {
-  /* line 34, ../../src/styles/_topbar.scss */
-  #promise {
-    display: none;
-  }
-}
-/* line 39, ../../src/styles/_topbar.scss */
+/* line 33, ../../src/styles/_topbar.scss */
 .topbar .inner {
   position: relative !important;
   padding: 5px 0px 0px 0px !important;
-  height: 36px !important;
+  height: 36px;
   overflow: hidden !important;
   width: 100% !important;
   font-size: 15px !important;
@@ -1248,14 +1249,35 @@ nav a:hover {
   text-shadow: none !important;
 }
 
-/* line 51, ../../src/styles/_topbar.scss */
+@media screen and (max-width: 880px) {
+  /* line 46, ../../src/styles/_topbar.scss */
+  #promise {
+    display: none;
+  }
+
+  /* line 50, ../../src/styles/_topbar.scss */
+  .topbar .inner {
+    height: 52px;
+  }
+
+  /* line 54, ../../src/styles/_topbar.scss */
+  .topbar .inner .text {
+    width: 625px;
+  }
+
+  /* line 58, ../../src/styles/_topbar.scss */
+  nav {
+    display: none;
+  }
+}
+/* line 63, ../../src/styles/_topbar.scss */
 .topbar .inner .signup {
   padding: 10px;
   background: rgba(247, 242, 228, 0.55);
   border: 1px solid #E6E6E6;
 }
 
-/* line 57, ../../src/styles/_topbar.scss */
+/* line 69, ../../src/styles/_topbar.scss */
 .topbar .inner .input {
   padding: 2px;
   font-size: 14px;
@@ -1263,17 +1285,17 @@ nav a:hover {
 }
 
 @media screen and (max-width: 770px) {
-  /* line 64, ../../src/styles/_topbar.scss */
+  /* line 76, ../../src/styles/_topbar.scss */
   .topbar .inner .small {
     font-size: 10px;
   }
 }
-/* line 69, ../../src/styles/_topbar.scss */
+/* line 81, ../../src/styles/_topbar.scss */
 .topbar .inner .button-container {
   display: inline-block;
 }
 
-/* line 73, ../../src/styles/_topbar.scss */
+/* line 85, ../../src/styles/_topbar.scss */
 .topbar .inner .button {
   position: relative;
   top: -1px;
@@ -1295,7 +1317,7 @@ nav a:hover {
   font-size: 12px;
 }
 
-/* line 94, ../../src/styles/_topbar.scss */
+/* line 106, ../../src/styles/_topbar.scss */
 .topbar .inner .form {
   padding-top: 2px;
 }

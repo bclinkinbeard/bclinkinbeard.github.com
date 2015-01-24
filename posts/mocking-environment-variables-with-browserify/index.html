@@ -19,7 +19,8 @@
 		<style type="text/css">
 				#mc_embed_signup {
 						margin-left: 2em;
-						border: 1px solid black;
+						border: 1px solid rgb(180, 180, 180);
+						background: rgba(220, 220, 220, 0.75);
 				}
 		</style>
 </head>
@@ -40,14 +41,15 @@
 						<form name="header_signup"
 						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
 						      method="post">
-								<div class="text"><strong>Hungry for Browserify, D3.js and other JS knowledge?</strong></div>
+								<div class="text"><strong>Want more Angular, Browserify, and D3 lessons sent to your
+										inbox?</strong></div>
 								<div class="button-container">
-										<input class="input" type="email" name="EMAIL" placeholder="get@some.com">
-                    <input type="hidden" value="Header" name="DOC">
+										<input class="input" type="email" name="EMAIL" placeholder="heck@yes.com">
+                    <input type="hidden" value="" name="DOC" id="mce-DOC-header">
 
 										<a class="button"
 										   onclick="document.header_signup.submit();"
-										   href="#">Feed Me!</a>
+										   href="#">Send Me Updates!</a>
 								</div>
                 <div class="noSpam">(No spam. Ever.)</div>
 						</form>
@@ -135,14 +137,13 @@
 <!-- Begin MailChimp Signup Form -->
 <div id="mc_embed_signup">
 		<form action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-				<label for="mce-EMAIL">Like this post? Get new ones delivered to your inbox!</label>
-				<input type="hidden" value="" name="DOC" id="mce-DOC">
-				<input type="text" value="" name="FNAME" class="email" id="mce-FNAME" placeholder="First Name">
+				<label for="mce-EMAIL">Subscribe to get new lessons delivered to your inbox!</label>
+				<input type="hidden" value="" name="DOC" id="mce-DOC-footer">
 				<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
 				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
 				<div style="position: absolute; left: -5000px;"><input type="text" name="b_6d07cdf61fbc0d9355e8a9a0c_c34eca8564" value=""></div>
 				<div class="clear">
-            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"
+            <input type="submit" value="Send Me Lessons" name="subscribe" id="mc-embedded-subscribe" class="button"
                    style="display: inline-block; background: rgba(23, 127, 51, 0.89);">
             <span class="noSpam" style="margin: 0.3em 0.4em">(Only content, NEVER spam.)</span>
         </div>
@@ -157,7 +158,8 @@
     <script src="/scripts/main.js" type="text/javascript"></script>
     <script>
       mixpanel.track('page', { title: document.title });
-      $('#mce-DOC').val(document.title);
+      $('#mce-DOC-header').val('Header - ' + document.title);
+      $('#mce-DOC-footer').val('Footer - ' + document.title);
     </script>
     <script type="text/javascript" src="/scripts/prism.js"></script>
   </body>
