@@ -22,6 +22,9 @@ $lightTextColor: $grey;
   @else if $point == small-phone {
     @media (max-width: 630px)  { @content; }
   }
+  @else if $point == tall-header {
+    @media (max-width: 880px)  { @content; }
+  }
 }
 
 // Clearfix
@@ -51,7 +54,7 @@ body {
   margin: 57px auto 0;
   max-width: 680px;
   width: 55%;
-  
+
   .post-head {
     a {
       color: $baseTextColor;
@@ -68,6 +71,11 @@ body {
 
   @include breakpoint(big-phone) {
     margin: 120px auto 25px;
+    width: 86%;
+  }
+
+  @include breakpoint(tall-header) {
+    margin: 75px auto 25px;
     width: 86%;
   }
 

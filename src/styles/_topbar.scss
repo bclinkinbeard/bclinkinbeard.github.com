@@ -4,7 +4,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: rgba(220, 220, 220, 0.9);
+	background: rgba(220, 220, 220, 0.95);
 	z-index: 10000 !important;
 	font-size: 15px !important;
 	font-family: arial, sans-serif !important;
@@ -14,10 +14,10 @@
 	text-shadow: none !important;
 }
 
-@media screen and (max-width: 630px) {
-	.topbar {
-		display: none;
-	}
+@media screen and (max-width: 500px) {
+		.topbar {
+				display: none;
+		}
 }
 
 .topbar .text {
@@ -30,22 +30,34 @@
   color: gray;
 }
 
-@media screen and (max-width: 725px) {
-    #promise {
-        display: none
-    }
-}
-
 .topbar .inner {
 	position: relative !important;
 	padding: 5px 0px 0px 0px !important;
-	height: 36px !important;
+	height: 36px;
 	overflow: hidden !important;
 	width: 100% !important;
 	font-size: 15px !important;
 	font-family: arial, sans-serif !important;
 	text-align: center !important;
 	text-shadow: none !important
+}
+
+@media screen and (max-width: 880px) {
+		#promise {
+				display: none
+		}
+
+		.topbar .inner {
+				height: 52px;
+		}
+
+		.topbar .inner .text {
+				width: 625px;
+		}
+
+		nav {
+				display: none;
+		}
 }
 
 .topbar .inner .signup {
