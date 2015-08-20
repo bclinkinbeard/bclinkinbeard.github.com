@@ -14,12 +14,6 @@
 	text-shadow: none !important;
 }
 
-@media screen and (max-width: 500px) {
-		.topbar {
-				display: none;
-		}
-}
-
 .topbar .text {
 	display: inline-block;
 }
@@ -52,12 +46,23 @@
 		}
 
 		.topbar .inner .text {
-				width: 625px;
+				width: 100%;
 		}
 
 		nav {
 				display: none;
 		}
+}
+
+@media screen and (max-width: 500px) {
+	.topbar .inner {
+			height: 70px;
+	}
+
+	.topbar .inner .text {
+			width: 100%;
+			font-size: 0.8em;
+	}
 }
 
 .topbar .inner .signup {
