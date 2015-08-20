@@ -824,7 +824,7 @@ body {
 @media (max-width: 630px) {
   /* line 52, ../../src/styles/_base.scss */
   .content {
-    margin: 75px 0 15px;
+    margin: 85px 0 15px;
   }
 }
 
@@ -1218,25 +1218,19 @@ nav a:hover {
   text-shadow: none !important;
 }
 
-@media screen and (max-width: 500px) {
-  /* line 18, ../../src/styles/_topbar.scss */
-  .topbar {
-    display: none;
-  }
-}
-/* line 23, ../../src/styles/_topbar.scss */
+/* line 17, ../../src/styles/_topbar.scss */
 .topbar .text {
   display: inline-block;
 }
 
-/* line 27, ../../src/styles/_topbar.scss */
+/* line 21, ../../src/styles/_topbar.scss */
 .noSpam {
   display: inline-block;
   font-size: 0.9em;
   color: gray;
 }
 
-/* line 33, ../../src/styles/_topbar.scss */
+/* line 27, ../../src/styles/_topbar.scss */
 .topbar .inner {
   position: relative !important;
   padding: 5px 0px 0px 0px !important;
@@ -1250,34 +1244,46 @@ nav a:hover {
 }
 
 @media screen and (max-width: 880px) {
-  /* line 46, ../../src/styles/_topbar.scss */
+  /* line 40, ../../src/styles/_topbar.scss */
   #promise {
     display: none;
   }
 
-  /* line 50, ../../src/styles/_topbar.scss */
+  /* line 44, ../../src/styles/_topbar.scss */
   .topbar .inner {
     height: 52px;
   }
 
-  /* line 54, ../../src/styles/_topbar.scss */
+  /* line 48, ../../src/styles/_topbar.scss */
   .topbar .inner .text {
-    width: 625px;
+    width: 100%;
   }
 
-  /* line 58, ../../src/styles/_topbar.scss */
+  /* line 52, ../../src/styles/_topbar.scss */
   nav {
     display: none;
   }
 }
-/* line 63, ../../src/styles/_topbar.scss */
+@media screen and (max-width: 500px) {
+  /* line 58, ../../src/styles/_topbar.scss */
+  .topbar .inner {
+    height: 70px;
+  }
+
+  /* line 62, ../../src/styles/_topbar.scss */
+  .topbar .inner .text {
+    width: 100%;
+    font-size: 0.8em;
+  }
+}
+/* line 68, ../../src/styles/_topbar.scss */
 .topbar .inner .signup {
   padding: 10px;
   background: rgba(247, 242, 228, 0.55);
   border: 1px solid #E6E6E6;
 }
 
-/* line 69, ../../src/styles/_topbar.scss */
+/* line 74, ../../src/styles/_topbar.scss */
 .topbar .inner .input {
   padding: 2px;
   font-size: 14px;
@@ -1285,17 +1291,17 @@ nav a:hover {
 }
 
 @media screen and (max-width: 770px) {
-  /* line 76, ../../src/styles/_topbar.scss */
+  /* line 81, ../../src/styles/_topbar.scss */
   .topbar .inner .small {
     font-size: 10px;
   }
 }
-/* line 81, ../../src/styles/_topbar.scss */
+/* line 86, ../../src/styles/_topbar.scss */
 .topbar .inner .button-container {
   display: inline-block;
 }
 
-/* line 85, ../../src/styles/_topbar.scss */
+/* line 90, ../../src/styles/_topbar.scss */
 .topbar .inner .button {
   position: relative;
   top: -1px;
@@ -1317,7 +1323,7 @@ nav a:hover {
   font-size: 12px;
 }
 
-/* line 106, ../../src/styles/_topbar.scss */
+/* line 111, ../../src/styles/_topbar.scss */
 .topbar .inner .form {
   padding-top: 2px;
 }
