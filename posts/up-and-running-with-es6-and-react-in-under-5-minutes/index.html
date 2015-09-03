@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" type="image/png" href="/images/cabin.png">
+		<link href="/styles/main.css" rel="stylesheet">
+		
+		<title>Up and running with ES6 and React in under 5 minutes</title>
+		
+		
+		<meta name="description" content="Quickly set up a development environment with ES6 transpilation and React hot reloading">
+		
+		<script type="text/javascript" src="/scripts/mixpanel.js"></script>
+
+		<link rel="stylesheet" href="/styles/prism.css"/>
+		<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+				#mc_embed_signup {
+						margin-left: 2em;
+						border: 1px solid rgb(180, 180, 180);
+						background: rgba(220, 220, 220, 0.75);
+				}
+		</style>
+</head>
+<body>
+<nav>
+		<h1 class="name">
+				<a href="/">Ben Clinkinbeard</a>
+		</h1>
+
+		<div class="social-media">
+				<a href="https://github.com/bclinkinbeard" class="icon-github"></a>
+				<a href="https://twitter.com/bclinkinbeard" class="icon-twitter"></a>
+		</div>
+</nav>
+<div class="topbar">
+		<div class="inner">
+				<div class="form">
+						<form name="header_signup"
+						      action="http://benclinkinbeard.us3.list-manage.com/subscribe/post?u=6d07cdf61fbc0d9355e8a9a0c&amp;id=c34eca8564"
+						      method="post">
+								<div class="text"><strong>Want to stay sharp with JavaScript lessons sent to your
+										inbox?</strong></div>
+								<div class="button-container">
+										<input class="input" type="email" name="EMAIL" placeholder="heck@yes.com">
+                    <input type="hidden" value="" name="DOC" id="mce-DOC-header">
+
+										<a class="button"
+										   onclick="document.header_signup.submit();"
+										   href="#">Send Me Updates!</a>
+								</div>
+                <div class="noSpam">(Spam? NEVER.)</div>
+						</form>
+				</div>
+
+		</div>
+
+</div>
+<div class="content">
+
+<div class="post-head group">
+  <a href="/posts/up-and-running-with-es6-and-react-in-under-5-minutes/">
+    <h1 class="post-title">Up and running with ES6 and React in under 5 minutes</h1>
+  </a>
+  <br>
+  <span class="post-date">September 2015</span>
+</div>
+
+<div class="post-body markdown"><p>The web development landscape can be overwhelming sometimes. To say things are moving quickly is a pretty epic understatement. <strong>The length of time a tool is &quot;hot&quot; can be frighteningly similar to the time it takes to fully grok that tool.</strong> At the same time, things can become SO hot SO quickly that you can feel behind the curve almost overnight.</p>
+<p>Right now, <a href="http://facebook.github.io/react/">React</a> is undeniably the hottest framework, <a href="https://webpack.github.io/">webpack</a> is one of the hottest tools, and ES6+ (ES2015 wat?) is the biggest looming sea change in our industry. Now, I don&#39;t expect any of these things to go out of favor any time soon, but that doesn&#39;t mean you shouldn&#39;t be expediting your understanding of them.</p>
+<p>The problem, of course, is that each of these things is extremely deep on its own. Learning any one extensively, let alone all three, let alone <strong>how to use them all together</strong> can be daunting to say the least. You could easily spend a few days just learning how to configure your builds, how to enable hot reloading, and how to transpile your code. You might do a deep dive someday, but you want to start tinkering NOW. You want to see what all the fuss is about, keep your skills sharp, and prepare yourself for the future.</p>
+<h2><a name="there-is-a-shortcut" class="anchor" href="#there-is-a-shortcut"><span class="header-link"></span></a>There is a shortcut</h2>
+<p>Luckily for us, the inimitable <a href="http://joreteg.com/">Henrik Joreteg</a> created the <a href="https://github.com/HenrikJoreteg/hjs-webpack">hjs-webpack</a> project, which drastically streamlines the process of setting up an environment with all the latest hotness. (The prefix of hjs indicates the project&#39;s membership in Henrik&#39;s <a href="http://humanjavascript.com/">Human JavaScript</a> ecosystem.)</p>
+<p>So, how does it work? Let&#39;s take a look.</p>
+<p>The first step is to create a directory for your project and create a <code>package.json</code> file. The easiest way to create that file is to run <code>npm init -y</code>, which will use all of your system defaults instead of asking you a bunch of questions.</p>
+<p>With the <code>package.json</code> file in place, you can install hjs-webpack.</p>
+<p><code>npm i -S hjs-webpack</code> (short for <code>npm install --save hjs-webpack</code>) will install the package and its dependencies, and update your <code>package.json</code> file. You may want to grab a Snickers because it will take a minute or so, but when it finishes you will see why. Once the install completes, your dependencies will look something like this.</p>
+<pre><code class="lang-json"><div class="highlight"><pre><span class="s2">&quot;dependencies&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;autoprefixer-core&quot;</span><span class="p">:</span> <span class="s2">&quot;^5.2.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;babel&quot;</span><span class="p">:</span> <span class="s2">&quot;^5.8.23&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;babel-core&quot;</span><span class="p">:</span> <span class="s2">&quot;^5.8.23&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;babel-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^5.3.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;css-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.16.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;file-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.8.4&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;hjs-webpack&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.12.4&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;json-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.5.2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;postcss-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.6.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;react&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.13.3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;react-hot-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.3.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;style-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.12.3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;stylus-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.2.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;url-loader&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.5.6&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;webpack&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.12.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;webpack-dev-server&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.10.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;yeticss&quot;</span><span class="p">:</span> <span class="s2">&quot;^7.0.4&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>In addition to <code>hjs-webpack</code>, we have about 16 other packages installed, which is how this one step enables so much magic.</p>
+<p><strong>Important:</strong> These packages are <code>peerDependencies</code> of <code>hjs-webpack</code>, which means they will not be installed if you are using <code>npm</code> version 3 or higher. In that case simply run the following once <code>hjs-webpack</code> is finished installing. <code>npm i -S autoprefixer-core babel babel-loader css-loader json-loader postcss-loader react react-hot-loader style-loader stylus-loader url-loader webpack-dev-server yeticss</code></p>
+<h2><a name="dead-simple-config" class="anchor" href="#dead-simple-config"><span class="header-link"></span></a>Dead simple config</h2>
+<p>Don&#39;t blink, or you might miss these setup tasks.</p>
+<p>First, create a <code>webpack.config.js</code> file, and give it the following contents.</p>
+<pre><code class="lang-js"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">getConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;hjs-webpack&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">getConfig</span><span class="p">({</span>
+  <span class="k">in</span><span class="o">:</span> <span class="s1">&#39;src/app.js&#39;</span><span class="p">,</span>
+  <span class="nx">out</span><span class="o">:</span> <span class="s1">&#39;dist&#39;</span><span class="p">,</span>
+  <span class="nx">clearBeforeBuild</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+</pre></div>
+</code></pre>
+<p>You simply import <code>hjs-webpack</code> and pass it this minimal config object. You can obviously point it to any entry file (the <code>in</code> field), but using a separate directory will help with file watching performance since <code>node_modules</code> can be fully excluded. The <code>out</code> field only comes into play if you decide to bundle your output for deployment, so if you&#39;re just hacking around you don&#39;t even need to create the directory!</p>
+<p>Next, add <code>&quot;start&quot;: &quot;webpack-dev-server&quot;</code> to the scripts key of your <code>package.json</code> file. You can now run <code>npm start</code> from the command line to start the webpack server that has file watching, transpiling, and hot reloading all configured and working.</p>
+<p>(You could add <code>&quot;build&quot;: &quot;webpack&quot;</code> to your scripts if you want to bundle into the <code>dist</code> directory by running <code>npm run build</code>.)</p>
+<p>That&#39;s it! Now it&#39;s...</p>
+<h2><a name="play-time" class="anchor" href="#play-time"><span class="header-link"></span></a>Play time!</h2>
+<p>You can now add code to <code>src/app.js</code>, open <a href="http://localhost:3000/"><a href="http://localhost:3000/">http://localhost:3000/</a></a> in a browser, and watch in awe as every time you save a file your browser updates to show you the resulting changes.</p>
+<p>You are free to use all the ES6 goodies as well, since Babel transpilation is part of the pipeline. If you want to play with even more experimental language features, like the stupendous <a href="https://github.com/zenparsing/es-function-bind">ES7 bind syntax</a>, you can tell Babel to live a little more on the edge. Simply add <code>&quot;babel&quot;: { &quot;stage&quot;: 0 }</code> to the top level of your <code>package.json</code> file (or put the equivalent in a <code>.babelrc</code> file) and BOOM, hyper-futuristic JavaScript.</p>
+<p>For a bare bones example of this setup that includes some React goodness and a clear demonstration of hot reloading check out my <a href="https://github.com/bclinkinbeard/egghead-hjs-webpack-demo">demo project</a>.</p>
+<p>That&#39;s it! You now have a fully functional 22nd century development environment, and the ice in your latté hasn&#39;t even melted!</p>
+<p>Enjoy!</p>
+</div>
+
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    <script>
+      mixpanel.track('page', { title: document.title });
+      $('#mce-DOC-header').val('Header - ' + document.title);
+      $('#mce-DOC-footer').val('Footer - ' + document.title);
+    </script>
+    <script type="text/javascript" src="/scripts/prism.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-40133546-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
+
