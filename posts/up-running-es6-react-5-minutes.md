@@ -84,3 +84,7 @@ For a bare bones example of this setup that includes some React goodness and a c
 That's it! You now have a fully functional 22nd century development environment, and the ice in your latté hasn't even melted!
 
 Enjoy!
+
+## Take a look
+
+If you're interested in an illustrated look at this process, I've got a [video on it at Egghead](https://egghead.io/lessons/react-set-up-a-killer-react-dev-environment-quickly-with-hjs-webpack) (subscription required).
